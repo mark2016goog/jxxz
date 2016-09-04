@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+// 变量定义类
+//
+// 基本的变量定义都在这里
+// 如果某个业务模块要覆盖该这里的变量样式 请自己添加 _custom.scss内
+
+// 颜色定义
+//
+// 基础的颜色根据规范定义在这里
+
+// 品牌色
+$brand : #F53172 !default;
+
+// 强调色
+$stress : #818FFF !default;
+
+// 正文色
+$font : #FFFFFF !default;
+
+// 蒙版色
+$shade : #000000 !default;
+
+// 错误提示色
+$error : #F93B3B !default;
+
+// 分割线颜色
+$line : rgba(255, 255, 255, .06) !default;
+
+// 渐变色
+$linear-start : #E83084 !default;
+$linear-end : #3399FF !default;
+
+// 图表背景色
+$icon-bg1 : rgba(0, 0, 0, .3) !default;
+
+// 图片遮罩
+$img-mask : rgba(0, 0, 0, .5) !default;
+
+// 背景色
+$body-bg : rgba(37, 43, 47, 1) !default;
+$list-bg : rgba(0, 0, 0, .15) !default;
+
+$swipe-bg : rgba(35, 42, 46, 0.8) !default;
+
+// 标题颜色
+$title-1 : rgba(245, 49, 114, 1) !default;
+$title-2 : rgba(255, 255, 255, .2) !default;
+$title-3 : rgba(255, 255, 255, .5) !default;
+$title-4 : rgba(255, 255, 255, .8) !default;
+$title-5 : rgba(129, 143, 255, 1) !default;
+$title-6 : rgba(255, 255, 255, 1) !default;
+
+// 滑块小点颜色
+$swiper-bullet-selected : rgba(255, 255, 255, 0.5) !default;
+$swiper-bullet-default : rgba(255, 255, 255, 0.2) !default;
+
+// 字体大小
+//
+// 这里定义 文字的 大小 和 粗细
+
+$font-size-lg : getRem(48) !default;
+$font-size-sm : getRem(40) !default;
+$font-size-xs : getRem(36) !default;
+
+// 常规字体大小
+
+$display1-size : getRem(32) !default;
+$display2-size : getRem(28) !default;
+$display3-size : getRem(24) !default;
+$display4-size : getRem(20) !default;
+
+// 常规字体 粗细
+
+$display1-weight : light !default;
+$display2-weight : light !default;
+$display3-weight : light !default;
+$display4-weight : light !default;
+
+// 默认行高
+$line-height : 1.5 !default;
+
+// 字体样式
+//
+// 这里定义最基本的字体样式
+
+$font-family-sans-serif : "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-serif : Georgia, "Times New Roman", Times, serif !default;
+$font-family-monospace : Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-base : $font-family-sans-serif !default;
+
+// padding样式
+//
+// 这里定义最基本的字体样式
+
+$padding-list : getRem(30) !default;
+
+// marggi样式
+//
+// 这里定义最基本的字体样式
+
+$padding-list : getRem(30) !default;

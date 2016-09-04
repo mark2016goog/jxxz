@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+
+// 防止锯齿出现的代码
+
+.iconfont {
+  -webkit-font-smoothing : antialiased;
+}
+
+.iconfont {
+  -webkit-text-stroke-width : 0.2px;
+}

@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+.wrapper {
+    background-image: url(../images/login_c_bkg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: getRem640(875);
+    .login-btn {
+        display: block;
+        background-image: url(../images/login_c_btn.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: getRem640(400);
+        height: getRem640(88);
+        margin: 0 auto;
+    }
+}

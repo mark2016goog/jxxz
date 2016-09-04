@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-
+var cLoginController = require('../controllers/cLoginController');
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', cLoginController.loginPage);
+
+router.get('/wechat_login', cLoginController.weChatCallback);
 
 module.exports = router;
