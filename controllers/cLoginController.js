@@ -12,7 +12,6 @@ exports.loginPage = function (req, res, next) {
 };
 
 exports.weChatCallback = function (req, res, next) {
-    res.send("code:" + JSON.stringify(req.query.code));
     var oauthCode = req.query.code;
     var reqParam = {
         url: getAccessTokenURL,
@@ -23,10 +22,14 @@ exports.weChatCallback = function (req, res, next) {
             grant_type: "authorization_code"
         }
     };
+
     //body:{\"access_token\":\"1ZIqmH9JV0VAbaFx3aOYRJtlWTSAmsZs5iwaZYD7l0p0qE8T8uc0pzjtC0Tnx3mGdC4aldCbfbY7AS14vwh4ZpWzXVoheUpnfGr1LgYOJmY\",
     // \"expires_in\":7200,\"refresh_token\":\"bYXfbr4ucAL4KOwiKMD0V28_nRDTQhUKqPowvK_e9otknta4xHf_des2knBMja0gxiuPN-EIHmf2ZkgYWRBrSIFJcNZi5y5ItYEIPKbLdgE\",
     // \"openid\":\"ox8tuwPgKfc-_ZmY3ues-4TfSrAI\",\"scope\":\"snsapi_userinfo\"}
-    request.get(reqParam,function(error,res,body){
-        console.log(JSON.stringify(body));
+
+    request.get(reqParam,function(error,response,body){
+        console.log(body);
+        var body = JSON.parse(body);
+        res.send("accesstoken:" + body.access_token);
     });
 };
