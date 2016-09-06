@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>个人信息</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- uc强制竖屏 -->
+  <meta name="screen-orientation" content="portrait">
+  <!-- qq强制竖屏 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <!-- rem.js -->
+  <script>!function () {
+      function e() {
+        clearTimeout(i), i = setTimeout(t, 300)
+      }
+
+      function t() {
+        n.rem = o.getBoundingClientRect().width / 10, o.style.fontSize = n.rem + "px"
+      }
+
+      var i, n = window, o = document.documentElement, d = "addEventListener";
+      t(), o.setAttribute("data-dpr", n.devicePixelRatio), n[d]("resize", e), n[d]("pageshow", function (t) {
+        t.persisted && e()
+      })
+    }();</script>
+
+  <link rel='stylesheet' href='/stylesheets/personal_info.css' />
+</head>
+<body>
+<div class="wrapper">
+  <div class="avator-line">
+    <div class="left-div">头像</div>
+    <img src="" alt="" />
+  </div>
+  <div class="common-line">
+    <div class="left-text">昵称</div>
+    <div class="left-text right-text">微信昵称</div>
+  </div>
+  <div class="common-line">
+    <div class="left-text">性别</div>
+    <div class="left-text right-text">男</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+$bkg-color: #EEEEEE;
+
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    font-size: getRem640(28);
+}
+
+.wrapper {
+    background-color: $bkg-color;
+    padding-top: getRem640(26);
+    .avator-line {
+        height: getRem640(120);
+        padding: getRem640(20) getRem640(30);
+        background-color: #FFF;
+        border-bottom: 1px solid #e7e7e7;
+        .left-div{
+            float: left;
+            height: getRem640(80);
+            line-height: getRem640(80);
+        }
+        img {
+            float: right;
+            height: getRem640(120);
+            line-height: getRem640(120);
+        }
+    }
+    .common-line {
+        height: getRem640(88);
+        padding: getRem640(20) getRem640(30);
+        background-color: #FFF;
+        border-bottom: 1px solid #e7e7e7;
+        .left-text {
+            float: left;
+            height: getRem640(48);
+            line-height: getRem640(48);
+        }
+        .right-text {
+            float:right;
+            color: #aaaaaa;
+
+        }
+    }
+}
