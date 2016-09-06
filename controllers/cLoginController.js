@@ -27,23 +27,17 @@ exports.weChatCallback = function (req, res, next) {
     // \"expires_in\":7200,\"refresh_token\":\"bYXfbr4ucAL4KOwiKMD0V28_nRDTQhUKqPowvK_e9otknta4xHf_des2knBMja0gxiuPN-EIHmf2ZkgYWRBrSIFJcNZi5y5ItYEIPKbLdgE\",
     // \"openid\":\"ox8tuwPgKfc-_ZmY3ues-4TfSrAI\",\"scope\":\"snsapi_userinfo\"}
 
-    //request.get(reqParam, function (error, response, body) {
-    //    console.log(body);
-    //    var body = JSON.parse(body);
-    //    var personalInfo = {
-    //        avatorUrl: "",
-    //        nickName: "xiangkai",
-    //        gender: "男",
-    //        bindMobilephone: false
-    //    };
-    //    res.render('personal_info', personalInfo);
-    //});
+    request.get(reqParam, function (error, response, body) {
+        console.log(body);
+        var body = JSON.parse(body);
+        var personalInfo = {
+            avatorUrl: "",
+            nickName: "xiangkai",
+            gender: "男",
+            bindMobilephone: "未绑定"
+        };
+        res.render('personal_info', personalInfo);
+    });
 
-    var personalInfo = {
-        avatorUrl: "",
-        nickName: "xiangkai",
-        gender: "男",
-        bindMobilephone: false
-    };
-    res.render('personal_info', personalInfo);
+
 };

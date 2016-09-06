@@ -3,8 +3,8 @@
 @import "./common/_functions";
 @import "./common/_icons";
 @import "./common/_reboot";
-$bkg-color: #EEEEEE;
 
+$bkg-color: #EEEEEE;
 
 html, body, .wrapper {
     height: 100%;
@@ -20,7 +20,7 @@ html, body, .wrapper {
         padding: getRem640(20) getRem640(30);
         background-color: #FFF;
         border-bottom: 1px solid #e7e7e7;
-        .left-div{
+        .left-div {
             float: left;
             height: getRem640(80);
             line-height: getRem640(80);
@@ -42,9 +42,22 @@ html, body, .wrapper {
             line-height: getRem640(48);
         }
         .right-text {
-            float:right;
+            float: right;
             color: #aaaaaa;
-
         }
+        .right-arrow {
+            width: getRem375(10);
+            height: getRem375(18);
+            background-image: url("../images/right-arrow.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            top: 50%;
+            margin-top: getRem640(9);
+        }
+    }
+    .logout {
+        color: #ab9355;
+        text-align: center;
+        margin-top: getRem640(30);
     }
 }

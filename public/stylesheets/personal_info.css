@@ -48,5 +48,17 @@ html, body, .wrapper {
     .wrapper .common-line .right-text {
       float: right;
       color: #aaaaaa; }
+    .wrapper .common-line .right-arrow {
+      width: 0.26667rem;
+      height: 0.48rem;
+      background-image: url("../images/right-arrow.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      top: 50%;
+      margin-top: 0.14063rem; }
+  .wrapper .logout {
+    color: #ab9355;
+    text-align: center;
+    margin-top: 0.46875rem; }
 
 /*# sourceMappingURL=personal_info.css.map */
