@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+$bkg-color: #EEEEEE;
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    font-size: getRem640(28);
+}
+
+.wrapper {
+    background-color: $bkg-color;
+    padding-top: getRem640(26);
+    .order-item {
+        height: getRem640(250);
+        background-image: url(../images/orders_bkg.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-bottom: getRem640(16);
+        color: #FFF;
+    }
+}

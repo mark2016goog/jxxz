@@ -31,43 +31,20 @@
       })
     }();</script>
 
-  <link rel='stylesheet' href='/stylesheets/personal_info.css' />
+  <link rel='stylesheet' href='/stylesheets/order_list.css'/>
 </head>
 <body>
 <div class="wrapper">
-  <div class="avator-line">
-    <div class="left-div">头像</div>
-    <div class="right-avator" ></div>
+  <% for(var i = 0;i < list.length;i++){ %>
+  <div class="order-item">
+    <div><%= list[i].brand %></div>
+    <div>订单编号：<%= list[i].orderID %></div>
+    <div>支付时间：<%= list[i].payTime %></div>
+    <div>支出金额：<%= list[i].payAmout %></div>
+    <div>服务工匠：<%= list[i].worker %></div>
   </div>
-  <div class="common-line">
-    <div class="left-text">昵称</div>
-    <div class="left-text right-text"><%= nickName%></div>
-  </div>
-  <div class="common-line">
-    <div class="left-text">性别</div>
-    <div class="left-text right-text"><%= gender%></div>
-  </div>
-  <div class="common-line">
-    <div class="left-text">绑定手机号</div>
-    <div class="left-text right-text"><%= bindMobilephone%></div>
-  </div>
-  <div class="common-line">
-    <div class="left-text">我的优惠券</div>
-    <div class="left-text right-text right-arrow">
-    </div>
-  </div>
-  <div class="common-line" id="completed-order">
-    <div class="left-text">已完成订单</div>
-    <div class="left-text right-text right-arrow"></div>
-  </div>
-  <div class="common-line">
-    <div class="left-text">关注的工匠</div>
-    <div class="left-text right-text right-arrow"></div>
-  </div>
-  <div class="common-line logout">
-    退出登录
-  </div>
+  <% } %>
 </div>
-<script src="/javascripts/personal_info.js"></script>
+<script src="/javascripts/order_list.js"></script>
 </body>
 </html>

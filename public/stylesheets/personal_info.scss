@@ -25,10 +25,15 @@ html, body, .wrapper {
             height: getRem640(80);
             line-height: getRem640(80);
         }
-        img {
+        .right-avator {
             float: right;
-            height: getRem640(120);
-            line-height: getRem640(120);
+            background-image: url(../images/avator.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            width: getRem640(80);
+            height: getRem640(80);
+
         }
     }
     .common-line {
