@@ -52,14 +52,14 @@ exports.orderList = function (req, res, next) {
     var orderList = {
         title: "",
         list: [{
-            brand:"江诗丹顿",
-            orderID:"123",
+            brand: "江诗丹顿",
+            orderID: "123",
             payTime: (new Date()).getTime(),
             payAmout: 1234.00,
             worker: "张师傅"
         }, {
-            brand:"格拉苏蒂",
-            orderID:"123",
+            brand: "格拉苏蒂",
+            orderID: "123",
             payTime: (new Date()).getTime(),
             payAmout: 1234.00,
             worker: "张师傅"
@@ -67,3 +67,22 @@ exports.orderList = function (req, res, next) {
     };
     res.render('order_list', orderList);
 };
+
+exports.couponList = function (req, res, next) {
+    var couponList = {
+        title: "coupon",
+        list: [{
+            id: 1,
+            amount: 88,
+            validStartTime:"2016-05-04",
+            validEndTime: "2016-09-04"
+        }, {
+            id: 2,
+            amount: 288,
+            validStartTime: "2016-05-04",
+            validEndTime: "2016-05-04"
+        }]
+    };
+    res.render('coupon', couponList);
+};
+

@@ -7,4 +7,9 @@ document.addEventListener("DOMContentLoaded", function(){
     completedOrderDiv.addEventListener("click", function(){
         window.location.href = "/orderlist";
     });
+
+    var couponListDiv = document.getElementById("coupon-list");
+    couponListDiv.addEventListener("click", function(){
+        window.location.href = "/couponlist";
+    });
 });

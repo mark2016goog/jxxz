@@ -1,0 +1,65 @@
+.iconfont {
+  -webkit-font-smoothing: antialiased; }
+
+.iconfont {
+  -webkit-text-stroke-width: 0.2px; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: none; }
+
+body {
+  font-family: 'PingFang SC', Arial, 'Microsoft YaHei', 'SimHei', sans-serif;
+  margin: 0;
+  background-color: #293340; }
+
+html, body, .wrapper {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.4375rem; }
+
+.wrapper {
+  background-color: #EEEEEE;
+  padding-top: 0.40625rem; }
+  .wrapper .order-item {
+    height: 3.90625rem;
+    margin-bottom: 0.25rem;
+    color: #FFF;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-image: url(../images/coupon-left.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 9.76563rem;
+    height: 2.64063rem;
+    margin-left: 0.14063rem; }
+    .wrapper .order-item .left {
+      width: 2.65625rem;
+      text-align: center;
+      width: 3.78125rem; }
+      .wrapper .order-item .left .brand-title {
+        font-size: 0.28125rem;
+        color: #d7d6d6; }
+      .wrapper .order-item .left .amount {
+        font-size: 0.9375rem;
+        color: #ffb400; }
+    .wrapper .order-item .right {
+      padding-left: 0.75rem; }
+      .wrapper .order-item .right .promotion {
+        font-size: 0.4375rem;
+        color: #2e2e2e; }
+      .wrapper .order-item .right .time {
+        color: #2e2e2e;
+        font-size: 0.34375rem;
+        line-height: 0.34375rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem; }
+      .wrapper .order-item .right .interpret {
+        font-size: 0.28125rem;
+        color: #AAAAAA; }
+
+/*# sourceMappingURL=coupon.css.map */
