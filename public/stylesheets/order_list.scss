@@ -22,5 +22,31 @@ html, body, .wrapper {
         background-repeat: no-repeat;
         margin-bottom: getRem640(16);
         color: #FFF;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        .left {
+            width: getRem640(170);
+            text-align: center;
+            .brand-title {
+                font-size: getRem640(18);
+                color: #d7d6d6;
+            }
+            .brand-text {
+                font-size: getRem640(24);
+                color: #FFF;
+            }
+        }
+        .right {
+            font-size: getRem640(22);
+            color: #FFF;
+            .right-line {
+                height: getRem640(22);
+                line-height: getRem640(22);
+                margin-top: getRem640(16);
+                margin-bottom: getRem640(16);
+            }
+        }
     }
 }

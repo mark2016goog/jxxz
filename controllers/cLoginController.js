@@ -52,13 +52,13 @@ exports.orderList = function (req, res, next) {
     var orderList = {
         title: "",
         list: [{
-            brand:"aaa",
+            brand:"江诗丹顿",
             orderID:"123",
             payTime: (new Date()).getTime(),
             payAmout: 1234.00,
             worker: "张师傅"
         }, {
-            brand:"aaa",
+            brand:"格拉苏蒂",
             orderID:"123",
             payTime: (new Date()).getTime(),
             payAmout: 1234.00,

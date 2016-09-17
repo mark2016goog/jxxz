@@ -37,11 +37,16 @@
 <div class="wrapper">
   <% for(var i = 0;i < list.length;i++){ %>
   <div class="order-item">
-    <div><%= list[i].brand %></div>
-    <div>订单编号：<%= list[i].orderID %></div>
-    <div>支付时间：<%= list[i].payTime %></div>
-    <div>支出金额：<%= list[i].payAmout %></div>
-    <div>服务工匠：<%= list[i].worker %></div>
+    <div class="left">
+      <div class="brand-title">服务品牌</div>
+      <div><%= list[i].brand %></div>
+    </div>
+    <div class="right">
+      <div class="right-line">订单编号：<%= list[i].orderID %></div>
+      <div class="right-line">支付时间：<%= list[i].payTime %></div>
+      <div class="right-line">支出金额：<%= list[i].payAmout %></div>
+      <div class="right-line">服务工匠：<%= list[i].worker %></div>
+    </div>
   </div>
   <% } %>
 </div>

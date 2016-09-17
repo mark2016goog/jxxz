@@ -29,6 +29,27 @@ html, body, .wrapper {
     background-size: cover;
     background-repeat: no-repeat;
     margin-bottom: 0.25rem;
-    color: #FFF; }
+    color: #FFF;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center; }
+    .wrapper .order-item .left {
+      width: 2.65625rem;
+      text-align: center; }
+      .wrapper .order-item .left .brand-title {
+        font-size: 0.28125rem;
+        color: #d7d6d6; }
+      .wrapper .order-item .left .brand-text {
+        font-size: 0.375rem;
+        color: #FFF; }
+    .wrapper .order-item .right {
+      font-size: 0.34375rem;
+      color: #FFF; }
+      .wrapper .order-item .right .right-line {
+        height: 0.34375rem;
+        line-height: 0.34375rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem; }
 
 /*# sourceMappingURL=order_list.css.map */
