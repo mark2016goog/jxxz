@@ -74,7 +74,7 @@ exports.couponList = function (req, res, next) {
         list: [{
             id: 1,
             amount: 88,
-            validStartTime:"2016-05-04",
+            validStartTime: "2016-05-04",
             validEndTime: "2016-09-04"
         }, {
             id: 2,
@@ -86,3 +86,37 @@ exports.couponList = function (req, res, next) {
     res.render('coupon', couponList);
 };
 
+exports.followedCraftmanList = function (req, res, next) {
+    var craftmanList = {
+        title: "followedCraftman",
+        list: [{
+            id: 1,
+            avatorUrl: "./images/avator.jpg",
+            name: "张师傅",
+            company: "亨得利国际名表服务中心",
+            starLevel: 4,
+            orderCounts: 1000,
+            workAddress: "上海市静安区南京西路1266号恒隆广场",
+            distance: "1.1km"
+        }, {
+            id: 2,
+            avatorUrl: "./images/avator.jpg",
+            name: "张师傅",
+            company: "亨得利国际名表服务中心",
+            starLevel: 3,
+            orderCounts: 1000,
+            workAddress: "上海市静安区南京西路1266号恒隆广场",
+            distance: "1.1km"
+        }, {
+            id: 3,
+            avatorUrl: "./images/avator.jpg",
+            name: "张师傅",
+            company: "亨得利国际名表服务中心",
+            starLevel: 2,
+            orderCounts: 1000,
+            workAddress: "上海市静安区南京西路1266号恒隆广场",
+            distance: "1.1km"
+        }]
+    };
+    res.render('followed_craftman_list', craftmanList);
+};

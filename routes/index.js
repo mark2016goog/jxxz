@@ -6,5 +6,6 @@ router.get('/', cLoginController.loginPage);
 router.get('/wechat_login', cLoginController.weChatCallback);
 router.get('/orderlist',cLoginController.orderList);
 router.get('/couponlist',cLoginController.couponList);
+router.get('/followedCraftmanList',cLoginController.followedCraftmanList);
 
 module.exports = router;

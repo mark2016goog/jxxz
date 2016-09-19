@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>个人信息</title>
+  <title>关注的工匠</title>
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
@@ -31,43 +31,37 @@
       })
     }();</script>
 
-  <link rel='stylesheet' href='/stylesheets/personal_info.css' />
+  <link rel='stylesheet' href='/stylesheets/followed_craftman_list.css'/>
 </head>
 <body>
 <div class="wrapper">
-  <div class="avator-line">
-    <div class="left-div">头像</div>
-    <div class="right-avator" ></div>
-  </div>
-  <div class="common-line">
-    <div class="left-text">昵称</div>
-    <div class="left-text right-text"><%= nickName%></div>
-  </div>
-  <div class="common-line">
-    <div class="left-text">性别</div>
-    <div class="left-text right-text"><%= gender%></div>
-  </div>
-  <div class="common-line">
-    <div class="left-text">绑定手机号</div>
-    <div class="left-text right-text"><%= bindMobilephone%></div>
-  </div>
-  <div class="common-line" id="coupon-list">
-    <div class="left-text">我的优惠券</div>
-    <div class="left-text right-text right-arrow">
+  <% for(var i = 0;i < list.length;i++){ %>
+  <div class="order-item">
+    <div class="top-line">
+      <div class="avator" style="background-image:url(<%= list[i].avatorUrl %>)"></div>
+      <div class="top-right">
+        <div>
+          <span class="name"><%= list[i].name %>  |</span>
+          <span class="company"><%= list[i].company %></span>
+        </div>
+        <div class="star-level">
+          <%for(var j =0; j < list[i].starLevel;j++){%>
+          <img src="./images/star-fill.png" alt="">
+          <% } %>
+          <%for(var j =0; j < 5 - list[i].starLevel;j++){%>
+          <img src="./images/star-empty.png" alt="">
+          <% } %>
+          <span class="order-count">接单<%= list[i].orderCounts %>次</span>
+        </div>
+      </div>
+    </div>
+    <div class="bot-line">
+      <div class="dis"><img src="./images/location.png" alt=""><%= list[i].distance %></div>
+      <div class="workplace"><%= list[i].workAddress %></div>
     </div>
   </div>
-  <div class="common-line" id="completed-order">
-    <div class="left-text">已完成订单</div>
-    <div class="left-text right-text right-arrow"></div>
-  </div>
-  <div class="common-line" id="followed-craftman">
-    <div class="left-text">关注的工匠</div>
-    <div class="left-text right-text right-arrow"></div>
-  </div>
-  <div class="common-line logout">
-    退出登录
-  </div>
+  <% } %>
 </div>
-<script src="/javascripts/personal_info.js"></script>
+<script src="/javascripts/followed_craftman_list.js"></script>
 </body>
 </html>

@@ -12,4 +12,9 @@ document.addEventListener("DOMContentLoaded", function(){
     couponListDiv.addEventListener("click", function(){
         window.location.href = "/couponlist";
     });
+
+    var followedCraftman = document.getElementById("followed-craftman");
+    followedCraftman.addEventListener("click", function(){
+        window.location.href = "/followedCraftmanList";
+    });
 });
