@@ -4,8 +4,9 @@ var cLoginController = require('../controllers/cLoginController');
 /* GET home page. */
 router.get('/', cLoginController.loginPage);
 router.get('/wechat_login', cLoginController.weChatCallback);
-router.get('/orderlist',cLoginController.orderList);
-router.get('/couponlist',cLoginController.couponList);
-router.get('/followedCraftmanList',cLoginController.followedCraftmanList);
+router.get('/orderlist', cLoginController.orderList);
+router.get('/couponlist', cLoginController.couponList);
+router.get('/followedCraftmanList', cLoginController.followedCraftmanList);
+router.get('/searchCraftmanByBrand', cLoginController.searchCraftman);
 
 module.exports = router;

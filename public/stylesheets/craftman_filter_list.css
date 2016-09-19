@@ -1,0 +1,95 @@
+.iconfont {
+  -webkit-font-smoothing: antialiased; }
+
+.iconfont {
+  -webkit-text-stroke-width: 0.2px; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: none; }
+
+body {
+  font-family: 'PingFang SC', Arial, 'Microsoft YaHei', 'SimHei', sans-serif;
+  margin: 0;
+  background-color: #293340; }
+
+html, body, .wrapper {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.4375rem; }
+
+.wrapper {
+  background-color: #EEEEEE; }
+  .wrapper .filter-header {
+    height: 1.375rem;
+    margin-bottom: 0.3125rem;
+    background-color: #FFF;
+    border-bottom: 0.0625rem solid #bcbcbc; }
+    .wrapper .filter-header .header {
+      float: left;
+      height: 1.375rem;
+      line-height: 1.375rem;
+      width: 33.333%;
+      text-align: center; }
+    .wrapper .filter-header .selected {
+      border-bottom: 0.0625rem solid #8c6c4b; }
+  .wrapper .order-item {
+    height: 3.3125rem;
+    background-color: #FFF;
+    margin-bottom: 0.4375rem;
+    color: #FFF;
+    padding-left: 0.40625rem;
+    padding-right: 0.40625rem; }
+    .wrapper .order-item .top-line {
+      border-bottom: 1px solid #dbdbdb;
+      height: 2.34375rem;
+      position: relative; }
+      .wrapper .order-item .top-line .avator {
+        width: 2.1875rem;
+        height: 2.1875rem;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        top: -0.15625rem; }
+      .wrapper .order-item .top-line .top-right {
+        position: absolute;
+        left: 2.70313rem;
+        height: 2.34375rem;
+        padding-top: 0.5rem; }
+        .wrapper .order-item .top-line .top-right .name {
+          font-size: 0.40625rem;
+          color: #2e2e2e; }
+        .wrapper .order-item .top-line .top-right .company {
+          font-size: 0.34375rem;
+          color: #aaaaaa; }
+        .wrapper .order-item .top-line .top-right .star-level {
+          margin-top: 0.3125rem; }
+          .wrapper .order-item .top-line .top-right .star-level img {
+            width: 0.46875rem;
+            height: 0.4375rem; }
+          .wrapper .order-item .top-line .top-right .star-level span {
+            margin-left: 0.34375rem; }
+        .wrapper .order-item .top-line .top-right .order-count {
+          font-size: 0.28125rem;
+          color: #aaaaaa; }
+    .wrapper .order-item .bot-line {
+      height: 0.9375rem;
+      line-height: 0.9375rem; }
+      .wrapper .order-item .bot-line .dis {
+        float: left;
+        font-size: 0.21875rem;
+        color: #aaaaaa; }
+        .wrapper .order-item .bot-line .dis img {
+          width: 0.21875rem;
+          height: 0.34375rem;
+          margin-right: 0.125rem; }
+      .wrapper .order-item .bot-line .workplace {
+        float: left;
+        font-size: 0.28125rem;
+        color: #aaaaaa;
+        margin-left: 0.15625rem; }
+
+/*# sourceMappingURL=craftman_filter_list.css.map */

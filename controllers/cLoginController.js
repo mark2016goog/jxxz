@@ -120,3 +120,38 @@ exports.followedCraftmanList = function (req, res, next) {
     };
     res.render('followed_craftman_list', craftmanList);
 };
+
+exports.searchCraftman = function (req, res, next) {
+    var craftmanList = {
+        title: "searchCraftman",
+        list: [{
+            id: 1,
+            avatorUrl: "./images/avator.jpg",
+            name: "张师傅",
+            company: "亨得利国际名表服务中心",
+            starLevel: 4,
+            orderCounts: 1000,
+            workAddress: "上海市静安区南京西路1266号恒隆广场",
+            distance: "1.1km"
+        }, {
+            id: 2,
+            avatorUrl: "./images/avator.jpg",
+            name: "张师傅",
+            company: "亨得利国际名表服务中心",
+            starLevel: 3,
+            orderCounts: 1000,
+            workAddress: "上海市静安区南京西路1266号恒隆广场",
+            distance: "1.1km"
+        }, {
+            id: 3,
+            avatorUrl: "./images/avator.jpg",
+            name: "张师傅",
+            company: "亨得利国际名表服务中心",
+            starLevel: 2,
+            orderCounts: 1000,
+            workAddress: "上海市静安区南京西路1266号恒隆广场",
+            distance: "1.1km"
+        }]
+    };
+    res.render('craftman_filter_list', craftmanList);
+};

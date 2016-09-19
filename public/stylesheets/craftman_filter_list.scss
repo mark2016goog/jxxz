@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+$bkg-color: #EEEEEE;
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    font-size: getRem640(28);
+}
+
+.wrapper {
+    background-color: $bkg-color;
+    .filter-header {
+        height: getRem640(88);
+        margin-bottom: getRem640(20);
+        background-color: #FFF;
+        border-bottom: getRem640(4) solid #bcbcbc;
+        .header{
+            float:left;
+            height: getRem640(88);
+            line-height: getRem640(88);
+            width: 33.333%;
+            text-align: center;
+        }
+        .selected{
+            border-bottom: getRem640(4) solid #8c6c4b;
+        }
+    }
+    .order-item {
+        height: getRem640(212);
+        background-color: #FFF;
+        margin-bottom: getRem640(28);
+        color: #FFF;
+        padding-left: getRem640(26);
+        padding-right: getRem640(26);
+        .top-line{
+            border-bottom: 1px solid #dbdbdb;
+            height: getRem640(150);
+            position: relative;
+            .avator{
+                width: getRem640(140);
+                height: getRem640(140);
+                border-radius: 50%;
+                background-repeat: no-repeat;
+                background-size: cover;
+                position: absolute;
+                top: getRem640(-10);
+            }
+            .top-right{
+                position: absolute;
+                left: getRem640(173);
+                height: getRem640(150);
+                padding-top: getRem640(32);
+                .name {
+                    font-size: getRem640(26);
+                    color: #2e2e2e;
+                }
+                .company {
+                    font-size: getRem640(22);
+                    color: #aaaaaa;
+                }
+                .star-level{
+                    margin-top: getRem640(20);
+                    img{
+                        width: getRem640(30);
+                        height: getRem640(28);
+                    }
+                    span{
+                        margin-left: getRem640(22);
+                    }
+                }
+                .order-count{
+                    font-size: getRem640(18);
+                    color: #aaaaaa;
+                }
+            }
+        }
+        .bot-line{
+            height: getRem640(60);
+            line-height: getRem640(60);
+            .dis{
+                float:left;
+                font-size: getRem640(14);
+                color: #aaaaaa;
+                img{
+                    width: getRem640(14);
+                    height: getRem640(22);
+                    margin-right: getRem640(8);
+                }
+            }
+            .workplace{
+                float:left;
+                font-size: getRem640(18);
+                color: #aaaaaa;
+                margin-left: getRem640(10);
+            }
+        }
+    }
+}
