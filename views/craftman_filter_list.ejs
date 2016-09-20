@@ -36,9 +36,9 @@
 <body>
 <div class="wrapper">
   <div class="filter-header">
-    <div class="header selected">离我最近</div>
-    <div class="header">综合评价</div>
-    <div class="header">订单最多</div>
+    <div class="header selected" id="distanceHeader">离我最近</div>
+    <div class="header" id="commentHeader">综合评价</div>
+    <div class="header" id="orderAmountHeader">订单最多</div>
   </div>
   <% for(var i = 0;i < list.length;i++){ %>
   <div class="order-item">
