@@ -1,0 +1,26 @@
+<% for(var i = 0;i < list.length;i++){ %>
+<div class="order-item">
+  <div class="top-line">
+    <div class="avator" style="background-image:url(<%= list[i].avatorUrl %>)"></div>
+    <div class="top-right">
+      <div>
+        <span class="name"><%= list[i].name %>  |</span>
+        <span class="company"><%= list[i].company %></span>
+      </div>
+      <div class="star-level">
+        <%for(var j =0; j < list[i].starLevel;j++){%>
+        <img src="./images/star-fill.png" alt="">
+        <% } %>
+        <%for(var j =0; j < 5 - list[i].starLevel;j++){%>
+        <img src="./images/star-empty.png" alt="">
+        <% } %>
+        <span class="order-count">接单<%= list[i].orderCounts %>次</span>
+      </div>
+    </div>
+  </div>
+  <div class="bot-line">
+    <div class="dis"><img src="./images/location.png" alt=""><%= list[i].distance %></div>
+    <div class="workplace"><%= list[i].workAddress %></div>
+  </div>
+</div>
+<% } %>

@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var cLoginController = require('../controllers/cLoginController');
+var controller = require('../controllers/SimpleController');
 /* GET home page. */
-router.get('/', cLoginController.loginPage);
-router.get('/wechat_login', cLoginController.weChatCallback);
-router.get('/orderlist', cLoginController.orderList);
-router.get('/couponlist', cLoginController.couponList);
-router.get('/followedCraftmanList', cLoginController.followedCraftmanList);
-router.get('/searchCraftmanByBrand', cLoginController.searchCraftman);
-
+router.get('/', controller.loginPage);
+router.get('/wechat_login', controller.weChatCallback);
+router.get('/orderlist', controller.orderList);
+router.get('/couponlist', controller.couponList);
+router.get('/followedCraftmanList', controller.followedCraftmanList);
+router.get('/searchCraftmanByBrand', controller.searchCraftman);
+router.get('/searchCraftmanAsync',controller.searchCraftmanAsync);
 module.exports = router;

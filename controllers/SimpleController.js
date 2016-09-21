@@ -141,7 +141,7 @@ exports.searchCraftman = function (req, res, next) {
             starLevel: 3,
             orderCounts: 1000,
             workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "1.1km"
+            distance: "2.1km"
         }, {
             id: 3,
             avatorUrl: "./images/avator.jpg",
@@ -150,8 +150,58 @@ exports.searchCraftman = function (req, res, next) {
             starLevel: 2,
             orderCounts: 1000,
             workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "1.1km"
+            distance: "3.1km"
         }]
     };
     res.render('craftman_filter_list', craftmanList);
 };
+
+
+exports.searchCraftmanAsync = function (req, res, next) {
+    var searchType = req.query.searchType;
+    console.log("searchType:" + searchType);
+    //request.get(searchType, function (error, response, body) {
+    //    console.log(body);
+    //    var body = JSON.parse(body);
+    //    var personalInfo = {
+    //        avatorUrl: "",
+    //        nickName: "xiangkai",
+    //        gender: "男",
+    //        bindMobilephone: "未绑定"
+    //    };
+    //    res.render('personal_info', personalInfo);
+    //});
+    var craftmanList = {
+        title: "searchCraftman",
+        list: [{
+            id: 1,
+            avatorUrl: "./images/avator.jpg",
+            name: "王师傅",
+            company: "亨得利国际名表服务中心",
+            starLevel: 4,
+            orderCounts: 1000,
+            workAddress: "上海市静安区南京西路1266号恒隆广场",
+            distance: "1.1km"
+        }, {
+            id: 2,
+            avatorUrl: "./images/avator.jpg",
+            name: "李师傅",
+            company: "亨得利国际名表服务中心",
+            starLevel: 3,
+            orderCounts: 1000,
+            workAddress: "上海市静安区南京西路1266号恒隆广场",
+            distance: "1.1km"
+        }, {
+            id: 3,
+            avatorUrl: "./images/avator.jpg",
+            name: "项师傅",
+            company: "亨得利国际名表服务中心",
+            starLevel: 2,
+            orderCounts: 1000,
+            workAddress: "上海市静安区南京西路1266号恒隆广场",
+            distance: "1.1km"
+        }]
+    };
+    res.render('async/craftman_list_fragment', craftmanList);
+};
+
