@@ -58,7 +58,7 @@ html, body, .wrapper {
             border-bottom: 1px solid #dbdbdb;
             margin-left: getRem640(24);
             margin-right: getRem640(24);
-            display:flex;
+            display: flex;
             justify-content: center;
             align-items: center;
             padding-bottom: getRem640(10);
@@ -73,28 +73,33 @@ html, body, .wrapper {
                 height: getRem640(28);
             }
         }
-        .bot-line{
+        .bot-line {
             height: getRem640(60);
             line-height: getRem640(60);
             top: getRem640(275);
             padding-left: getRem640(24);
             padding-right: getRem640(24);
-            .dis{
-                float:left;
+            .dis {
+                float: left;
                 font-size: getRem640(14);
                 color: #aaaaaa;
-                img{
+                img {
                     width: getRem640(14);
                     height: getRem640(22);
                     margin-right: getRem640(8);
                 }
             }
-            .workplace{
-                float:left;
+            .workplace {
+                float: left;
                 font-size: getRem640(18);
                 color: #aaaaaa;
                 margin-left: getRem640(10);
             }
         }
+    }
+
+    .intro {
+        margin-top: getRem640(20);
+        height: getRem640(178);
     }
 }

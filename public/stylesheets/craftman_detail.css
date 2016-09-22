@@ -90,5 +90,8 @@ html, body, .wrapper {
         font-size: 0.28125rem;
         color: #aaaaaa;
         margin-left: 0.15625rem; }
+  .wrapper .intro {
+    margin-top: 0.3125rem;
+    height: 2.78125rem; }
 
 /*# sourceMappingURL=craftman_detail.css.map */
