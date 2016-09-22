@@ -9,4 +9,5 @@ router.get('/couponlist', controller.couponList);
 router.get('/followedCraftmanList', controller.followedCraftmanList);
 router.get('/searchCraftmanByBrand', controller.searchCraftman);
 router.get('/searchCraftmanAsync',controller.searchCraftmanAsync);
+router.get('/craftmanDetail',controller.craftmanDetail);
 module.exports = router;

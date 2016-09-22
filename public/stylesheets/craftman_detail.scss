@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+$bkg-color: #EEEEEE;
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    font-size: getRem640(28);
+}
+
+.wrapper {
+    background-color: $bkg-color;
+    padding-top: getRem640(46);
+
+    .head-info {
+        height: getRem640(340);
+        background-color: #FFF;
+        text-align: center;
+        position: relative;
+
+        .pos {
+            position: absolute;
+            top: getRem640(144);
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .avator {
+            height: getRem640(124);
+            width: getRem640(124);
+            border-radius: 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0 auto;
+            position: relative;
+            top: getRem640(-12);
+        }
+        .name {
+            font-size: getRem640(26);
+            color: #2e2e2e;
+            height: getRem640(26);
+            line-height: getRem640(26);
+        }
+        .com {
+            font-size: getRem640(22);
+            color: #aaaaaa;
+            height: getRem640(22);
+            line-height: getRem640(22);
+            top: getRem640(188);
+        }
+        .statistic {
+            top: getRem640(225);
+            border-bottom: 1px solid #dbdbdb;
+            margin-left: getRem640(24);
+            margin-right: getRem640(24);
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: getRem640(10);
+            .order-count {
+                font-size: getRem640(18);
+                color: #aaa;
+                margin-right: getRem640(22);
+            }
+
+            img {
+                width: getRem640(30);
+                height: getRem640(28);
+            }
+        }
+        .bot-line{
+            height: getRem640(60);
+            line-height: getRem640(60);
+            top: getRem640(275);
+            padding-left: getRem640(24);
+            padding-right: getRem640(24);
+            .dis{
+                float:left;
+                font-size: getRem640(14);
+                color: #aaaaaa;
+                img{
+                    width: getRem640(14);
+                    height: getRem640(22);
+                    margin-right: getRem640(8);
+                }
+            }
+            .workplace{
+                float:left;
+                font-size: getRem640(18);
+                color: #aaaaaa;
+                margin-left: getRem640(10);
+            }
+        }
+    }
+}

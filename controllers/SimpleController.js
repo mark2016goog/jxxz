@@ -176,7 +176,7 @@ exports.searchCraftmanAsync = function (req, res, next) {
         list: [{
             id: 1,
             avatorUrl: "./images/avator.jpg",
-            name: "王师傅",
+            name: "杨师傅",
             company: "亨得利国际名表服务中心",
             starLevel: 4,
             orderCounts: 1000,
@@ -185,7 +185,7 @@ exports.searchCraftmanAsync = function (req, res, next) {
         }, {
             id: 2,
             avatorUrl: "./images/avator.jpg",
-            name: "李师傅",
+            name: "顾师傅",
             company: "亨得利国际名表服务中心",
             starLevel: 3,
             orderCounts: 1000,
@@ -205,3 +205,39 @@ exports.searchCraftmanAsync = function (req, res, next) {
     res.render('async/craftman_list_fragment', craftmanList);
 };
 
+exports.craftmanDetail = function (req, res, next) {
+    var craftmanId = req.query.id;
+    var craftmanDetail = {
+        avatorUrl: "./images/avator.jpg",
+        name: "张师傅",
+        company: "亨得利国际名表服务中心",
+        starLevel: 4,
+        orderCounts: 1000,
+        workAddress: "上海市静安区南京西路1266号恒隆广场",
+        distance: "1.1km",
+        intro: "张师傅,拥有国际认证的XXXXXX牛逼证书",
+        skilledBrandList: [
+            {
+                id: 1,
+                name: "宝格丽"
+            }, {
+                id: 2,
+                name: "阿玛尼"
+            }
+        ],
+        commentList: [
+            {
+                userAvatorUrl: "./images/avator.jpg",
+                starLevel: 3,
+                username: "柯南君1",
+                cmtDetail: "服务态度非常好,技术一流"
+            }, {
+                userAvatorUrl: "./images/avator.jpg",
+                starLevel: 4,
+                username: "柯南君2",
+                cmtDetail: "服务态度非常好,技术一流"
+            }
+        ]
+    };
+    res.render('craftman_detail', craftmanDetail);
+};

@@ -1,3 +1,94 @@
+.iconfont {
+  -webkit-font-smoothing: antialiased; }
 
+.iconfont {
+  -webkit-text-stroke-width: 0.2px; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: none; }
+
+body {
+  font-family: 'PingFang SC', Arial, 'Microsoft YaHei', 'SimHei', sans-serif;
+  margin: 0;
+  background-color: #293340; }
+
+html, body, .wrapper {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.4375rem; }
+
+.wrapper {
+  background-color: #EEEEEE;
+  padding-top: 0.71875rem; }
+  .wrapper .head-info {
+    height: 5.3125rem;
+    background-color: #FFF;
+    text-align: center;
+    position: relative; }
+    .wrapper .head-info .pos {
+      position: absolute;
+      top: 2.25rem;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto; }
+    .wrapper .head-info .avator {
+      height: 1.9375rem;
+      width: 1.9375rem;
+      border-radius: 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0 auto;
+      position: relative;
+      top: -0.1875rem; }
+    .wrapper .head-info .name {
+      font-size: 0.40625rem;
+      color: #2e2e2e;
+      height: 0.40625rem;
+      line-height: 0.40625rem; }
+    .wrapper .head-info .com {
+      font-size: 0.34375rem;
+      color: #aaaaaa;
+      height: 0.34375rem;
+      line-height: 0.34375rem;
+      top: 2.9375rem; }
+    .wrapper .head-info .statistic {
+      top: 3.51563rem;
+      border-bottom: 1px solid #dbdbdb;
+      margin-left: 0.375rem;
+      margin-right: 0.375rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 0.15625rem; }
+      .wrapper .head-info .statistic .order-count {
+        font-size: 0.28125rem;
+        color: #aaa;
+        margin-right: 0.34375rem; }
+      .wrapper .head-info .statistic img {
+        width: 0.46875rem;
+        height: 0.4375rem; }
+    .wrapper .head-info .bot-line {
+      height: 0.9375rem;
+      line-height: 0.9375rem;
+      top: 4.29688rem;
+      padding-left: 0.375rem;
+      padding-right: 0.375rem; }
+      .wrapper .head-info .bot-line .dis {
+        float: left;
+        font-size: 0.21875rem;
+        color: #aaaaaa; }
+        .wrapper .head-info .bot-line .dis img {
+          width: 0.21875rem;
+          height: 0.34375rem;
+          margin-right: 0.125rem; }
+      .wrapper .head-info .bot-line .workplace {
+        float: left;
+        font-size: 0.28125rem;
+        color: #aaaaaa;
+        margin-left: 0.15625rem; }
 
 /*# sourceMappingURL=craftman_detail.css.map */
