@@ -101,5 +101,20 @@ html, body, .wrapper {
     .intro {
         margin-top: getRem640(20);
         height: getRem640(178);
+        background-color: #FFF;
+        .title {
+            display: flex;
+            align-items: center;
+            padding: getRem640(26) getRem640(24);
+            .line {
+                height: getRem640(8);
+                width: getRem640(200);
+                background-color: #efefef;
+            }
+            .text {
+                width: getRem640(196);
+                text-align: center;
+            }
+        }
     }
 }
