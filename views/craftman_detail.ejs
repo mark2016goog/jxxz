@@ -79,6 +79,12 @@
       <div class="comment-detail">
         <div class="name">
           <%=commentList[0].username%>
+          <% for(var j = 0; j < commentList[0].starLevel;j++){ %>
+          <img src="./images/star-fill.png" alt="">
+          <% } %>
+          <% for(var j = 0; j < 5 - commentList[0].starLevel;j++){ %>
+          <img src="./images/star-empty.png" alt="">
+          <% } %>
         </div>
         <div class="cmt-detail">
           <%=commentList[0].cmtDetail%>

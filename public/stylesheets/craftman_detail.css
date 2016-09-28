@@ -151,5 +151,14 @@ html, body, .wrapper {
         height: 1.25rem; }
       .wrapper .comment .first-comment .comment-detail {
         margin-left: 0.34375rem; }
+        .wrapper .comment .first-comment .comment-detail .name {
+          font-size: 0.34375rem;
+          color: #333; }
+          .wrapper .comment .first-comment .comment-detail .name img {
+            width: 0.46875rem;
+            height: 0.4375rem; }
+        .wrapper .comment .first-comment .comment-detail .cmt-detail {
+          font-size: 0.28125rem;
+          color: #808080; }
 
 /*# sourceMappingURL=craftman_detail.css.map */

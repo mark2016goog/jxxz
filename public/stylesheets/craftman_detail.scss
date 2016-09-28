@@ -160,7 +160,20 @@ html, body, .wrapper {
             }
             .comment-detail{
                 margin-left:getRem640(22);
+                .name{
+                    font-size: getRem640(22);
+                    color: #333;
+                    img {
+                        width: getRem640(30);
+                        height: getRem640(28);
+                    }
+                }
+                .cmt-detail{
+                    font-size: getRem640(18);
+                    color: #808080;
+                }
             }
+
         }
     }
 }
