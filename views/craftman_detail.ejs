@@ -65,7 +65,25 @@
       <div class="line"></div>
     </div>
     <div class="content">
-
+      <p><%= intro %></p>
+    </div>
+  </div>
+  <div class="comment">
+    <div class="title">
+      <div class="line"></div>
+      <div class="text">用户评价</div>
+      <div class="line"></div>
+    </div>
+    <div class="first-comment">
+      <div class="avator" style="background-image:url(<%= commentList[0].userAvatorUrl %>)"></div>
+      <div class="comment-detail">
+        <div class="name">
+          <%=commentList[0].username%>
+        </div>
+        <div class="cmt-detail">
+          <%=commentList[0].cmtDetail%>
+        </div>
+      </div>
     </div>
   </div>
 </div>

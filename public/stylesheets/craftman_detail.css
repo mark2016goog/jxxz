@@ -115,5 +115,41 @@ html, body, .wrapper {
       .wrapper .intro .title .text {
         width: 3.0625rem;
         text-align: center; }
+    .wrapper .intro .content {
+      font-size: 0.28125rem;
+      color: #333;
+      border-bottom: 1px solid #e7e7e7; }
+      .wrapper .intro .content p {
+        text-indent: 2em;
+        margin: 0;
+        padding: 0rem 0.375rem 0.375rem 0.375rem; }
+  .wrapper .comment {
+    height: 3.125rem;
+    background-color: #FFF; }
+    .wrapper .comment .title {
+      display: flex;
+      align-items: center;
+      padding: 0.40625rem 0.375rem; }
+      .wrapper .comment .title .line {
+        height: 0.125rem;
+        width: 3.125rem;
+        background-color: #efefef; }
+      .wrapper .comment .title .text {
+        width: 3.0625rem;
+        text-align: center; }
+    .wrapper .comment .first-comment {
+      font-size: 0.28125rem;
+      color: #333;
+      border-bottom: 1px solid #e7e7e7;
+      padding: 0rem 0.375rem 0.375rem 0.375rem;
+      display: flex;
+      align-items: center; }
+      .wrapper .comment .first-comment .avator {
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 1.25rem;
+        height: 1.25rem; }
+      .wrapper .comment .first-comment .comment-detail {
+        margin-left: 0.34375rem; }
 
 /*# sourceMappingURL=craftman_detail.css.map */

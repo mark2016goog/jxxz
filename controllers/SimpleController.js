@@ -215,7 +215,7 @@ exports.craftmanDetail = function (req, res, next) {
         orderCounts: 1000,
         workAddress: "上海市静安区南京西路1266号恒隆广场",
         distance: "1.1km",
-        intro: "张师傅,拥有国际认证的XXXXXX牛逼证书",
+        intro: "张师傅,拥有国际认证的XXXXXX牛逼证书,从业8年8年年年年年从业8年8年年年年年从业8年8年年年年年从业8年8年年年年年",
         skilledBrandList: [
             {
                 id: 1,

@@ -116,5 +116,51 @@ html, body, .wrapper {
                 text-align: center;
             }
         }
+        .content{
+            font-size: getRem640(18);
+            color: #333;
+            border-bottom: 1px solid #e7e7e7;
+            p {
+                text-indent: 2em;
+                margin:0;
+                padding: getRem640(0) getRem640(24) getRem640(24) getRem640(24);
+            }
+        }
+
+    }
+    .comment{
+        height: getRem640(200);
+        background-color: #FFF;
+        .title {
+            display: flex;
+            align-items: center;
+            padding: getRem640(26) getRem640(24);
+            .line {
+                height: getRem640(8);
+                width: getRem640(200);
+                background-color: #efefef;
+            }
+            .text {
+                width: getRem640(196);
+                text-align: center;
+            }
+        }
+        .first-comment{
+            font-size: getRem640(18);
+            color: #333;
+            border-bottom: 1px solid #e7e7e7;
+            padding: getRem640(0) getRem640(24) getRem640(24) getRem640(24);
+            display:flex;
+            align-items: center;
+            .avator{
+                background-size:cover;
+                background-repeat: no-repeat;
+                width: getRem640(80);
+                height: getRem640(80);
+            }
+            .comment-detail{
+                margin-left:getRem640(22);
+            }
+        }
     }
 }
