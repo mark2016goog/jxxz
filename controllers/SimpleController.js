@@ -304,9 +304,16 @@ exports.commentList = function (req, res, next) {
 };
 
 exports.geoPosition = function (req, res, next) {
+    var apiTicket = GlobalCache.getApiTicket();
+    var nonceStr = GlobalCache.getRandomStr();
+    var timestamp = (new Date()).getTime();
+    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+
+    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
     var geographicPositionText = {
         text: "上海市静安区南京西路1266号恒隆广场",
-        token:GlobalCache.getAccessToken()
+        token: GlobalCache.getAccessToken(),
+        ticket: GlobalCache.getApiTicket()
     };
 
     res.render('geographicPosition', geographicPositionText);
