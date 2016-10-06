@@ -14,7 +14,7 @@ html, body, .wrapper {
 
 .wrapper {
     background-color: $bkg-color;
-
+    padding-top: getRem640(26);
     .comment-item {
         height: getRem640(200);
         background-color: #FFF;

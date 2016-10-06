@@ -27,7 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var commentBtn = document.getElementById("comment-btn");
     commentBtn.addEventListener("click", function () {
-        console.log("debug");
         window.location.href = "/commentList";
+    });
+
+    var geoBtn = document.getElementById("geoBtn");
+    geoBtn.addEventListener("click", function () {
+        window.location.href = "/geoPosition";
     });
 });

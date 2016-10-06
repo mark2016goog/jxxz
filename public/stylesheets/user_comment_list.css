@@ -34,7 +34,8 @@ html, body, .wrapper {
   font-size: 0.4375rem; }
 
 .wrapper {
-  background-color: #EEEEEE; }
+  background-color: #EEEEEE;
+  padding-top: 0.40625rem; }
   .wrapper .comment-item {
     height: 3.125rem;
     background-color: #FFF;

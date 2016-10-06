@@ -302,3 +302,12 @@ exports.commentList = function (req, res, next) {
     };
     res.render('user_comment_list', commentList);
 };
+
+exports.geoPosition = function (req, res, next) {
+    var geographicPositionText = {
+        text: "上海市静安区南京西路1266号恒隆广场",
+        token:GlobalCache.getAccessToken()
+    };
+
+    res.render('geographicPosition', geographicPositionText);
+};
