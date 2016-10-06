@@ -35,64 +35,115 @@
 </head>
 <body>
 <div class="wrapper">
-  <div class="head-info">
-    <div class="avator" style="background-image:url(<%= avatorUrl %>)"></div>
-    <div class="name pos"><%= name %></div>
-    <div class="com pos"><%= company %></div>
-    <div class="statistic pos">
-      <div class="order-count">
-        接单<%= orderCounts %>次
-      </div>
-      <div>
-        <% for(var j = 0; j < starLevel;j++){ %>
-        <img src="./images/star-fill.png" alt="">
-        <% } %>
-        <% for(var j = 0; j < 5 - starLevel;j++){ %>
-        <img src="./images/star-empty.png" alt="">
-        <% } %>
-      </div>
-    </div>
-    <div class="bot-line pos">
-      <div class="dis"><img src="./images/location.png" alt=""><%= distance %></div>
-      <div class="workplace"><%= workAddress %></div>
-    </div>
-  </div>
-
-  <div class="intro">
-    <div class="title">
-      <div class="line"></div>
-      <div class="text">个人简介</div>
-      <div class="line"></div>
-    </div>
-    <div class="content">
-      <p><%= intro %></p>
-    </div>
-  </div>
-  <div class="comment">
-    <div class="title">
-      <div class="line"></div>
-      <div class="text">用户评价</div>
-      <div class="line"></div>
-    </div>
-    <div class="first-comment">
-      <div class="avator" style="background-image:url(<%= commentList[0].userAvatorUrl %>)"></div>
-      <div class="comment-detail">
-        <div class="name">
-          <%=commentList[0].username%>
-          <% for(var j = 0; j < commentList[0].starLevel;j++){ %>
+  <div class="body">
+    <div class="head-info">
+      <div class="avator" style="background-image:url(<%= avatorUrl %>)"></div>
+      <div class="name pos"><%= name %></div>
+      <div class="com pos"><%= company %></div>
+      <div class="statistic pos">
+        <div class="order-count">
+          接单<%= orderCounts %>次
+        </div>
+        <div>
+          <% for(var j = 0; j < starLevel;j++){ %>
           <img src="./images/star-fill.png" alt="">
           <% } %>
-          <% for(var j = 0; j < 5 - commentList[0].starLevel;j++){ %>
+          <% for(var j = 0; j < 5 - starLevel;j++){ %>
           <img src="./images/star-empty.png" alt="">
           <% } %>
         </div>
-        <div class="cmt-detail">
-          <%=commentList[0].cmtDetail%>
+      </div>
+      <div class="bot-line pos">
+        <div class="dis"><img src="./images/location.png" alt=""><%= distance %></div>
+        <div class="workplace"><%= workAddress %></div>
+      </div>
+    </div>
+
+    <div class="intro">
+      <div class="title">
+        <div class="line"></div>
+        <div class="text">个人简介</div>
+        <div class="line"></div>
+      </div>
+      <div class="content">
+        <p><%= intro %></p>
+      </div>
+    </div>
+
+    <div class="comment" id="comment-btn">
+      <div class="title">
+        <div class="line"></div>
+        <div class="text">用户评价</div>
+        <div class="line"></div>
+      </div>
+      <div class="first-comment">
+        <div class="avator" style="background-image:url(<%= commentList[0].userAvatorUrl %>)"></div>
+        <div class="comment-detail">
+          <div class="name">
+            <%= commentList[0].username %>
+            <% for(var j = 0; j < commentList[0].starLevel;j++){ %>
+            <img src="./images/star-fill.png" alt="">
+            <% } %>
+            <% for(var j = 0; j < 5 - commentList[0].starLevel;j++){ %>
+            <img src="./images/star-empty.png" alt="">
+            <% } %>
+          </div>
+          <div class="cmt-detail">
+            <%= commentList[0].cmtDetail %>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div class="brandlist">
+      <div class="title">
+        <div class="line"></div>
+        <div class="text">擅长品牌</div>
+        <div class="line"></div>
+      </div>
+      <div class="brand">
+        <% for(var k = 0;k < skilledBrandList.length;k++) { %>
+        <div class="brand-item"><%= skilledBrandList[k].name %></div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-item" id="callphone">
+      <div class="ft-img telephone">
+      </div>
+      <div class="footer-text">电话咨询</div>
+    </div>
+    <div class="footer-item" id="follow-btn">
+      <div class="ft-img focus"></div>
+      <div class="footer-text">添加关注</div>
+    </div>
+    <div class="footer-item">
+      <div class="ft-img payment"></div>
+      <div class="footer-text">我要付款</div>
+    </div>
+  </div>
+
+</div>
+<div class="pop-dlg" id="pop-dlg">
+  <div class="dialog">
+    <div class="tele-num">
+      <%= telephone %>
+    </div>
+    <div class="button">
+      <a class="call" href="tel:<%= telephone %>">
+        呼叫
+      </a>
+
+      <div class="cancel" id="cancel-call">
+        取消
       </div>
     </div>
   </div>
 </div>
+<input type="hidden" value="<%= id%>" id="craftmanId" />
+<script src="/javascripts/lib/simple_ajax.js"></script>
 <script src="/javascripts/craftman_detail.js"></script>
 </body>
 </html>

@@ -208,6 +208,7 @@ exports.searchCraftmanAsync = function (req, res, next) {
 exports.craftmanDetail = function (req, res, next) {
     var craftmanId = req.query.id;
     var craftmanDetail = {
+        id: craftmanId,
         avatorUrl: "./images/avator.jpg",
         name: "张师傅",
         company: "亨得利国际名表服务中心",
@@ -216,6 +217,7 @@ exports.craftmanDetail = function (req, res, next) {
         workAddress: "上海市静安区南京西路1266号恒隆广场",
         distance: "1.1km",
         intro: "张师傅,拥有国际认证的XXXXXX牛逼证书,从业8年8年年年年年从业8年8年年年年年从业8年8年年年年年从业8年8年年年年年",
+        telephone: 15800622061,
         skilledBrandList: [
             {
                 id: 1,
@@ -223,6 +225,22 @@ exports.craftmanDetail = function (req, res, next) {
             }, {
                 id: 2,
                 name: "阿玛尼"
+            },
+            {
+                id: 3,
+                name: "万宝龙"
+            },
+            {
+                id: 4,
+                name: "劳力士"
+            },
+            {
+                id: 5,
+                name: "百达翠丽"
+            },
+            {
+                id: 6,
+                name: "浪琴"
             }
         ],
         commentList: [
@@ -240,4 +258,47 @@ exports.craftmanDetail = function (req, res, next) {
         ]
     };
     res.render('craftman_detail', craftmanDetail);
+};
+
+exports.followCraftman = function (req, res, next) {
+    res.contentType("json");
+    res.send({followResult: "Follow successfully!"});
+};
+
+
+exports.commentList = function (req, res, next) {
+    var commentList = {
+        commentList: [{
+            userAvatorUrl: "./images/avator.jpg",
+            starLevel: 5,
+            username: "柯南君1",
+            cmtDetail: "服务态度非常好,技术一流aaa",
+            cmtTime: "10月2日"
+        }, {
+            userAvatorUrl: "./images/avator.jpg",
+            starLevel: 4,
+            username: "柯南君2",
+            cmtDetail: "服务态度非常好,技术一流nnnn",
+            cmtTime: "5月2日"
+        }, {
+            userAvatorUrl: "./images/avator.jpg",
+            starLevel: 4,
+            username: "柯南君2",
+            cmtDetail: "服务态度非常好,技术一流naaannn",
+            cmtTime: "5月2日"
+        }, {
+            userAvatorUrl: "./images/avator.jpg",
+            starLevel: 4,
+            username: "柯南君2",
+            cmtDetail: "服务态度非常好,技术一流啊啊啊nn",
+            cmtTime: "5月2日"
+        }, {
+            userAvatorUrl: "./images/avator.jpg",
+            starLevel: 4,
+            username: "柯南君2",
+            cmtDetail: "服务态度非常好,技术一流n啊啊啊阿瑟斯nnn",
+            cmtTime: "5月2日"
+        }]
+    };
+    res.render('user_comment_list', commentList);
 };

@@ -25,6 +25,9 @@ div, a, img {
   -webkit-user-select: none;
   user-select: none; }
 
+a {
+  text-decoration: none; }
+
 html, body, .wrapper {
   height: 100%;
   -webkit-overflow-scrolling: touch;
