@@ -14,13 +14,17 @@ var GlobalCache = function () {
         }
     };
 
-    request.get(reqParam, function (error, response, body) {
+    var self = this;
+
+    var callback = function (error, response, body) {
         console.log(body);
         //{"access_token":"ACCESS_TOKEN","expires_in":7200}
         //{"errcode":40013,"errmsg":"invalid appid"}
         var body = JSON.parse(body);
-        this.accessToken = body.access_token;
-    });
+        self.accessToken = body.access_token;
+    };
+
+    request.get(reqParam, callback);
 };
 
 GlobalCache.prototype.getAccessToken = function () {
