@@ -14,4 +14,14 @@ document.addEventListener("DOMContentLoaded", function () {
         signature: sign,// 必填，签名，见附录1
         jsApiList: ["openLocation"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
+    wx.ready(function(){
+        wx.openLocation({
+            latitude: 23.099994,
+            longitude: 113.324520,
+            name: 'TIT 创意园',
+            address: '广州市海珠区新港中路 397 号',
+            scale: 14,
+            infoUrl: 'http://weixin.qq.com'
+        });
+    });
 });
