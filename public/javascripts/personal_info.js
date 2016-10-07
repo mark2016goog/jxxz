@@ -17,4 +17,9 @@ document.addEventListener("DOMContentLoaded", function(){
     followedCraftman.addEventListener("click", function(){
         window.location.href = "/followedCraftmanList";
     });
+
+    var logoutBtn = document.getElementById("logout");
+    logoutBtn.addEventListener("click",function(){
+        window.history.back();
+    });
 });
