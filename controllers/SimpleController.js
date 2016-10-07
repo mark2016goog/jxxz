@@ -210,7 +210,22 @@ exports.searchCraftmanAsync = function (req, res, next) {
 
 exports.craftmanDetail = function (req, res, next) {
     var craftmanId = req.query.id;
+    var apiTicket = GlobalCache.getApiTicket();
+    var nonceStr = GlobalCache.getRandomStr();
+    var timestamp = (new Date()).getTime();
+    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+
+    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+    console.log("combineString:" + combineString);
+    var shasum = crypto.createHash("sha1");
+    shasum.update(combineString);
+    var signature = shasum.digest("hex");
+
     var craftmanDetail = {
+        text: "上海市静安区南京西路1266号恒隆广场",
+        timestamp: timestamp,
+        nonceStr: nonceStr,
+        signature: signature,
         id: craftmanId,
         avatorUrl: "./images/avator.jpg",
         name: "张师傅",
@@ -304,26 +319,4 @@ exports.commentList = function (req, res, next) {
         }]
     };
     res.render('user_comment_list', commentList);
-};
-
-exports.geoPosition = function (req, res, next) {
-    var apiTicket = GlobalCache.getApiTicket();
-    var nonceStr = GlobalCache.getRandomStr();
-    var timestamp = (new Date()).getTime();
-    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
-
-    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-    console.log("combineString:" + combineString);
-    var shasum = crypto.createHash("sha1");
-    shasum.update(combineString);
-    var signature = shasum.digest("hex");
-
-    var geographicPositionText = {
-        text: "上海市静安区南京西路1266号恒隆广场",
-        timestamp: timestamp,
-        nonceStr: nonceStr,
-        signature: signature
-    };
-
-    res.render('geographicPosition', geographicPositionText);
 };
