@@ -12,6 +12,65 @@ html, body, .wrapper {
     font-size: getRem640(28);
 }
 
+input,button{
+    outline: none;
+    margin: 0;
+    border: none;
+}
+
 .wrapper {
     background-color: $bkg-color;
+    .top-img {
+        background-image: url(../images/login_b_bkg.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: getRem640(640);
+        height: getRem640(308);
+    }
+    .username{
+        background-color: #FFF;
+        height: getRem640(88);
+        padding: getRem640(24) getRem640(30);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .input {
+            height: getRem640(40);
+            width: getRem640(530);
+            font-size: getRem640(28);
+            color: #aaa;
+        }
+        .right-img{
+            width: getRem640(28);
+            height: getRem640(40);
+        }
+
+    }
+
+    .bot-border{
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+    .bot-link{
+        padding: getRem640(32);
+        .login-btn {
+            button {
+                background-color: #575757;
+                color: #FFF;
+                border: none;
+                border-radius: getRem640(5);
+                width: 100%;
+                height: getRem640(88);
+                font-size: getRem640(34);
+            }
+        }
+        .bottom-link{
+            display:flex;
+            justify-content: space-between;
+            margin-top: getRem640(50);
+            font-size: getRem640(22);
+            color: #7a7a7a;
+        }
+    }
 }

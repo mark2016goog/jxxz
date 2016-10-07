@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= title %></title>
+  <title>工匠名片</title>
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
@@ -31,30 +31,23 @@
       })
     }();</script>
 
-  <link rel='stylesheet' href='/stylesheets/login_b.css'/>
+  <link rel='stylesheet' href='/stylesheets/craftman_personal.css'/>
 </head>
 <body>
 <div class="wrapper">
-  <div class="top-img"></div>
-  <div class="username bot-border">
-    <input type="text" class="input" id="username" placeholder="请输入注册手机号"/>
-    <img src="/images/mobile-phone.png" class="right-img" alt="">
+  <div class="basic-info">
+    <div class="avator" style="background-image: url(<%= avator %>)"></div>
+    <div class="name"><%= name %></div>
+    <div class="telephone"><%= telephone %></div>
   </div>
-  <div class="username">
-    <input type="password" class="input" id="password" placeholder="请输入登录密码"/>
-    <img src="/images/password.png" class="right-img" alt="">
-  </div>
-  <div class="bot-link">
-    <div class="login-btn" onclick="login()">
-      <button>登录</button>
-    </div>
-    <div class="bottom-link">
-      <div>密码找回</div>
-      <div>联系客服</div>
-    </div>
-  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
 </div>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="/javascripts/lib/simple_ajax.js"></script>
-<script src="/javascripts/login_b.js"></script>
+<script src="/javascripts/craftman_personal.js"></script>
 </body>
 </html>

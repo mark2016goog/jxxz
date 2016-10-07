@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+$bkg-color: #EEEEEE;
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    font-size: getRem640(28);
+}
+
+input, button {
+    outline: none;
+    margin: 0;
+    border: none;
+}
+
+.wrapper {
+    background-color: $bkg-color;
+    padding-top: getRem640(32);
+    .basic-info {
+        display:flex;
+        align-items: center;
+        height: getRem640(120);
+        padding: getRem640(20) getRem640(32);
+        background-color: #FFF;
+        border-bottom: 1px solid #e7e7e7;
+        .avator {
+            width: getRem640(80);
+            height: getRem640(80);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-right: getRem640(32);
+        }
+        .name{
+            margin-right: getRem640(32);
+            font-size: getRem640(28);
+            color: #131313;
+        }
+        .telephone{
+            font-size: getRem640(28);
+            color: #aaa;
+        }
+    }
+}

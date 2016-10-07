@@ -1,0 +1,65 @@
+@charset "UTF-8";
+.iconfont {
+  -webkit-font-smoothing: antialiased; }
+
+.iconfont {
+  -webkit-text-stroke-width: 0.2px; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: none; }
+
+body {
+  font-family: 'PingFang SC', Arial, 'Microsoft YaHei', 'SimHei', sans-serif;
+  margin: 0;
+  background-color: #293340; }
+
+/*
+去掉点击时的选择和阴影
+*/
+div, a, img {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none; }
+
+a {
+  text-decoration: none; }
+
+html, body, .wrapper {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.4375rem; }
+
+input, button {
+  outline: none;
+  margin: 0;
+  border: none; }
+
+.wrapper {
+  background-color: #EEEEEE;
+  padding-top: 0.5rem; }
+  .wrapper .basic-info {
+    display: flex;
+    align-items: center;
+    height: 1.875rem;
+    padding: 0.3125rem 0.5rem;
+    background-color: #FFF;
+    border-bottom: 1px solid #e7e7e7; }
+    .wrapper .basic-info .avator {
+      width: 1.25rem;
+      height: 1.25rem;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin-right: 0.5rem; }
+    .wrapper .basic-info .name {
+      margin-right: 0.5rem;
+      font-size: 0.4375rem;
+      color: #131313; }
+    .wrapper .basic-info .telephone {
+      font-size: 0.4375rem;
+      color: #aaa; }
+
+/*# sourceMappingURL=craftman_personal.css.map */

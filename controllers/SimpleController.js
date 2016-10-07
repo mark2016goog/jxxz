@@ -321,9 +321,34 @@ exports.commentList = function (req, res, next) {
     res.render('user_comment_list', commentList);
 };
 
-exports.craftmanLogin = function (req, res, next) {
+exports.craftmanLoginPage = function (req, res, next) {
     var loginData = {
         title: '工匠登陆'
     };
     res.render('login_b', loginData);
+};
+
+exports.craftmanLogin = function (req, res, next) {
+    var username = req.query.name;
+    var password = req.query.password;
+    console.log("username:" + username);
+    console.log("pwd:" + password);
+    res.contentType("json");
+    var cookieAge = 60 * 1000;
+    res.cookie("b_token", 123456, {maxAge: cookieAge});
+    res.send({loginSuc: true});
+};
+
+exports.craftmanPersonalInfo = function (req, res, next) {
+    var craftmanData = {
+        avator: "./images/avator.jpg",
+        name: "黄师傅",
+        telephone: 15800622061,
+        orderAmount: 666,
+        remainMoney: 1000,
+        withdrawingMoney: 2200,
+        withdrawedMoney: 800,
+        totalIncome: 4000
+    };
+    res.render("craftman_personal", craftmanData);
 };
