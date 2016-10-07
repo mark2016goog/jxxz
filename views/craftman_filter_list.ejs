@@ -42,7 +42,7 @@
   </div>
   <div id="craftman_list">
     <% for(var i = 0;i < list.length;i++){ %>
-    <div class="order-item">
+    <div class="order-item" onClick="craftmanDetail(<%= list[i].id%>)">
       <div class="top-line">
         <div class="avator" style="background-image:url(<%= list[i].avatorUrl %>)"></div>
         <div class="top-right">
