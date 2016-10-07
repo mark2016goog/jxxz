@@ -1,0 +1,39 @@
+@charset "UTF-8";
+.iconfont {
+  -webkit-font-smoothing: antialiased; }
+
+.iconfont {
+  -webkit-text-stroke-width: 0.2px; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: none; }
+
+body {
+  font-family: 'PingFang SC', Arial, 'Microsoft YaHei', 'SimHei', sans-serif;
+  margin: 0;
+  background-color: #293340; }
+
+/*
+去掉点击时的选择和阴影
+*/
+div, a, img {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none; }
+
+a {
+  text-decoration: none; }
+
+html, body, .wrapper {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.4375rem; }
+
+.wrapper {
+  background-color: #EEEEEE; }
+
+/*# sourceMappingURL=login_b.css.map */

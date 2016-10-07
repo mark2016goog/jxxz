@@ -12,5 +12,6 @@ router.get('/searchCraftmanAsync', controller.searchCraftmanAsync);
 router.get('/craftmanDetail', controller.craftmanDetail);
 router.get('/followCraftman', controller.followCraftman);
 router.get('/commentList', controller.commentList);
+router.get('/craftmanLogin',controller.craftmanLogin);
 
 module.exports = router;

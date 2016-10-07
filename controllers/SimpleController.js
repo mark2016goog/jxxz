@@ -320,3 +320,10 @@ exports.commentList = function (req, res, next) {
     };
     res.render('user_comment_list', commentList);
 };
+
+exports.craftmanLogin = function (req, res, next) {
+    var loginData = {
+        title: '工匠登陆'
+    };
+    res.render('login_b', loginData);
+};

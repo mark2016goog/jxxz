@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+$bkg-color: #EEEEEE;
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    font-size: getRem640(28);
+}
+
+.wrapper {
+    background-color: $bkg-color;
+}
