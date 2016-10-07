@@ -2,7 +2,10 @@
  * Created by xiangkai on 16/9/4.
  */
 var request = require("request");
+var crypto = require("crypto");
+
 var getAccessTokenURL = "https://api.weixin.qq.com/sns/oauth2/access_token";
+
 exports.loginPage = function (req, res, next) {
     var loginData = {
         title: '用户登录',
@@ -310,10 +313,16 @@ exports.geoPosition = function (req, res, next) {
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
 
     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+    console.log("combineString:" + combineString);
+    var shasum = crypto.createHash("sha1");
+    shasum.update(combineString);
+    var signature = shasum.digest("hex");
+
     var geographicPositionText = {
         text: "上海市静安区南京西路1266号恒隆广场",
-        token: GlobalCache.getAccessToken(),
-        ticket: GlobalCache.getApiTicket()
+        timestamp: timestamp,
+        nonceStr: nonceStr,
+        signature: signature
     };
 
     res.render('geographicPosition', geographicPositionText);

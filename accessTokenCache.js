@@ -2,50 +2,56 @@
  * Created by xuanhong on 16/10/6.
  */
 var request = require("request");
+var scheduler = require("node-schedule");
+var rule = new scheduler.RecurrenceRule();
+rule.hour = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
 var alphabet = "abcdefghijklmnopqrstuvwxyz";
 var randStrLen = 20;
+var getTokenURL = "https://api.weixin.qq.com/cgi-bin/token";
+var getTicketURL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
+var appID = "wxde4642a10788624f";
+var appSecret = "4e67e578e0318def0512293bff7e1550";
+
 
 var GlobalCache = function () {
-    this.accessToken = "000";
-    this.jsapi_ticket = "111";
-
-    var reqParam = {
-        url: "https://api.weixin.qq.com/cgi-bin/token",
-        qs: {
-            grant_type: "client_credential",
-            appid: "wxde4642a10788624f",
-            secret: "4e67e578e0318def0512293bff7e1550",
-        }
-    };
-
+    this.jsapi_ticket = "kgt8ON7yVITDhtdwci0qeeEmFPtGb2Fl9UMX233yf0zGqIPMAj1CvpdmBytr5LW1n7FxHT9JOZDcjdBBfkIHXA";
     var self = this;
-
-    var callback = function (error, response, body) {
-        console.log(body);
-        //{"access_token":"ACCESS_TOKEN","expires_in":7200}
-        //{"errcode":40013,"errmsg":"invalid appid"}
-        var body = JSON.parse(body);
-        self.accessToken = body.access_token;
-        var ticketParam = {
-            url: "https://api.weixin.qq.com/cgi-bin/ticket/getticket",
+    var getTicket = function () {
+        var reqParam = {
+            url: getTokenURL,
             qs: {
-                access_token: body.access_token,
-                type: "jsapi"
+                grant_type: "client_credential",
+                appid: appID,
+                secret: appSecret,
             }
         };
-        var getTicketCallback = function (error, response, ticketData) {
-            var ticket = JSON.parse(ticketData).ticket;
-            self.jsapi_ticket = ticket;
+
+        var callback = function (error, response, body) {
+            //{"access_token":"ACCESS_TOKEN","expires_in":7200}
+            //{"errcode":40013,"errmsg":"invalid appid"}
+            var body = JSON.parse(body);
+            var ticketParam = {
+                url: getTicketURL,
+                qs: {
+                    access_token: body.access_token,
+                    type: "jsapi"
+                }
+            };
+            var getTicketCallback = function (error, response, ticketData) {
+                var ticket = JSON.parse(ticketData).ticket;
+                console.log("ticket:" + ticket);
+                self.jsapi_ticket = ticket;
+            };
+
+            request.get(ticketParam, getTicketCallback);
         };
 
-        request.get(ticketParam, getTicketCallback);
+        request.get(reqParam, callback);
     };
 
-    request.get(reqParam, callback);
-};
+    getTicket();//excute when startup
 
-GlobalCache.prototype.getAccessToken = function () {
-    return this.accessToken;
+    scheduler.scheduleJob(rule, getTicket);
 };
 
 GlobalCache.prototype.getApiTicket = function () {
@@ -57,7 +63,7 @@ GlobalCache.prototype.getRandomStr = function () {
     for (var p = 0; p < randStrLen; p++) {
         var randNum = Math.random() * 26;
         randNum = Math.floor(randNum);
-        randStr.push(alphabet[randNum]);
+        randStr += alphabet[randNum];
     }
     return randStr;
 };
