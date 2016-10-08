@@ -39,11 +39,57 @@
     <div class="avator" style="background-image: url(<%= avator %>)"></div>
     <div class="name"><%= name %></div>
     <div class="telephone"><%= telephone %></div>
+    <div class="right-arrow"></div>
   </div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
+  <div class="second-line">
+    <div>
+      <div class="order-amount"><%= orderAmount %>单</div>
+      <div class="bot-text">累计完成</div>
+    </div>
+    <div class="detail-list">
+      <div class="detail-logo">
+
+      </div>
+      <div class="bot-text">
+        明细列表
+      </div>
+    </div>
+    <div>
+      <div class="business-card-logo">
+
+      </div>
+      <div class="bot-text">
+        我的业务名片
+      </div>
+    </div>
+  </div>
+  <div class="third-line">
+    <div class="flex remain">
+      <div class="left-title">当前余额</div>
+      <div class="right-number remain-number"><%= remainMoney %></div>
+    </div>
+    <div class="flex withdraw">
+      <div class="left-title">提现中</div>
+      <div class="right-number"><%= withdrawingMoney %></div>
+    </div>
+  </div>
+  <div class="four-line">
+    <div class="flex remain">
+      <div class="left-title">累计收入</div>
+      <div class="right-number"><%= totalIncome %></div>
+    </div>
+    <div class="flex withdraw">
+      <div class="left-title">已提现</div>
+      <div class="right-number withdrew-number"><%= withdrawedMoney %></div>
+    </div>
+  </div>
+  <div class="withdraw-btn">
+      提现
+  </div>
+  <div class="withdraw-intro">
+    提现说明:<br />
+    1.仅支持微信
+  </div>
 </div>
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>

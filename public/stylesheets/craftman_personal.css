@@ -38,6 +38,10 @@ input, button {
   margin: 0;
   border: none; }
 
+.flex {
+  display: flex;
+  align-items: center; }
+
 .wrapper {
   background-color: #EEEEEE;
   padding-top: 0.5rem; }
@@ -61,5 +65,98 @@ input, button {
     .wrapper .basic-info .telephone {
       font-size: 0.4375rem;
       color: #aaa; }
+    .wrapper .basic-info .right-arrow {
+      width: 0.3125rem;
+      height: 0.5625rem;
+      background-image: url("../images/right-arrow.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-left: 2.23438rem; }
+  .wrapper .second-line {
+    display: flex;
+    background-color: #FFF; }
+    .wrapper .second-line .detail-list {
+      border-left: 1px solid #e7e7e7;
+      border-right: 1px solid #e7e7e7; }
+    .wrapper .second-line > div {
+      flex-basis: 33.3%;
+      padding-top: 0.5rem;
+      padding-bottom: 0.4375rem;
+      font-size: 0.3125rem;
+      color: #575757; }
+      .wrapper .second-line > div .order-amount {
+        font-size: 0.40625rem;
+        color: #ffb400; }
+      .wrapper .second-line > div .detail-logo {
+        width: 0.5625rem;
+        height: 0.5625rem;
+        background-image: url("../images/cash-detail.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin: 0 auto; }
+      .wrapper .second-line > div .bot-text {
+        margin-top: 0.09375rem; }
+      .wrapper .second-line > div .business-card-logo {
+        width: 0.5625rem;
+        height: 0.5625rem;
+        background-image: url("../images/my-business-card-2x.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin: 0 auto; }
+    .wrapper .second-line div {
+      text-align: center; }
+  .wrapper .third-line {
+    display: flex;
+    margin-top: 0.21875rem;
+    height: 1.71875rem;
+    background-color: #FFF;
+    border-bottom: 1px solid #e7e7e7;
+    align-items: center;
+    padding: 0 0.5rem; }
+    .wrapper .third-line > div {
+      flex-basis: 50%; }
+  .wrapper .remain {
+    height: 100%;
+    border-right: 1px solid #e7e7e7; }
+  .wrapper .withdraw {
+    margin-left: 0.5rem; }
+  .wrapper .left-title {
+    margin-right: 0.375rem;
+    font-size: 0.3125rem;
+    color: #aaa; }
+  .wrapper .right-number {
+    font-size: 0.4375rem;
+    color: #575757; }
+  .wrapper .remain-number {
+    color: #ffb400; }
+  .wrapper .withdrew-number {
+    color: #aaa; }
+  .wrapper .four-line {
+    display: flex;
+    background-color: #FFF;
+    height: 1.71875rem;
+    align-items: center;
+    padding: 0 0.5rem; }
+    .wrapper .four-line > div {
+      flex-basis: 50%; }
+  .wrapper .withdraw-btn {
+    margin-top: 0.5rem;
+    width: 9.375rem;
+    height: 1.40625rem;
+    line-height: 1.40625rem;
+    color: #FFF;
+    font-size: 0.5625rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: #ffb400;
+    border-radius: 0.07813rem; }
+  .wrapper .withdraw-intro {
+    margin-top: 0.71875rem;
+    font-size: 0.25rem;
+    color: #7a7a7a;
+    width: 9.375rem;
+    margin-left: auto;
+    margin-right: auto; }
 
 /*# sourceMappingURL=craftman_personal.css.map */

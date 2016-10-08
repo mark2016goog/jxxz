@@ -18,11 +18,16 @@ input, button {
     border: none;
 }
 
+.flex {
+    display: flex;
+    align-items: center;
+}
+
 .wrapper {
     background-color: $bkg-color;
     padding-top: getRem640(32);
     .basic-info {
-        display:flex;
+        display: flex;
         align-items: center;
         height: getRem640(120);
         padding: getRem640(20) getRem640(32);
@@ -35,14 +40,137 @@ input, button {
             background-repeat: no-repeat;
             margin-right: getRem640(32);
         }
-        .name{
+        .name {
             margin-right: getRem640(32);
             font-size: getRem640(28);
             color: #131313;
         }
-        .telephone{
+        .telephone {
             font-size: getRem640(28);
             color: #aaa;
         }
+        .right-arrow {
+            width: getRem640(20);
+            height: getRem640(36);
+            background-image: url("../images/right-arrow.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-left: getRem640(143);
+        }
+    }
+
+    .second-line {
+        display: flex;
+        background-color: #FFF;
+        .detail-list {
+            border-left: 1px solid #e7e7e7;
+            border-right: 1px solid #e7e7e7;
+        }
+        & > div {
+            flex-basis: 33.3%;
+            padding-top: getRem640(32);
+            padding-bottom: getRem640(28);
+            font-size: getRem640(20);
+            color: #575757;
+            .order-amount {
+                font-size: getRem640(26);
+                color: #ffb400;
+            }
+            .detail-logo {
+                width: getRem640(36);
+                height: getRem640(36);
+                background-image: url("../images/cash-detail.png");
+                background-size: contain;
+                background-repeat: no-repeat;
+                margin: 0 auto;
+            }
+            .bot-text {
+                margin-top: getRem640(6);
+            }
+            .business-card-logo {
+                width: getRem640(36);
+                height: getRem640(36);
+                background-image: url("../images/my-business-card-2x.png");
+                background-size: contain;
+                background-repeat: no-repeat;
+                margin: 0 auto;
+            }
+        }
+        div {
+            text-align: center;
+        }
+    }
+
+    .third-line {
+        display: flex;
+        margin-top: getRem640(14);
+        height: getRem640(110);
+        background-color: #FFF;
+        border-bottom: 1px solid #e7e7e7;
+        align-items: center;
+        padding: 0 getRem640(32);
+        & > div {
+            flex-basis: 50%;
+        }
+    }
+
+    .remain {
+        height: 100%;
+        border-right: 1px solid #e7e7e7;
+    }
+
+    .withdraw {
+        margin-left: getRem640(32);
+    }
+
+    .left-title {
+        margin-right: getRem640(24);
+        font-size: getRem640(20);
+        color: #aaa;
+    }
+
+    .right-number {
+        font-size: getRem640(28);
+        color: #575757;
+    }
+
+    .remain-number {
+        color: #ffb400;
+    }
+
+    .withdrew-number {
+        color: #aaa;
+    }
+
+    .four-line {
+        display: flex;
+        background-color: #FFF;
+        height: getRem640(110);
+        align-items: center;
+        padding: 0 getRem640(32);
+        & > div {
+            flex-basis: 50%;
+        }
+    }
+    .withdraw-btn {
+        margin-top: getRem640(32);
+        width: getRem640(600);
+        height: getRem640(90);
+        line-height: getRem640(90);
+        color: #FFF;
+        font-size: getRem640(36);
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        background-color: #ffb400;
+        border-radius: getRem640(5);
+    }
+    .withdraw-intro {
+        margin-top: getRem640(46);
+        font-size: getRem640(16);
+        color: #7a7a7a;
+        width: getRem640(600);
+        margin-left: auto;
+        margin-right: auto;
     }
 }

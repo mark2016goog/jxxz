@@ -345,10 +345,10 @@ exports.craftmanPersonalInfo = function (req, res, next) {
         name: "黄师傅",
         telephone: 15800622061,
         orderAmount: 666,
-        remainMoney: 1000,
-        withdrawingMoney: 2200,
-        withdrawedMoney: 800,
-        totalIncome: 4000
+        remainMoney: 1000.00,
+        withdrawingMoney: 2200.00,
+        withdrawedMoney: 800.00,
+        totalIncome: 4000.00
     };
     res.render("craftman_personal", craftmanData);
 };
