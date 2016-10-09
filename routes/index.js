@@ -15,4 +15,5 @@ router.get('/commentList', controller.commentList);
 router.get('/craftmanLoginPage',controller.craftmanLoginPage);
 router.get('/loginCraftman',controller.craftmanLogin);
 router.get('/craftmanPersonalInfo',controller.craftmanPersonalInfo);
+router.get('/withdraw',controller.withdraw);
 module.exports = router;

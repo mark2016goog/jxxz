@@ -352,3 +352,9 @@ exports.craftmanPersonalInfo = function (req, res, next) {
     };
     res.render("craftman_personal", craftmanData);
 };
+
+exports.withdraw = function (req, res, next) {
+    var username = req.query.amount;
+    res.contentType("json");
+    res.send({withdrawResult: true});
+};

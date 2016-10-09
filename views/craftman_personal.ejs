@@ -83,12 +83,29 @@
       <div class="right-number withdrew-number"><%= withdrawedMoney %></div>
     </div>
   </div>
-  <div class="withdraw-btn">
+  <div class="withdraw-btn" onclick="showPopWin()">
       提现
   </div>
   <div class="withdraw-intro">
     提现说明:<br />
     1.仅支持微信
+  </div>
+</div>
+
+<div class="pop-dlg" id="pop-dlg">
+  <div class="dialog">
+    <div class="tele-num">
+      请输入提现金额 <input type="text" class="withdraw-input" id="withdraw-amount"/>
+    </div>
+    <div class="button">
+      <div class="cancel" onclick="cancelWithdraw()">
+        取消
+      </div>
+
+      <div class="confirm" onclick = "confirmWithdraw()">
+        确认
+      </div>
+    </div>
   </div>
 </div>
 

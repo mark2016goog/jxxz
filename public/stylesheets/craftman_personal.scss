@@ -174,3 +174,63 @@ input, button {
         margin-right: auto;
     }
 }
+
+.pop-dlg {
+    width: getRem640(640);
+    height: getRem640(1136);
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display:none;
+    .dialog {
+        width: getRem640(540);
+        height: getRem640(250);
+        background-color: #FFF;
+        border-radius: getRem640(5);
+        margin: 0 auto;
+        margin-top: getRem640(300);
+        text-align: center;
+        font-size: getRem640(40);
+        color: #FFb400;
+
+        .tele-num {
+            padding-top: getRem640(64);
+            padding-bottom: getRem640(64);
+            padding-left: getRem640(32);
+            font-weight: 200;
+            text-align: left;
+            color: #e7e7e7;
+            .withdraw-input{
+                height: getRem640(50);
+                width: getRem640(180);
+                border-bottom: 1px solid #e7e7e7;
+                font-size: getRem640(40);
+            }
+        }
+        .button {
+            display: flex;
+            font-size: getRem640(32);
+            height: getRem640(88);
+            line-height: getRem640(88);
+            border-radius: getRem640(8);
+            font-weight: 300;
+            .cancel {
+                flex-basis: 50%;
+                color: #A3A3A3;
+                background-color: #dcdcdc;
+                border-bottom-left-radius: getRem640(8);
+            }
+            .confirm {
+                flex-basis: 50%;
+                background-color: #FFb400;
+                color: #FFF;
+                border-bottom-right-radius: getRem640(8);
+            }
+
+        }
+    }
+
+}
