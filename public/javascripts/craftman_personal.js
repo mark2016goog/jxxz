@@ -28,4 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         popWin.style.display = "none";
     };
+
+    window.personalSetting = function () {
+        window.location.href = "/craftmanSettingPage";
+    };
+
 });

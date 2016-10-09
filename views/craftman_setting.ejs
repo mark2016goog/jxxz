@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>工匠账户设置</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- uc强制竖屏 -->
+  <meta name="screen-orientation" content="portrait">
+  <!-- qq强制竖屏 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <!-- rem.js -->
+  <script>!function () {
+      function e() {
+        clearTimeout(i), i = setTimeout(t, 300)
+      }
+
+      function t() {
+        n.rem = o.getBoundingClientRect().width / 10, o.style.fontSize = n.rem + "px"
+      }
+
+      var i, n = window, o = document.documentElement, d = "addEventListener";
+      t(), o.setAttribute("data-dpr", n.devicePixelRatio), n[d]("resize", e), n[d]("pageshow", function (t) {
+        t.persisted && e()
+      })
+    }();</script>
+
+  <link rel='stylesheet' href='/stylesheets/craftman_setting.css'/>
+</head>
+<body>
+<div class="wrapper">
+  <div class="up first">
+    <div>真实姓名</div>
+    <input type="text" value="<%= name %>">
+  </div>
+  <div class="up">
+    <div>提现账户</div>
+    <input type="text" value="" placeholder="微信ID/银行卡号" />
+  </div>
+  <div class="up">
+    <div>修改登录密码</div>
+    <div class="right-arrow"></div>
+  </div>
+  <div class="down">
+    退出登录
+  </div>
+</div>
+
+<div class="pop-dlg" id="pop-dlg">
+
+</div>
+
+<script src="/javascripts/lib/simple_ajax.js"></script>
+<script src="/javascripts/craftman_setting.js"></script>
+</body>
+</html>

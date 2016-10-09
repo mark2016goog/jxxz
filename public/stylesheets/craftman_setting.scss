@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+$bkg-color: #EEEEEE;
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    font-size: getRem640(28);
+}
+
+.wrapper {
+    background-color: $bkg-color;
+
+    padding-top: getRem640(32);
+
+    .up {
+        display: flex;
+        height: getRem640(90);
+        justify-content: space-between;
+        padding: getRem640(32) getRem640(30);
+        align-items: center;
+        background-color: #FFF;
+        border-bottom: 1px solid #e7e7e7;
+        & > div {
+            font-size: getRem640(28);
+            color: #2e2e2e;
+        }
+        input{
+            font-size: getRem640(28);
+            color:#aaa;
+            text-align: right;
+        }
+        .right-arrow{
+            width: getRem640(20);
+            height: getRem640(36);
+            background-image: url("../images/right-arrow.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    }
+    .down{
+        margin-top: getRem640(32);
+        background-color: #FFF;
+        text-align: center;
+        width: getRem640(640);
+        height: getRem640(88);
+        line-height: getRem640(88);
+        color: #575757;
+    }
+}

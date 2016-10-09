@@ -354,7 +354,14 @@ exports.craftmanPersonalInfo = function (req, res, next) {
 };
 
 exports.withdraw = function (req, res, next) {
-    var username = req.query.amount;
+    var amount = req.query.amount;
     res.contentType("json");
     res.send({withdrawResult: true});
+};
+
+exports.craftmanSettingPage = function (req, res, next) {
+    var craftmanData = {
+        name: "王家卫"
+    };
+    res.render("craftman_setting", craftmanData);
 };
