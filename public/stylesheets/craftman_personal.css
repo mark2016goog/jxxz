@@ -163,11 +163,8 @@ input, button {
   width: 10rem;
   height: 17.75rem;
   background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  width: 10rem;
+  height: 17.75rem;
   display: none; }
   .pop-dlg .dialog {
     width: 8.4375rem;

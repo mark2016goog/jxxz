@@ -33,6 +33,11 @@ html, body, .wrapper {
   -webkit-overflow-scrolling: touch;
   font-size: 0.4375rem; }
 
+input, button {
+  border: none;
+  margin: none;
+  outline: none; }
+
 .wrapper {
   background-color: #EEEEEE;
   padding-top: 0.5rem; }
@@ -65,5 +70,49 @@ html, body, .wrapper {
     height: 1.375rem;
     line-height: 1.375rem;
     color: #575757; }
+
+.pop-dlg {
+  display: none;
+  width: 10rem;
+  height: 17.75rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+  .pop-dlg .content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 7.98438rem;
+    background-color: #fff;
+    padding-top: 0.5rem; }
+    .pop-dlg .content .password-input {
+      border-top: 1px solid #e7e7e7;
+      border-bottom: 1px solid #e7e7e7;
+      height: 1.375rem;
+      padding-left: 0.40625rem;
+      margin-bottom: 0.1875rem;
+      position: relative; }
+      .pop-dlg .content .password-input input {
+        height: 100%;
+        font-size: 0.4375rem;
+        color: #aaa; }
+      .pop-dlg .content .password-input button {
+        height: 100%;
+        font-size: 0.4375rem;
+        color: #fff;
+        position: absolute;
+        right: 0;
+        background-color: #ab9355; }
+    .pop-dlg .content .confirm-modify {
+      height: 1.40625rem;
+      background-color: #ffb400;
+      margin-top: 0.5625rem;
+      line-height: 1.40625rem;
+      text-align: center;
+      color: #fff; }
 
 /*# sourceMappingURL=craftman_setting.css.map */

@@ -12,6 +12,12 @@ html, body, .wrapper {
     font-size: getRem640(28);
 }
 
+input, button {
+    border: none;
+    margin: none;
+    outline: none;
+}
+
 .wrapper {
     background-color: $bkg-color;
 
@@ -29,12 +35,12 @@ html, body, .wrapper {
             font-size: getRem640(28);
             color: #2e2e2e;
         }
-        input{
+        input {
             font-size: getRem640(28);
-            color:#aaa;
+            color: #aaa;
             text-align: right;
         }
-        .right-arrow{
+        .right-arrow {
             width: getRem640(20);
             height: getRem640(36);
             background-image: url("../images/right-arrow.png");
@@ -42,7 +48,7 @@ html, body, .wrapper {
             background-repeat: no-repeat;
         }
     }
-    .down{
+    .down {
         margin-top: getRem640(32);
         background-color: #FFF;
         text-align: center;
@@ -50,5 +56,55 @@ html, body, .wrapper {
         height: getRem640(88);
         line-height: getRem640(88);
         color: #575757;
+    }
+}
+
+.pop-dlg {
+    display: none;
+    width: getRem640(640);
+    height: getRem640(1136);
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    .content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: getRem640(511);
+        background-color: #fff;
+        padding-top: getRem640(32);
+        .password-input {
+            border-top: 1px solid #e7e7e7;
+            border-bottom: 1px solid #e7e7e7;
+            height: getRem640(88);
+            padding-left: getRem640(26);
+            margin-bottom: getRem640(12);
+            position: relative;
+            input {
+                height: 100%;
+                font-size: getRem640(28);
+                color: #aaa;
+            }
+            button{
+                height: 100%;
+                font-size: getRem640(28);
+                color: #fff;
+                position: absolute;
+                right:0;
+                background-color: #ab9355;
+            }
+        }
+        .confirm-modify{
+            height: getRem640(90);
+            background-color: #ffb400;
+            margin-top: getRem640(36);
+            line-height: getRem640(90);
+            text-align: center;
+            color: #fff;
+        }
     }
 }

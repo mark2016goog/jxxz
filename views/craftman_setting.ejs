@@ -41,9 +41,9 @@
   </div>
   <div class="up">
     <div>提现账户</div>
-    <input type="text" value="" placeholder="微信ID/银行卡号" />
+    <input type="text" value="" placeholder="微信ID/银行卡号"/>
   </div>
-  <div class="up">
+  <div class="up" onclick="modifyPwdDlg()">
     <div>修改登录密码</div>
     <div class="right-arrow"></div>
   </div>
@@ -52,11 +52,22 @@
   </div>
 </div>
 
-<div class="pop-dlg" id="pop-dlg">
-  <div class="password-input"></div>
-  <div class="password-input"></div>
-  <div class="password-input"></div>
-  <div class="confirm-modify"></div>
+<div class="pop-dlg" id="pop-dlg" onclick="hideModifyDlg()">
+  <div class="content" id="content">
+    <div class="password-input">
+      <input type="text" placeholder="请输入新密码"/>
+    </div>
+    <div class="password-input">
+      <input type="text" placeholder="请再次输入新密码"/>
+    </div>
+    <div class="password-input">
+      <input type="text" placeholder="请输入验证码"/>
+      <button>获取验证码</button>
+    </div>
+    <div class="confirm-modify">
+      确认
+    </div>
+  </div>
 </div>
 
 <script src="/javascripts/lib/simple_ajax.js"></script>
