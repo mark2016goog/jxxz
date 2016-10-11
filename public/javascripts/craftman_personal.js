@@ -35,4 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var telephoneNo = document.getElementById("telephone").innerText;
     sessionStorage.craftmanTelephone = telephoneNo;
+
+    window.detailList = function(){
+        window.location.href = "/getAccountDetailList";
+    };
 });

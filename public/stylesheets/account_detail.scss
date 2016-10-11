@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+$bkg-color: #EEEEEE;
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    font-size: getRem640(28);
+}
+
+.wrapper {
+    background-color: $bkg-color;
+    .item {
+        height: getRem640(150);
+        padding: getRem640(20) getRem640(28);
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border-bottom: 1px solid #e7e7e7;
+        .left{
+            display:flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: getRem640(440);
+            height: 100%;
+            .name{
+                font-size: getRem640(22);
+                color: #2e2e2e;
+            }
+            .grey{
+                font-size:getRem640(18);
+                color: #aaa;
+            }
+        }
+        .right{
+
+        }
+    }
+}

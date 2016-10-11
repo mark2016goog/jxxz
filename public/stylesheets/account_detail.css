@@ -1,0 +1,58 @@
+@charset "UTF-8";
+.iconfont {
+  -webkit-font-smoothing: antialiased; }
+
+.iconfont {
+  -webkit-text-stroke-width: 0.2px; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: none; }
+
+body {
+  font-family: 'PingFang SC', Arial, 'Microsoft YaHei', 'SimHei', sans-serif;
+  margin: 0;
+  background-color: #293340; }
+
+/*
+去掉点击时的选择和阴影
+*/
+div, a, img {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none; }
+
+a {
+  text-decoration: none; }
+
+html, body, .wrapper {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.4375rem; }
+
+.wrapper {
+  background-color: #EEEEEE; }
+  .wrapper .item {
+    height: 2.34375rem;
+    padding: 0.3125rem 0.4375rem;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-bottom: 1px solid #e7e7e7; }
+    .wrapper .item .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 6.875rem;
+      height: 100%; }
+      .wrapper .item .left .name {
+        font-size: 0.34375rem;
+        color: #2e2e2e; }
+      .wrapper .item .left .grey {
+        font-size: 0.28125rem;
+        color: #aaa; }
+
+/*# sourceMappingURL=account_detail.css.map */

@@ -378,5 +378,36 @@ exports.getVerifyCode = function (req, res, next) {
 exports.modifyPassword = function (req, res, next) {
     var teleNo = req.query.teleNo;
     var password = req.query.password;
-    res.send({result:true});
+    res.send({result: true});
+};
+
+exports.getAccountDetailList = function (req, res, next) {
+    var detailList = {
+        list: [{
+            name: "服务收入",
+            id: "123123123123",
+            time: "2016-10-11",
+            amount: 4000.00,
+            type: 1
+        }, {
+            name: "提现",
+            id: "123123123123",
+            time: "2016-10-11",
+            amount: -2000.00,
+            type: 2
+        }, {
+            name: "服务收入",
+            id: "123123123123",
+            time: "2016-10-11",
+            amount: 1000.00,
+            type: 1
+        }, {
+            name: "服务收入",
+            id: "123123123123",
+            time: "2016-10-11",
+            amount: 1000.00,
+            type: 1
+        }]
+    };
+    res.render("account_detail", detailList);
 };

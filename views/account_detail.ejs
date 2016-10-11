@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>明细列表</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- uc强制竖屏 -->
+  <meta name="screen-orientation" content="portrait">
+  <!-- qq强制竖屏 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <!-- rem.js -->
+  <script>!function () {
+      function e() {
+        clearTimeout(i), i = setTimeout(t, 300)
+      }
+
+      function t() {
+        n.rem = o.getBoundingClientRect().width / 10, o.style.fontSize = n.rem + "px"
+      }
+
+      var i, n = window, o = document.documentElement, d = "addEventListener";
+      t(), o.setAttribute("data-dpr", n.devicePixelRatio), n[d]("resize", e), n[d]("pageshow", function (t) {
+        t.persisted && e()
+      })
+    }();</script>
+
+  <link rel='stylesheet' href='/stylesheets/account_detail.css'/>
+</head>
+<body>
+<div class="wrapper">
+  <% for(var i = 0;i < list.length;i++){ %>
+  <div class="item">
+    <div class="left">
+      <div class="name"><%= list[i].name %></div>
+      <div class="grey">订单编号 <%= list[i].id %></div>
+      <div class="grey">支付时间 <%= list[i].time %></div>
+    </div>
+    <div class="right">
+      <%= list[i].amount %>
+    </div>
+  </div>
+  <% } %>
+</div>
+<script src="/javascripts/account_detail.js"></script>
+</body>
+</html>
