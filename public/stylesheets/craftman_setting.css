@@ -101,6 +101,7 @@ input, button {
         font-size: 0.4375rem;
         color: #aaa; }
       .pop-dlg .content .password-input button {
+        width: 2.65625rem;
         height: 100%;
         font-size: 0.4375rem;
         color: #fff;

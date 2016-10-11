@@ -89,16 +89,17 @@ input, button {
                 font-size: getRem640(28);
                 color: #aaa;
             }
-            button{
+            button {
+                width: getRem640(170);
                 height: 100%;
                 font-size: getRem640(28);
                 color: #fff;
                 position: absolute;
-                right:0;
+                right: 0;
                 background-color: #ab9355;
             }
         }
-        .confirm-modify{
+        .confirm-modify {
             height: getRem640(90);
             background-color: #ffb400;
             margin-top: getRem640(36);

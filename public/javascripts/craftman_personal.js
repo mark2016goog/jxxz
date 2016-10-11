@@ -33,4 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "/craftmanSettingPage";
     };
 
+    var telephoneNo = document.getElementById("telephone").innerText;
+    sessionStorage.craftmanTelephone = telephoneNo;
 });

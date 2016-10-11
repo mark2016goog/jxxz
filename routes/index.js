@@ -17,4 +17,6 @@ router.get('/loginCraftman',controller.craftmanLogin);
 router.get('/craftmanPersonalInfo',controller.craftmanPersonalInfo);
 router.get('/withdraw',controller.withdraw);
 router.get('/craftmanSettingPage',controller.craftmanSettingPage);
+router.get('/getVerifyCode',controller.getVerifyCode);
+router.get('/modifyPassword',controller.modifyPassword);
 module.exports = router;

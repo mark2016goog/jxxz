@@ -279,7 +279,7 @@ exports.craftmanDetail = function (req, res, next) {
 };
 
 exports.followCraftman = function (req, res, next) {
-    res.contentType("json");
+    res.setHeader('Content-Type', 'application/json');
     res.send({followResult: "Follow successfully!"});
 };
 
@@ -333,7 +333,7 @@ exports.craftmanLogin = function (req, res, next) {
     var password = req.query.password;
     console.log("username:" + username);
     console.log("pwd:" + password);
-    res.contentType("json");
+    res.setHeader('Content-Type', 'application/json');
     var cookieAge = 60 * 1000;
     res.cookie("b_token", 123456, {maxAge: cookieAge});
     res.send({loginSuc: true});
@@ -355,7 +355,7 @@ exports.craftmanPersonalInfo = function (req, res, next) {
 
 exports.withdraw = function (req, res, next) {
     var amount = req.query.amount;
-    res.contentType("json");
+    res.setHeader('Content-Type', 'application/json');
     res.send({withdrawResult: true});
 };
 
@@ -364,4 +364,19 @@ exports.craftmanSettingPage = function (req, res, next) {
         name: "王家卫"
     };
     res.render("craftman_setting", craftmanData);
+};
+
+exports.getVerifyCode = function (req, res, next) {
+    var telephoneNo = req.query.teleNo;
+    var sendVerifyCodeResult = {
+        sendVerifyCodeResult: true
+    };
+    //res.setHeader('Content-Type', 'application/json');
+    res.send(sendVerifyCodeResult);
+};
+
+exports.modifyPassword = function (req, res, next) {
+    var teleNo = req.query.teleNo;
+    var password = req.query.password;
+    res.send({result:true});
 };
