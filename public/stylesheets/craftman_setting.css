@@ -74,7 +74,7 @@ input, button {
 .pop-dlg {
   display: none;
   width: 10rem;
-  height: 17.75rem;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   left: 0;
@@ -101,7 +101,7 @@ input, button {
         font-size: 0.4375rem;
         color: #aaa; }
       .pop-dlg .content .password-input button {
-        width: 2.65625rem;
+        width: 2.89063rem;
         height: 100%;
         font-size: 0.4375rem;
         color: #fff;

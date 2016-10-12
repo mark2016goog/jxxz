@@ -62,7 +62,7 @@ input, button {
 .pop-dlg {
     display: none;
     width: getRem640(640);
-    height: getRem640(1136);
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     left: 0;
@@ -90,7 +90,7 @@ input, button {
                 color: #aaa;
             }
             button {
-                width: getRem640(170);
+                width: getRem640(185);
                 height: 100%;
                 font-size: getRem640(28);
                 color: #fff;
