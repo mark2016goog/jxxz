@@ -54,5 +54,11 @@ html, body, .wrapper {
       .wrapper .item .left .grey {
         font-size: 0.28125rem;
         color: #aaa; }
+    .wrapper .item .income {
+      font-szie: 0.5rem;
+      color: #ffb400; }
+    .wrapper .item .withdraw {
+      font-szie: 0.5rem;
+      color: #1cd00f; }
 
 /*# sourceMappingURL=account_detail.css.map */

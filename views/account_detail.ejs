@@ -42,9 +42,16 @@
       <div class="grey">订单编号 <%= list[i].id %></div>
       <div class="grey">支付时间 <%= list[i].time %></div>
     </div>
-    <div class="right">
+    <% if(list[i].type === 1) { %>
+    <div class="income">
       <%= list[i].amount %>
     </div>
+    <% } %>
+    <% if(list[i].type === 2) { %>
+    <div class="withdraw">
+      <%= list[i].amount %>
+    </div>
+    <% } %>
   </div>
   <% } %>
 </div>

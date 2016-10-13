@@ -36,8 +36,13 @@ html, body, .wrapper {
                 color: #aaa;
             }
         }
-        .right{
-
+        .income{
+            font-szie: getRem640(32);
+            color: #ffb400;
+        }
+        .withdraw{
+            font-szie: getRem640(32);
+            color: #1cd00f;
         }
     }
 }
