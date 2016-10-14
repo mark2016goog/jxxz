@@ -39,4 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
     window.detailList = function(){
         window.location.href = "/getAccountDetailList";
     };
+
+    window.businessCard = function(){
+        window.location.href = "/craftmanDetail?id=1";
+    };
 });
