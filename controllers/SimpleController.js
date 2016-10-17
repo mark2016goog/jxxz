@@ -222,7 +222,7 @@ exports.craftmanDetail = function (req, res, next) {
     var signature = shasum.digest("hex");
 
     var craftmanDetail = {
-        text: "上海市静安区南京西路1266号恒隆广场",
+        geoText: "上海市静安区南京西路1266号恒隆广场",
         timestamp: timestamp,
         nonceStr: nonceStr,
         signature: signature,
@@ -348,7 +348,9 @@ exports.craftmanPersonalInfo = function (req, res, next) {
         remainMoney: 1000.00,
         withdrawingMoney: 2200.00,
         withdrawedMoney: 800.00,
-        totalIncome: 4000.00
+        totalIncome: 4000.00,
+        realName: "王家卫",
+        withdrawAccount: 421214
     };
     res.render("craftman_personal", craftmanData);
 };
