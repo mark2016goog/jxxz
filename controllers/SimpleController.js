@@ -5,6 +5,11 @@ var request = require("request");
 var crypto = require("crypto");
 
 var getAccessTokenURL = "https://api.weixin.qq.com/sns/oauth2/access_token";
+var prePayURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+var appid = "wxde4642a10788624f";
+var secret = "4e67e578e0318def0512293bff7e1550";
+var commercialAccountID = "1387195102";
+
 
 exports.loginPage = function (req, res, next) {
     var loginData = {
@@ -19,8 +24,8 @@ exports.weChatCallback = function (req, res, next) {
     var reqParam = {
         url: getAccessTokenURL,
         qs: {
-            appid: "wxde4642a10788624f",
-            secret: "4e67e578e0318def0512293bff7e1550",
+            appid: appid,
+            secret: secret,
             code: oauthCode,
             grant_type: "authorization_code"
         }
@@ -412,4 +417,45 @@ exports.getAccountDetailList = function (req, res, next) {
         }]
     };
     res.render("account_detail", detailList);
+};
+
+
+exports.prePay = function(req,res,next) {
+    //生成商户订单
+    var user_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    var amount = req.query.amount;
+
+    var apiTicket = GlobalCache.getApiTicket();
+    var nonceStr = GlobalCache.getRandomStr();
+    var timestamp = (new Date()).getTime();
+    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+    console.log("combineString:" + combineString);
+    var shasum = crypto.createHash("sha1");
+    shasum.update(combineString);
+    var signature = shasum.digest("hex");
+    var detaiJSON = {
+
+    };
+
+    var prepayParameter = {
+        appid: appid,
+        mch_id: commercialAccountID,
+        device_info: "WEB",
+        nonce_str:nonceStr,
+        sign:signature,
+        body:"小筑匠心-百货",
+        detail: detaiJSON,
+        out_trade_no: "12123123123",//商户订单号
+        total_fee: amount, //单位：分
+        spbill_create_ip: user_ip,
+        notify_url: "http://www.joinershow.cn/prepayCallback",
+        trade_type: "JSAPI"
+    };
+
+    //商户server调用统一下单接口请求订单
+    request.post({url:prePayURL},{form:prepayParameter},function(err,httpResponse,body){
+
+    });
+    //
 };
