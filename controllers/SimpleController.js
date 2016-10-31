@@ -76,7 +76,7 @@ exports.orderList = function (req, res, next) {
     var param = {
         token: token
     };
-    request.post({url: apiServerAddress + personalOrderURL, form: param}, function (err, res, body) {
+    request.post({url: apiServerAddress + personalOrderURL, form: param}, function (err, response, body) {
         console.log("orderlist:"+body);
         var resObj = JSON.parse(body);
         res.render('order_list', resObj.results);
