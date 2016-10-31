@@ -9,6 +9,11 @@ var prePayURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 var appid = "wxde4642a10788624f";
 var secret = "4e67e578e0318def0512293bff7e1550";
 var commercialAccountID = "1387195102";
+var apiServerAddress = "http://139.196.243.125:17001/server/webapi";
+var commonUserLogin = "/normaluser/login";//普通用户登录
+var personalOrderURL = "/order/normaluser/orders";//获取自己的订单列表
+var personalCouponURL = "/coupon/coupon"; //获取优惠券列表
+var followedCraftman = "/masters/master/mark";//关注的工匠
 
 
 exports.loginPage = function (req, res, next) {
@@ -35,45 +40,64 @@ exports.weChatCallback = function (req, res, next) {
     // \"expires_in\":7200,\"refresh_token\":\"bYXfbr4ucAL4KOwiKMD0V28_nRDTQhUKqPowvK_e9otknta4xHf_des2knBMja0gxiuPN-EIHmf2ZkgYWRBrSIFJcNZi5y5ItYEIPKbLdgE\",
     // \"openid\":\"ox8tuwPgKfc-_ZmY3ues-4TfSrAI\",\"scope\":\"snsapi_userinfo\"}
 
-    //request.get(reqParam, function (error, response, body) {
-    //    console.log(body);
-    //    var body = JSON.parse(body);
-    //    var personalInfo = {
-    //        avatorUrl: "",
-    //        nickName: "xiangkai",
-    //        gender: "男",
-    //        bindMobilephone: "未绑定"
-    //    };
-    //    res.render('personal_info', personalInfo);
-    //});
+    request.get(reqParam, function (error, response, body) {
+        console.log(body);
+        var weixinLoginResult = JSON.parse(body);
+        var loginParam = {
+            openID: weixinLoginResult.openid,
+            access_token: weixinLoginResult.access_token,
+            refresh_token: weixinLoginResult.refresh_token,
+            expire: weixinLoginResult.expires_in
+        };
 
-    var personalInfo = {
-        avatorUrl: "",
-        nickName: "xiangkai",
-        gender: "男",
-        bindMobilephone: "未绑定"
-    };
-    res.render('personal_info', personalInfo);
+        request.post({
+                url: apiServerAddress + commonUserLogin, form: loginParam
+            }, function (error, response, body) {
+                console.log("login result:" + body);
+                var resObj = JSON.parse(body);
+                var repsonseInfo = resObj.user;
+                var personalInfo = {
+                    avatorUrl: repsonseInfo.imageUrl,
+                    nickName: repsonseInfo.nickName,
+                    gender: repsonseInfo.gender == "1" ? "男" : "女",
+                    bindMobilephone: "未绑定"
+                };
+                var token = resObj.token;
+                var cookieAge = 60 * 60 * 1000;
+                res.cookie("token", token, {maxAge: cookieAge});
+                res.render('personal_info', personalInfo);
+            }
+        );
+    });
 };
 
 exports.orderList = function (req, res, next) {
-    var orderList = {
-        title: "",
-        list: [{
-            brand: "江诗丹顿",
-            orderID: "123",
-            payTime: (new Date()).getTime(),
-            payAmout: 1234.00,
-            worker: "张师傅"
-        }, {
-            brand: "格拉苏蒂",
-            orderID: "123",
-            payTime: (new Date()).getTime(),
-            payAmout: 1234.00,
-            worker: "张师傅"
-        }]
+    var token = req.cookies["token"];
+    var param = {
+        token: token
     };
-    res.render('order_list', orderList);
+    request.post({url: apiServerAddress + personalOrderURL, form: param}, function (err, res, body) {
+        console.log("orderlist:"+body);
+        var resObj = JSON.parse(body);
+        res.render('order_list', resObj.results);
+    });
+    //var orderList = {
+    //    title: "",
+    //    list: [{
+    //        brand: "江诗丹顿",
+    //        orderID: "123",
+    //        payTime: (new Date()).getTime(),
+    //        payAmout: 1234.00,
+    //        worker: "张师傅"
+    //    }, {
+    //        brand: "格拉苏蒂",
+    //        orderID: "123",
+    //        payTime: (new Date()).getTime(),
+    //        payAmout: 1234.00,
+    //        worker: "张师傅"
+    //    }]
+    //};
+
 };
 
 exports.couponList = function (req, res, next) {
@@ -420,7 +444,7 @@ exports.getAccountDetailList = function (req, res, next) {
 };
 
 
-exports.prePay = function(req,res,next) {
+exports.prePay = function (req, res, next) {
     //生成商户订单
     var user_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     var amount = req.query.amount;
@@ -434,17 +458,15 @@ exports.prePay = function(req,res,next) {
     var shasum = crypto.createHash("sha1");
     shasum.update(combineString);
     var signature = shasum.digest("hex");
-    var detaiJSON = {
-
-    };
+    var detaiJSON = {};
 
     var prepayParameter = {
         appid: appid,
         mch_id: commercialAccountID,
         device_info: "WEB",
-        nonce_str:nonceStr,
-        sign:signature,
-        body:"小筑匠心-百货",
+        nonce_str: nonceStr,
+        sign: signature,
+        body: "小筑匠心-百货",
         detail: detaiJSON,
         out_trade_no: "12123123123",//商户订单号
         total_fee: amount, //单位：分
@@ -454,7 +476,7 @@ exports.prePay = function(req,res,next) {
     };
 
     //商户server调用统一下单接口请求订单
-    request.post({url:prePayURL},{form:prepayParameter},function(err,httpResponse,body){
+    request.post({url: prePayURL}, {form: prepayParameter}, function (err, httpResponse, body) {
 
     });
     //
