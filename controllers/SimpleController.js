@@ -76,81 +76,131 @@ exports.orderList = function (req, res, next) {
     var param = {
         token: token
     };
+    //{"brand":"天梭","createDate":"2016-11-01T01:00:00+08:00","masterName":"张师傅","money":300.0,"orderId":"订单号码"}
     request.post({url: apiServerAddress + personalOrderURL, form: param}, function (err, response, body) {
-        console.log("orderlist:"+body);
-        var resObj = JSON.parse(body);
-        res.render('order_list', resObj.results);
+        console.log("orderlist:" + body);
+        var resObj = JSON.parse(body).results;
+        var orderList = [];
+        for (var i = 0; i < resObj.length; i++) {
+            var item = {
+                brand: resObj[i].brand,
+                orderID: resObj[i].orderId,
+                payTime: resObj[i].createDate,
+                payAmount: resObj[i].money,
+                worker: resObj[i].masterName
+            };
+            orderList.push(item);
+        }
+        var pageData = {
+            list: orderList
+        }
+        res.render('order_list', pageData);
     });
-    //var orderList = {
-    //    title: "",
-    //    list: [{
-    //        brand: "江诗丹顿",
-    //        orderID: "123",
-    //        payTime: (new Date()).getTime(),
-    //        payAmout: 1234.00,
-    //        worker: "张师傅"
-    //    }, {
-    //        brand: "格拉苏蒂",
-    //        orderID: "123",
-    //        payTime: (new Date()).getTime(),
-    //        payAmout: 1234.00,
-    //        worker: "张师傅"
-    //    }]
-    //};
-
 };
 
 exports.couponList = function (req, res, next) {
-    var couponList = {
-        title: "coupon",
-        list: [{
-            id: 1,
-            amount: 88,
-            validStartTime: "2016-05-04",
-            validEndTime: "2016-09-04"
-        }, {
-            id: 2,
-            amount: 288,
-            validStartTime: "2016-05-04",
-            validEndTime: "2016-05-04"
-        }]
+    var token = req.cookies["token"];
+    var param = {
+        token: token
     };
-    res.render('coupon', couponList);
+
+    request.post({url: apiServerAddress + personalCouponURL, form: param}, function (err, response, body) {
+        console.log("coupon list:" + body);
+        var resObj = JSON.parse(body).results;
+        var couponList = [];
+        for (var i = 0; i < resObj.length; i++) {
+            var item = {
+                id: i,
+                amount: resObj[i].money,
+                validStartTime: resObj[i].creatieDate,
+                validEndTime: resObj[i].endDate
+            };
+            couponList.push(item);
+        }
+        var pageData = {
+            list: couponList
+        }
+        res.render('coupon', pageData);
+    });
+
+    //var couponList = {
+    //    title: "coupon",
+    //    list: [{
+    //        id: 1,
+    //        amount: 88,
+    //        validStartTime: "2016-05-04",
+    //        validEndTime: "2016-09-04"
+    //    }, {
+    //        id: 2,
+    //        amount: 288,
+    //        validStartTime: "2016-05-04",
+    //        validEndTime: "2016-05-04"
+    //    }]
+    //};
+    //res.render('coupon', couponList);
 };
 
 exports.followedCraftmanList = function (req, res, next) {
-    var craftmanList = {
-        title: "followedCraftman",
-        list: [{
-            id: 1,
-            avatorUrl: "./images/avator.jpg",
-            name: "张师傅",
-            company: "亨得利国际名表服务中心",
-            starLevel: 4,
-            orderCounts: 1000,
-            workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "1.1km"
-        }, {
-            id: 2,
-            avatorUrl: "./images/avator.jpg",
-            name: "张师傅",
-            company: "亨得利国际名表服务中心",
-            starLevel: 3,
-            orderCounts: 1000,
-            workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "1.1km"
-        }, {
-            id: 3,
-            avatorUrl: "./images/avator.jpg",
-            name: "张师傅",
-            company: "亨得利国际名表服务中心",
-            starLevel: 2,
-            orderCounts: 1000,
-            workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "1.1km"
-        }]
+    var token = req.cookies["token"];
+    var param = {
+        token: token
     };
-    res.render('followed_craftman_list', craftmanList);
+
+    request.post({url: apiServerAddress + followedCraftman, form: param}, function (err, response, body) {
+        console.log("followedcraftman list:" + body);
+        var resObj = JSON.parse(body).result;
+        var followedCraftmanList = [];
+        for (var i = 0; i < resObj.length; i++) {
+            var item = {
+                id: resObj[i].id,
+                avatorUrl: "./images/avator.jpg",
+                name: resObj[i].name,
+                company: resObj[i].shop,
+                starLevel: parseInt(resObj[i].marks),
+                orderCounts: resObj[i].orderCount,
+                workAddress: resObj[i].address,
+                distance: resObj[i].distance
+            };
+            followedCraftmanList.push(item);
+        }
+        var pageData = {
+            list: followedCraftmanList
+        }
+        res.render('followed_craftman_list', pageData);
+    });
+
+    //var craftmanList = {
+    //    title: "followedCraftman",
+    //    list: [{
+    //        id: 1,
+    //        avatorUrl: "./images/avator.jpg",
+    //        name: "张师傅",
+    //        company: "亨得利国际名表服务中心",
+    //        starLevel: 4,
+    //        orderCounts: 1000,
+    //        workAddress: "上海市静安区南京西路1266号恒隆广场",
+    //        distance: "1.1km"
+    //    }, {
+    //        id: 2,
+    //        avatorUrl: "./images/avator.jpg",
+    //        name: "张师傅",
+    //        company: "亨得利国际名表服务中心",
+    //        starLevel: 3,
+    //        orderCounts: 1000,
+    //        workAddress: "上海市静安区南京西路1266号恒隆广场",
+    //        distance: "1.1km"
+    //    }, {
+    //        id: 3,
+    //        avatorUrl: "./images/avator.jpg",
+    //        name: "张师傅",
+    //        company: "亨得利国际名表服务中心",
+    //        starLevel: 2,
+    //        orderCounts: 1000,
+    //        workAddress: "上海市静安区南京西路1266号恒隆广场",
+    //        distance: "1.1km"
+    //    }]
+    //};
+    //res.render('followed_craftman_list', craftmanList);
 };
 
 exports.searchCraftman = function (req, res, next) {
