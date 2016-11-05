@@ -17,6 +17,8 @@ var followedCraftman = "/masters/master/mark";//关注的工匠
 var logoutURL = "/normaluser/login";
 var searchCraftmanURL = "/masters/all";
 var getCraftmanDetailURL = "/masterdetail/detail";
+var followCraftmanURL = "/masterdetail/markmaster";
+var getCommentListURL = "/comment/all";
 
 exports.loginPage = function (req, res, next) {
     var loginData = {
@@ -426,46 +428,84 @@ exports.craftmanDetail = function (req, res, next) {
 };
 
 exports.followCraftman = function (req, res, next) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send({followResult: "Follow successfully!"});
+    var token = req.cookies["token"];
+    var craftmanID = req.query.id;
+    var param = {
+        token: token,
+        id: craftmanID
+    };
+    request.post({url:apiServerAddress + followCraftmanURL,form:param},function(err, response, body){
+        res.setHeader('Content-Type', 'application/json');
+        console.log("follow result:" + body);
+        var followResultObj = JSON.parse(body);
+        if(followResultObj.code == 1) {
+            res.send({followResult: 1});
+        } else {
+            res.send({followResult: 0});
+        }
+    });
+    
 };
 
 
 exports.commentList = function (req, res, next) {
-    var commentList = {
-        commentList: [{
-            userAvatorUrl: "./images/avator.jpg",
-            starLevel: 5,
-            username: "柯南君1",
-            cmtDetail: "服务态度非常好,技术一流aaa",
-            cmtTime: "10月2日"
-        }, {
-            userAvatorUrl: "./images/avator.jpg",
-            starLevel: 4,
-            username: "柯南君2",
-            cmtDetail: "服务态度非常好,技术一流nnnn",
-            cmtTime: "5月2日"
-        }, {
-            userAvatorUrl: "./images/avator.jpg",
-            starLevel: 4,
-            username: "柯南君2",
-            cmtDetail: "服务态度非常好,技术一流naaannn",
-            cmtTime: "5月2日"
-        }, {
-            userAvatorUrl: "./images/avator.jpg",
-            starLevel: 4,
-            username: "柯南君2",
-            cmtDetail: "服务态度非常好,技术一流啊啊啊nn",
-            cmtTime: "5月2日"
-        }, {
-            userAvatorUrl: "./images/avator.jpg",
-            starLevel: 4,
-            username: "柯南君2",
-            cmtDetail: "服务态度非常好,技术一流n啊啊啊阿瑟斯nnn",
-            cmtTime: "5月2日"
-        }]
+    var craftmanID = req.query.id;
+    var param = {
+        id:craftmanID
     };
-    res.render('user_comment_list', commentList);
+    request.post({url: apiServerAddress + getCommentListURL,form:param},function(error, response, body){
+        console.log("get comment list:" + body);
+        var cmtObj = JSON.parse(body).result;
+        var commentList = [];
+        for(var i=0;i<cmtObj.length;i++){
+            var item = {
+                userAvatorUrl: "./images/avator.jpg",
+                starLevel: 5,
+                username: cmtObj[i].nickname,
+                cmtDetail: cmtObj[i].comment,
+                cmtTime: cmtObj[i].commentTime
+            };
+            commentList.push(item);
+        }
+        var pageData = {
+            commentList:commentList
+        };
+        res.render('user_comment_list', pageData);
+    });
+    // var commentList = {
+    //     commentList: [{
+    //         userAvatorUrl: "./images/avator.jpg",
+    //         starLevel: 5,
+    //         username: "柯南君1",
+    //         cmtDetail: "服务态度非常好,技术一流aaa",
+    //         cmtTime: "10月2日"
+    //     }, {
+    //         userAvatorUrl: "./images/avator.jpg",
+    //         starLevel: 4,
+    //         username: "柯南君2",
+    //         cmtDetail: "服务态度非常好,技术一流nnnn",
+    //         cmtTime: "5月2日"
+    //     }, {
+    //         userAvatorUrl: "./images/avator.jpg",
+    //         starLevel: 4,
+    //         username: "柯南君2",
+    //         cmtDetail: "服务态度非常好,技术一流naaannn",
+    //         cmtTime: "5月2日"
+    //     }, {
+    //         userAvatorUrl: "./images/avator.jpg",
+    //         starLevel: 4,
+    //         username: "柯南君2",
+    //         cmtDetail: "服务态度非常好,技术一流啊啊啊nn",
+    //         cmtTime: "5月2日"
+    //     }, {
+    //         userAvatorUrl: "./images/avator.jpg",
+    //         starLevel: 4,
+    //         username: "柯南君2",
+    //         cmtDetail: "服务态度非常好,技术一流n啊啊啊阿瑟斯nnn",
+    //         cmtTime: "5月2日"
+    //     }]
+    // };
+    // res.render('user_comment_list', commentList);
 };
 
 exports.craftmanLoginPage = function (req, res, next) {

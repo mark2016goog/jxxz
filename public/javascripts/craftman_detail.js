@@ -16,18 +16,21 @@ document.addEventListener("DOMContentLoaded", function () {
     var followBtn = document.getElementById("follow-btn");
     var craftmanId = document.getElementById("craftmanId").value;
     followBtn.addEventListener("click", function () {
-
         var queryParam = {
             id: craftmanId
         };
         ajax.get("/followCraftman", queryParam, function (response) {
-            alert("关注成功");
+            if(response.followResult){
+                alert("关注成功");
+            } else {
+                alert("关注失败");
+            }
         });
     });
 
     var commentBtn = document.getElementById("comment-btn");
     commentBtn.addEventListener("click", function () {
-        window.location.href = "/commentList";
+        window.location.href = "/commentList?id="+craftmanId;
     });
 
     var geoBtn = document.getElementById("geoBtn");
