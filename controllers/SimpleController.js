@@ -14,7 +14,9 @@ var commonUserLogin = "/normaluser/login";//普通用户登录
 var personalOrderURL = "/order/normaluser/orders";//获取自己的订单列表
 var personalCouponURL = "/coupon/coupon"; //获取优惠券列表
 var followedCraftman = "/masters/master/mark";//关注的工匠
-
+var logoutURL = "/normaluser/login";
+var searchCraftmanURL = "/masters/all";
+var getCraftmanDetailURL = "/masterdetail/detail";
 
 exports.loginPage = function (req, res, next) {
     var loginData = {
@@ -109,11 +111,13 @@ exports.couponList = function (req, res, next) {
         var resObj = JSON.parse(body).results;
         var couponList = [];
         for (var i = 0; i < resObj.length; i++) {
+            var startDateString = (new Date(resObj[i].startTime)).toISOString();
+            var endDateString = (new Date(resObj[i].endTime)).toISOString();
             var item = {
                 id: i,
                 amount: resObj[i].money,
-                validStartTime: resObj[i].creatieDate,
-                validEndTime: resObj[i].endDate
+                validStartTime: startDateString.substr(0,10),
+                validEndTime: endDateString.substr(0,10)
             };
             couponList.push(item);
         }
@@ -123,21 +127,6 @@ exports.couponList = function (req, res, next) {
         res.render('coupon', pageData);
     });
 
-    //var couponList = {
-    //    title: "coupon",
-    //    list: [{
-    //        id: 1,
-    //        amount: 88,
-    //        validStartTime: "2016-05-04",
-    //        validEndTime: "2016-09-04"
-    //    }, {
-    //        id: 2,
-    //        amount: 288,
-    //        validStartTime: "2016-05-04",
-    //        validEndTime: "2016-05-04"
-    //    }]
-    //};
-    //res.render('coupon', couponList);
 };
 
 exports.followedCraftmanList = function (req, res, next) {
@@ -164,6 +153,7 @@ exports.followedCraftmanList = function (req, res, next) {
             followedCraftmanList.push(item);
         }
         var pageData = {
+            title: "followedCraftman",
             list: followedCraftmanList
         }
         res.render('followed_craftman_list', pageData);
@@ -204,91 +194,137 @@ exports.followedCraftmanList = function (req, res, next) {
 };
 
 exports.searchCraftman = function (req, res, next) {
-    var craftmanList = {
-        title: "searchCraftman",
-        list: [{
-            id: 1,
-            avatorUrl: "./images/avator.jpg",
-            name: "张师傅",
-            company: "亨得利国际名表服务中心",
-            starLevel: 4,
-            orderCounts: 1000,
-            workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "1.1km"
-        }, {
-            id: 2,
-            avatorUrl: "./images/avator.jpg",
-            name: "张师傅",
-            company: "亨得利国际名表服务中心",
-            starLevel: 3,
-            orderCounts: 1000,
-            workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "2.1km"
-        }, {
-            id: 3,
-            avatorUrl: "./images/avator.jpg",
-            name: "张师傅",
-            company: "亨得利国际名表服务中心",
-            starLevel: 2,
-            orderCounts: 1000,
-            workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "3.1km"
-        }]
+    var param = {
+        searchType:1,
+        longitude:100,
+        latitude:100
     };
-    res.render('craftman_filter_list', craftmanList);
+
+    request.post({url: apiServerAddress + searchCraftmanURL,form:param},function(error,response,body){
+        console.log("search result" + body);
+        var resObj = JSON.parse(body).result;
+        var craftmanList = [];
+        for(var i=0;i<resObj.length;i++) {
+            var item = {
+                id: resObj[i].id,
+                avatorUrl: "./images/avator.jpg",
+                name: resObj[i].name,
+                company: resObj[i].shop,
+                starLevel: resObj[i].marks,
+                orderCounts: resObj[i].orderCount,
+                workAddress: resObj[i].address,
+                distance: resObj[i].distance
+            };
+        }
+        var pageData = {
+            title: "searchCraftman",
+            list: craftmanList
+        };
+        res.render('craftman_filter_list', pageData);
+    });
+
+    // var craftmanList = {
+    //     title: "searchCraftman",
+    //     list: [{
+    //         id: 1,
+    //         avatorUrl: "./images/avator.jpg",
+    //         name: "张师傅",
+    //         company: "亨得利国际名表服务中心",
+    //         starLevel: 4,
+    //         orderCounts: 1000,
+    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
+    //         distance: "1.1km"
+    //     }, {
+    //         id: 2,
+    //         avatorUrl: "./images/avator.jpg",
+    //         name: "张师傅",
+    //         company: "亨得利国际名表服务中心",
+    //         starLevel: 3,
+    //         orderCounts: 1000,
+    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
+    //         distance: "2.1km"
+    //     }, {
+    //         id: 3,
+    //         avatorUrl: "./images/avator.jpg",
+    //         name: "张师傅",
+    //         company: "亨得利国际名表服务中心",
+    //         starLevel: 2,
+    //         orderCounts: 1000,
+    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
+    //         distance: "3.1km"
+    //     }]
+    // };
+    // res.render('craftman_filter_list', craftmanList);
 };
 
 
 exports.searchCraftmanAsync = function (req, res, next) {
     var searchType = req.query.searchType;
     console.log("searchType:" + searchType);
-    //request.get(searchType, function (error, response, body) {
-    //    console.log(body);
-    //    var body = JSON.parse(body);
-    //    var personalInfo = {
-    //        avatorUrl: "",
-    //        nickName: "xiangkai",
-    //        gender: "男",
-    //        bindMobilephone: "未绑定"
-    //    };
-    //    res.render('personal_info', personalInfo);
-    //});
-    var craftmanList = {
-        title: "searchCraftman",
-        list: [{
-            id: 1,
-            avatorUrl: "./images/avator.jpg",
-            name: "杨师傅",
-            company: "亨得利国际名表服务中心",
-            starLevel: 4,
-            orderCounts: 1000,
-            workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "1.1km"
-        }, {
-            id: 2,
-            avatorUrl: "./images/avator.jpg",
-            name: "顾师傅",
-            company: "亨得利国际名表服务中心",
-            starLevel: 3,
-            orderCounts: 1000,
-            workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "1.1km"
-        }, {
-            id: 3,
-            avatorUrl: "./images/avator.jpg",
-            name: "项师傅",
-            company: "亨得利国际名表服务中心",
-            starLevel: 2,
-            orderCounts: 1000,
-            workAddress: "上海市静安区南京西路1266号恒隆广场",
-            distance: "1.1km"
-        }]
+    var param = {
+        searchType:searchType,
+        longitude:100,
+        latitude:100
     };
-    res.render('async/craftman_list_fragment', craftmanList);
+
+    request.post({url: apiServerAddress + searchCraftmanURL,form:param},function(error,response,body){
+        console.log("search result" + body);
+        var resObj = JSON.parse(body).result;
+        var craftmanList = [];
+        for(var i=0;i<resObj.length;i++) {
+            var item = {
+                id: resObj[i].id,
+                avatorUrl: "./images/avator.jpg",
+                name: resObj[i].name,
+                company: resObj[i].shop,
+                starLevel: resObj[i].marks,
+                orderCounts: resObj[i].orderCount,
+                workAddress: resObj[i].address,
+                distance: resObj[i].distance
+            };
+        }
+        var pageData = {
+            title: "searchCraftman",
+            list: craftmanList
+        };
+        res.render('async/craftman_list_fragment', pageData);
+    });
+
+    // var craftmanList = {
+    //     title: "searchCraftman",
+    //     list: [{
+    //         id: 1,
+    //         avatorUrl: "./images/avator.jpg",
+    //         name: "杨师傅",
+    //         company: "亨得利国际名表服务中心",
+    //         starLevel: 4,
+    //         orderCounts: 1000,
+    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
+    //         distance: "1.1km"
+    //     }, {
+    //         id: 2,
+    //         avatorUrl: "./images/avator.jpg",
+    //         name: "顾师傅",
+    //         company: "亨得利国际名表服务中心",
+    //         starLevel: 3,
+    //         orderCounts: 1000,
+    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
+    //         distance: "1.1km"
+    //     }, {
+    //         id: 3,
+    //         avatorUrl: "./images/avator.jpg",
+    //         name: "项师傅",
+    //         company: "亨得利国际名表服务中心",
+    //         starLevel: 2,
+    //         orderCounts: 1000,
+    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
+    //         distance: "1.1km"
+    //     }]
+    // };
+    // res.render('async/craftman_list_fragment', craftmanList);
 };
 
 exports.craftmanDetail = function (req, res, next) {
-    var craftmanId = req.query.id;
     var apiTicket = GlobalCache.getApiTicket();
     var nonceStr = GlobalCache.getRandomStr();
     var timestamp = (new Date()).getTime();
@@ -300,61 +336,93 @@ exports.craftmanDetail = function (req, res, next) {
     shasum.update(combineString);
     var signature = shasum.digest("hex");
 
-    var craftmanDetail = {
-        geoText: "上海市静安区南京西路1266号恒隆广场",
-        timestamp: timestamp,
-        nonceStr: nonceStr,
-        signature: signature,
-        id: craftmanId,
-        avatorUrl: "./images/avator.jpg",
-        name: "张师傅",
-        company: "亨得利国际名表服务中心",
-        starLevel: 4,
-        orderCounts: 1000,
-        workAddress: "上海市静安区南京西路1266号恒隆广场",
-        distance: "1.1km",
-        intro: "张师傅,拥有国际认证的XXXXXX牛逼证书,从业8年8年年年年年从业8年8年年年年年从业8年8年年年年年从业8年8年年年年年",
-        telephone: 15800622061,
-        skilledBrandList: [
-            {
-                id: 1,
-                name: "宝格丽"
-            }, {
-                id: 2,
-                name: "阿玛尼"
-            },
-            {
-                id: 3,
-                name: "万宝龙"
-            },
-            {
-                id: 4,
-                name: "劳力士"
-            },
-            {
-                id: 5,
-                name: "百达翠丽"
-            },
-            {
-                id: 6,
-                name: "浪琴"
-            }
-        ],
-        commentList: [
-            {
-                userAvatorUrl: "./images/avator.jpg",
-                starLevel: 3,
-                username: "柯南君1",
-                cmtDetail: "服务态度非常好,技术一流"
-            }, {
-                userAvatorUrl: "./images/avator.jpg",
-                starLevel: 4,
-                username: "柯南君2",
-                cmtDetail: "服务态度非常好,技术一流"
-            }
-        ]
+    var craftmanId = req.query.id;
+    var param = {
+        id:craftmanId,
+        longitude:100,
+        latitude:200
     };
-    res.render('craftman_detail', craftmanDetail);
+
+    request.post({url:apiServerAddress + getCraftmanDetailURL,form: param},function(err,response,body){
+        console.log("craftman detai:" + body);
+        var detailObj = JSON.parse(body).result;
+        detailObj = detailObj.length>0?detailObj[0]:{};
+        var craftmanDetail = {
+            geoText: detailObj.address,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            id: detailObj.id,
+            avatorUrl: "./images/avator.jpg",
+            name: detailObj.name,
+            company: detailObj.shop,
+            starLevel: detailObj.marks,
+            orderCounts: detailObj.orderCount,
+            workAddress: detailObj.address,
+            distance: detailObj.distance,
+            intro: detailObj.description,
+            telephone: 15800622061,
+            skilledBrandList: detailObj.brands,
+            commentList: detailObj.comments
+        };
+        res.render('craftman_detail', craftmanDetail);
+    });
+
+    // var craftmanDetail = {
+    //     geoText: "上海市静安区南京西路1266号恒隆广场",
+    //     timestamp: timestamp,
+    //     nonceStr: nonceStr,
+    //     signature: signature,
+    //     id: craftmanId,
+    //     avatorUrl: "./images/avator.jpg",
+    //     name: "张师傅",
+    //     company: "亨得利国际名表服务中心",
+    //     starLevel: 4,
+    //     orderCounts: 1000,
+    //     workAddress: "上海市静安区南京西路1266号恒隆广场",
+    //     distance: "1.1km",
+    //     intro: "张师傅,拥有国际认证的XXXXXX牛逼证书,从业8年8年年年年年从业8年8年年年年年从业8年8年年年年年从业8年8年年年年年",
+    //     telephone: 15800622061,
+    //     skilledBrandList: [
+    //         {
+    //             id: 1,
+    //             name: "宝格丽"
+    //         }, {
+    //             id: 2,
+    //             name: "阿玛尼"
+    //         },
+    //         {
+    //             id: 3,
+    //             name: "万宝龙"
+    //         },
+    //         {
+    //             id: 4,
+    //             name: "劳力士"
+    //         },
+    //         {
+    //             id: 5,
+    //             name: "百达翠丽"
+    //         },
+    //         {
+    //             id: 6,
+    //             name: "浪琴"
+    //         }
+    //     ],
+    //     commentList: [
+    //         {
+    //             userAvatorUrl: "./images/avator.jpg",
+    //             starLevel: 3,
+    //             username: "柯南君1",
+    //             cmtDetail: "服务态度非常好,技术一流"
+    //         }, {
+    //             userAvatorUrl: "./images/avator.jpg",
+    //             starLevel: 4,
+    //             username: "柯南君2",
+    //             cmtDetail: "服务态度非常好,技术一流"
+    //         }
+    //     ]
+    // };
+    // res.render('craftman_detail', craftmanDetail);
 };
 
 exports.followCraftman = function (req, res, next) {
