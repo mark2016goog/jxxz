@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="bot-line pos" id="geoBtn">
-        <div class="dis"><img src="./images/location.png" alt=""><%= distance %></div>
+        <div class="dis"><img src="./images/location.png" alt=""><%= distance %>km</div>
         <div class="workplace"><%= workAddress %></div>
       </div>
     </div>
@@ -81,15 +81,15 @@
         <div class="comment-detail">
           <div class="name">
             <%= commentList[0].username %>
-            <% for(var j = 0; j < commentList[0].starLevel;j++){ %>
+            <% for(var j = 0; j < commentList[0].marks;j++){ %>
             <img src="./images/star-fill.png" alt="">
             <% } %>
-            <% for(var j = 0; j < 5 - commentList[0].starLevel;j++){ %>
+            <% for(var j = 0; j < 5 - commentList[0].marks;j++){ %>
             <img src="./images/star-empty.png" alt="">
             <% } %>
           </div>
           <div class="cmt-detail">
-            <%= commentList[0].cmtDetail %>
+            <%= commentList[0].comment %>
           </div>
         </div>
       </div>

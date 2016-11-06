@@ -20,7 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
             id: craftmanId
         };
         ajax.get("/followCraftman", queryParam, function (response) {
-            if(response.followResult){
+            console.log(JSON.parse(response));
+            var result = JSON.parse(response);
+            if(result.followResult){
                 alert("关注成功");
             } else {
                 alert("关注失败");

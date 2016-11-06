@@ -19,6 +19,8 @@ var searchCraftmanURL = "/masters/all";
 var getCraftmanDetailURL = "/masterdetail/detail";
 var followCraftmanURL = "/masterdetail/markmaster";
 var getCommentListURL = "/comment/all";
+var craftmanLoginURL = "/masteruser/login";
+var getCraftmanInfoURL = "/masteruser/info";
 
 exports.loginPage = function (req, res, next) {
     var loginData = {
@@ -217,6 +219,7 @@ exports.searchCraftman = function (req, res, next) {
                 workAddress: resObj[i].address,
                 distance: resObj[i].distance
             };
+            craftmanList.push(item);
         }
         var pageData = {
             title: "searchCraftman",
@@ -284,6 +287,7 @@ exports.searchCraftmanAsync = function (req, res, next) {
                 workAddress: resObj[i].address,
                 distance: resObj[i].distance
             };
+            craftmanList.push(item);
         }
         var pageData = {
             title: "searchCraftman",
@@ -342,7 +346,7 @@ exports.craftmanDetail = function (req, res, next) {
     var param = {
         id:craftmanId,
         longitude:100,
-        latitude:200
+        latitude:100
     };
 
     request.post({url:apiServerAddress + getCraftmanDetailURL,form: param},function(err,response,body){
@@ -363,7 +367,7 @@ exports.craftmanDetail = function (req, res, next) {
             workAddress: detailObj.address,
             distance: detailObj.distance,
             intro: detailObj.description,
-            telephone: 15800622061,
+            telephone: detailObj.masterPhone,
             skilledBrandList: detailObj.brands,
             commentList: detailObj.comments
         };
@@ -460,10 +464,10 @@ exports.commentList = function (req, res, next) {
         for(var i=0;i<cmtObj.length;i++){
             var item = {
                 userAvatorUrl: "./images/avator.jpg",
-                starLevel: 5,
+                starLevel: cmtObj[i].marks,
                 username: cmtObj[i].nickname,
                 cmtDetail: cmtObj[i].comment,
-                cmtTime: cmtObj[i].commentTime
+                cmtTime: "2016-06-06"//cmtObj[i].commentTime
             };
             commentList.push(item);
         }
@@ -509,6 +513,7 @@ exports.commentList = function (req, res, next) {
 };
 
 exports.craftmanLoginPage = function (req, res, next) {
+    
     var loginData = {
         title: '工匠登陆'
     };
@@ -516,30 +521,68 @@ exports.craftmanLoginPage = function (req, res, next) {
 };
 
 exports.craftmanLogin = function (req, res, next) {
-    var username = req.query.name;
-    var password = req.query.password;
-    console.log("username:" + username);
-    console.log("pwd:" + password);
-    res.setHeader('Content-Type', 'application/json');
-    var cookieAge = 60 * 1000;
-    res.cookie("b_token", 123456, {maxAge: cookieAge});
-    res.send({loginSuc: true});
+    var teleNo = req.query.name;
+    var pwd = req.query.password;
+    var param = {
+        telephone: teleNo,
+        password: pwd
+    };
+
+    request.post({url: apiServerAddress+craftmanLoginURL,form:param},function(err,response,body){
+        console.log("craftman login:" + body);
+        var loginResult = JSON.parse(body);
+        res.setHeader('Content-Type', 'application/json');
+        if(loginResult.code == 1) {
+            var cookieAge = 60 * 1000;
+            res.cookie("b_token", loginResult.token, {maxAge: cookieAge});
+            res.send({loginSuc: true});
+        } else {
+            res.send({loginSuc: false});
+        }
+    });
 };
 
 exports.craftmanPersonalInfo = function (req, res, next) {
-    var craftmanData = {
-        avator: "./images/avator.jpg",
-        name: "黄师傅",
-        telephone: 15800622061,
-        orderAmount: 666,
-        remainMoney: 1000.00,
-        withdrawingMoney: 2200.00,
-        withdrawedMoney: 800.00,
-        totalIncome: 4000.00,
-        realName: "王家卫",
-        withdrawAccount: 421214
+    var token = req.cookies["b_token"];
+    var param = {
+        token:token
     };
-    res.render("craftman_personal", craftmanData);
+    //getCraftmanInfoURL
+
+    request.post({url: apiServerAddress + getCraftmanInfoURL, form: param}, function(err, response, body) {
+        console.log("get craftman detail:" + body);
+        var craftmanInfo = JSON.parse(body);
+        if(craftmanInfo.code == 1) {
+            var craftmanData = {
+                avator: "./images/avator.jpg",
+                name: craftmanInfo.basicInfo.name,
+                telephone: craftmanInfo.phoneNumber,
+                orderAmount: craftmanInfo.masterFinanceInfo.totalOrderAmount,
+                remainMoney: craftmanInfo.masterFinanceInfo.rewordIncome,
+                withdrawingMoney: craftmanInfo.masterFinanceInfo.withDrawIng,
+                withdrawedMoney: craftmanInfo.masterFinanceInfo.withDrawEd,
+                totalIncome: craftmanInfo.masterFinanceInfo.serviceIncome,
+                realName: "王家卫",
+                withdrawAccount: craftmanInfo.masterFinanceInfo.bankAccount
+            };
+            res.render("craftman_personal", craftmanData);
+        }
+    });
+
+
+    // var craftmanData = {
+    //     avator: "./images/avator.jpg",
+    //     name: "黄师傅",
+    //     telephone: 15800622061,
+    //     orderAmount: 666,
+    //     remainMoney: 1000.00,
+    //     withdrawingMoney: 2200.00,
+    //     withdrawedMoney: 800.00,
+    //     totalIncome: 4000.00,
+    //     realName: "王家卫",
+    //     withdrawAccount: 421214
+    // };
+    // res.render("craftman_personal", craftmanData);
 };
 
 exports.withdraw = function (req, res, next) {
