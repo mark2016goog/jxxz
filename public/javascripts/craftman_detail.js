@@ -59,4 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
             infoUrl: 'http://weixin.qq.com'
         });
     });
+
+    window.ToPayPage = function(){
+        window.location.href = "/payPage";
+    }
 });

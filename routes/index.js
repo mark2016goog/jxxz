@@ -20,4 +20,5 @@ router.get('/craftmanSettingPage',controller.craftmanSettingPage);
 router.get('/getVerifyCode',controller.getVerifyCode);
 router.get('/modifyPassword',controller.modifyPassword);
 router.get('/getAccountDetailList',controller.getAccountDetailList);
+router.get('/payPage',controller.showPaypage);
 module.exports = router;

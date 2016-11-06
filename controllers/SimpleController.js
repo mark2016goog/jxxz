@@ -682,3 +682,8 @@ exports.prePay = function (req, res, next) {
     });
     //
 };
+
+exports.showPaypage = function(req, res, next){
+    var payInfo = {};
+    res.render('pay_detail',payInfo);
+};
