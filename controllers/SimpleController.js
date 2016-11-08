@@ -684,6 +684,17 @@ exports.prePay = function (req, res, next) {
 };
 
 exports.showPaypage = function(req, res, next){
+    var craftmanId = req.query.craftmanID;
+    var pageData = {
+        name: "张师傅",
+        workAddress: "上海市长宁区",
+        orderCounts: 1234,
+        starLevel: 4,
+        money: 666,
+        avatorUrl: "./images/avator.jpg",
+        distance: 122,
+        company: "亨得利名表服务中心"
+    };
     var payInfo = {};
-    res.render('pay_detail',payInfo);
+    res.render('pay_detail',pageData);
 };

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>工匠名片</title>
+  <title>支付详情</title>
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
@@ -31,7 +31,7 @@
       })
     }();</script>
 
-  <link rel='stylesheet' href='/stylesheets/craftman_detail.css'/>
+  <link rel='stylesheet' href='/stylesheets/pay_detail.css'/>
 </head>
 <body>
 <div class="wrapper">
@@ -53,103 +53,18 @@
           <% } %>
         </div>
       </div>
-      <div class="bot-line pos" id="geoBtn">
-        <div class="dis"><img src="./images/location.png" alt=""><%= distance %>km</div>
-        <div class="workplace"><%= workAddress %></div>
-      </div>
     </div>
-
-    <div class="intro">
-      <div class="title">
-        <div class="line"></div>
-        <div class="text">个人简介</div>
-        <div class="line"></div>
-      </div>
-      <div class="content">
-        <p><%= intro %></p>
-      </div>
+    <div class="line top-add">
+      <input type="text" placeholder="请输入支付金额"/>
     </div>
-
-    <div class="comment" id="comment-btn">
-      <div class="title">
-        <div class="line"></div>
-        <div class="text">用户评价</div>
-        <div class="line"></div>
-      </div>
-      <div class="first-comment">
-        <div class="avator" style="background-image:url(<%= commentList[0].userAvatorUrl %>)"></div>
-        <div class="comment-detail">
-          <div class="name">
-            <%= commentList[0].username %>
-            <% for(var j = 0; j < commentList[0].marks;j++){ %>
-            <img src="./images/star-fill.png" alt="">
-            <% } %>
-            <% for(var j = 0; j < 5 - commentList[0].marks;j++){ %>
-            <img src="./images/star-empty.png" alt="">
-            <% } %>
-          </div>
-          <div class="cmt-detail">
-            <%= commentList[0].comment %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="brandlist">
-      <div class="title">
-        <div class="line"></div>
-        <div class="text">擅长品牌</div>
-        <div class="line"></div>
-      </div>
-      <div class="brand">
-        <% for(var k = 0;k < skilledBrandList.length;k++) { %>
-        <div class="brand-item"><%= skilledBrandList[k].name %></div>
-        <% } %>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="footer-item" id="callphone">
-      <div class="ft-img telephone">
-      </div>
-      <div class="footer-text">电话咨询</div>
-    </div>
-    <div class="footer-item" id="follow-btn">
-      <div class="ft-img focus"></div>
-      <div class="footer-text">添加关注</div>
-    </div>
-    <div class="footer-item" onclick="ToPayPage()">
-      <div class="ft-img payment"></div>
-      <div class="footer-text">我要付款</div>
-    </div>
-  </div>
-
-</div>
-<div class="pop-dlg" id="pop-dlg">
-  <div class="dialog">
-    <div class="tele-num">
-      <%= telephone %>
-    </div>
-    <div class="button">
-      <a class="call" href="tel:<%= telephone %>">
-        呼叫
-      </a>
-
-      <div class="cancel" id="cancel-call">
-        取消
-      </div>
-    </div>
+    <div class="line top-add bot-border"></div>
+    <div class="line bot-border"></div>
+    <div class="line"></div>
   </div>
 </div>
-<input type="hidden" value="<%= id%>" id="craftmanId" />
-<input type="hidden" value="<%= geoText %>" id="geoText"/>
-<input type="hidden" value="<%= timestamp %>" id="ts"/>
-<input type="hidden" value="<%= nonceStr %>" id="nstr"/>
-<input type="hidden" value="<%= signature %>" id="sign"/>
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="/javascripts/lib/simple_ajax.js"></script>
-<script src="/javascripts/craftman_detail.js"></script>
+<script src="/javascripts/pay_detail.js"></script>
 </body>
 </html>
