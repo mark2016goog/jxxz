@@ -92,15 +92,52 @@ input {
           height: 0.4375rem; }
     .wrapper .body .line {
       height: 1.375rem;
-      background-color: #FFF; }
+      background-color: #FFF;
+      padding-left: 0.46875rem;
+      padding-right: 0.46875rem; }
       .wrapper .body .line input {
         height: 100%;
-        margin-left: 0.46875rem;
         font-size: 0.4375rem;
         color: #aaa; }
+    .wrapper .body .complex-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+      .wrapper .body .complex-line .left-title {
+        color: #2e2e2e;
+        font-size: 0.4375rem;
+        width: 6.71875rem; }
+      .wrapper .body .complex-line .brand-title {
+        color: #2e2e2e;
+        font-size: 0.4375rem; }
+      .wrapper .body .complex-line .coupon-amount {
+        color: #FFB400;
+        font-size: 0.4375rem; }
+      .wrapper .body .complex-line .pay-amount {
+        color: #17b50b;
+        font-size: 0.4375rem; }
+      .wrapper .body .complex-line .select-tip {
+        color: #aaa;
+        font-size: 0.34375rem; }
+      .wrapper .body .complex-line .right-arrow {
+        width: 0.3125rem;
+        height: 0.5625rem;
+        background-image: url("../images/right-arrow.png");
+        background-size: cover; }
     .wrapper .body .top-add {
       margin-top: 0.25rem; }
     .wrapper .body .bot-border {
       border-bottom: 1px solid #e7e7e7; }
+    .wrapper .body .confirm-pay {
+      height: 1.375rem;
+      background-color: #1cd00f;
+      font-size: 0.4375rem;
+      color: #FFF;
+      width: 9.0625rem;
+      text-align: center;
+      line-height: 1.375rem;
+      margin: 0 auto;
+      margin-top: 1.28125rem;
+      border-radius: 0.125rem; }
 
 /*# sourceMappingURL=pay_detail.css.map */

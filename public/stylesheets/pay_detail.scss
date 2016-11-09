@@ -81,18 +81,64 @@ input {
         .line{
             height: getRem640(88);
             background-color: #FFF;
+            padding-left: getRem640(30);
+            padding-right: getRem640(30);
             input{
                 height: 100%;
-                margin-left: getRem640(30);
                 font-size: getRem640(28);
                 color: #aaa;
+            }
+        }
+        .complex-line{
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+            .left-title{
+                color: #2e2e2e;
+                font-size: getRem640(28);
+                width: getRem640(430);
+            }
+            .brand-title{
+                color: #2e2e2e;
+                font-size: getRem640(28);
+                
+            }
+            .coupon-amount{
+                color: #FFB400;
+                font-size: getRem640(28);
+            }
+            .pay-amount{
+                color: #17b50b;
+                font-size: getRem640(28);
+            }
+            .select-tip{
+                color: #aaa;
+                font-size: getRem640(22);
+            }
+            .right-arrow{
+                width: getRem640(20);
+                height: getRem640(36);
+                background-image: url('../images/right-arrow.png');
+                background-size: cover;
             }
         }
         .top-add{
             margin-top: getRem640(16);
         }
         .bot-border{
-            border-bottom: 1px solid #e7e7e7;
+            border-bottom: 1px solid #e7e7e7; 
+        }
+        .confirm-pay{
+            height: getRem640(88);
+            background-color:#1cd00f;
+            font-size: getRem640(28);
+            color: #FFF;
+            width: getRem640(580);
+            text-align: center;
+            line-height:getRem640(88);
+            margin: 0 auto;
+            margin-top: getRem640(82);
+            border-radius: getRem640(8);
         }
     }        
 }
