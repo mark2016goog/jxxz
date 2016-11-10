@@ -72,13 +72,28 @@
       <div class="right-arrow"></div>
     </div>
     <div>
-      <div class="confirm-pay">确认支付</div>
+      <div class="confirm-pay" onclick="payClick()">确认支付</div>
     </div>
   </div>
 </div>
 
-<div class="pop-dialog bind-telephone">
-  
+<div class="pop-dialog-bkg" id="dialog">
+  <div class="bind-mobilephone">
+    <div class="mobilenum-block">
+      <input type="text" placeholder="涉及支付安全，首次支付请绑定手机号"/>
+    </div>
+    <div>
+      <div>
+        <input type="text" placeholder="请输入验证码"/>
+      </div>
+      <div>
+        <button>发送验证码</button>
+      </div>
+    </div>
+    <div>
+      确定
+    </div>
+  </div>
 </div>
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>

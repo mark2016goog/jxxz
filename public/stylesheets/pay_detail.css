@@ -140,4 +140,29 @@ input {
       margin-top: 1.28125rem;
       border-radius: 0.125rem; }
 
+.pop-dialog-bkg {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: none; }
+  .pop-dialog-bkg .bind-mobilephone {
+    height: 5.53125rem;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-top: 0.5rem; }
+    .pop-dialog-bkg .bind-mobilephone .mobilenum-block {
+      height: 1.34375rem; }
+      .pop-dialog-bkg .bind-mobilephone .mobilenum-block input {
+        width: 80%;
+        font-size: 0.4375rem;
+        color: #aaa; }
+
 /*# sourceMappingURL=pay_detail.css.map */

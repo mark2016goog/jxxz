@@ -142,3 +142,33 @@ input {
         }
     }        
 }
+
+.pop-dialog-bkg{
+    background-color: rgba(0,0,0,0.2);
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%;
+    display:none;
+    .bind-mobilephone{
+        height: getRem640(354);
+        background-color: #fff;
+        position:absolute;
+        left:0;
+        right:0;
+        bottom:0;
+        padding-top: getRem640(32);
+        .mobilenum-block{
+            height:getRem640(86);
+            input{
+                width: 80%;
+                font-size: getRem640(28);
+                color: #aaa;
+                padding-left: getRem640(30);
+            }
+        }
+    }
+}
