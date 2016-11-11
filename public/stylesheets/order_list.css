@@ -28,6 +28,10 @@ div, a, img {
 a {
   text-decoration: none; }
 
+input {
+  outline: none;
+  border: none; }
+
 html, body, .wrapper {
   height: 100%;
   -webkit-overflow-scrolling: touch;

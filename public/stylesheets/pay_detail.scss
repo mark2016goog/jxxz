@@ -166,7 +166,7 @@ input {
             border-top: 1px solid #e7e7e7;
             border-bottom: 1px solid #e7e7e7;
             input{
-                width: 80%;
+                width: getRem640(350);
                 height: 100%;
                 font-size: getRem640(28);
                 color: #aaa;
@@ -298,7 +298,6 @@ input {
                 color: #aaa;
                 font-size: getRem640(26);
                 text-align: center;
-                /*border-top: 1px solid #e7e7e7;*/
                 border-bottom: 1px solid #e7e7e7;
             }
         }
