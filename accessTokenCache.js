@@ -14,7 +14,7 @@ var appSecret = "4e67e578e0318def0512293bff7e1550";
 
 
 var GlobalCache = function () {
-    this.jsapi_ticket = "kgt8ON7yVITDhtdwci0qeeEmFPtGb2Fl9UMX233yf0zGqIPMAj1CvpdmBytr5LW1n7FxHT9JOZDcjdBBfkIHXA";
+    this.jsapi_ticket = "";
     var self = this;
     var getTicket = function () {
         var reqParam = {

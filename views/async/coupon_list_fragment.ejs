@@ -1,0 +1,13 @@
+<% for(var i = 0;i < list.length;i++){ %>
+  <div class="order-item">
+    <div class="left">
+      <div class="brand-title">新用户专享</div>
+      <div class="amount"><%= list[i].amount %></div>
+    </div>
+    <div class="right">
+      <div class="promotion">专享优惠</div>
+      <div class="time"><%= list[i].validStartTime %>至<%= list[i].validEndTime %></div>
+      <div class="interpret">最终解释权归XXX所有</div>
+    </div>
+  </div>
+  <% } %>

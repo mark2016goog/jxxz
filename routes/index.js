@@ -21,4 +21,6 @@ router.get('/getVerifyCode',controller.getVerifyCode);
 router.get('/modifyPassword',controller.modifyPassword);
 router.get('/getAccountDetailList',controller.getAccountDetailList);
 router.get('/payPage',controller.showPaypage);
+router.get('/couponlistAsync', controller.couponListAsync);
+router.get('/brandListAsync',controller.brandListAsync);
 module.exports = router;

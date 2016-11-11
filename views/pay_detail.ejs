@@ -57,7 +57,7 @@
     <div class="line top-add">
       <input type="text" type="tel" placeholder="请输入支付金额"/>
     </div>
-    <div class="line top-add bot-border complex-line">
+    <div class="line top-add bot-border complex-line" onclick="showCouponList()">
       <div class="left-title">优惠券/抵用券</div>
       <div class="coupon-amount">-20.00</div>
       <div class="right-arrow"></div>
@@ -66,7 +66,7 @@
       <div class="left-title">实付金额</div>
       <div class="pay-amount">￥1860</div>
     </div>
-    <div class="line complex-line">
+    <div class="line complex-line" onclick="showBrandList()">
       <div class="brand-title">手表品牌</div>
       <div class="select-tip">为确保服务质量，请准确选择品牌</div>
       <div class="right-arrow"></div>
@@ -77,22 +77,40 @@
   </div>
 </div>
 
-<div class="pop-dialog-bkg" id="dialog">
-  <div class="bind-mobilephone">
+<div class="pop-dialog-bkg" id="dialog" onclick="hideDialog()">
+  <div class="bind-mobilephone" id="bind-dialog" >
     <div class="mobilenum-block">
       <input type="text" placeholder="涉及支付安全，首次支付请绑定手机号"/>
     </div>
-    <div>
+    <div class="captcha">
       <div>
         <input type="text" placeholder="请输入验证码"/>
       </div>
-      <div>
-        <button>发送验证码</button>
+      <div class="send-captcha">
+        发送验证码
       </div>
     </div>
-    <div>
+    <div class="confirm">
       确定
     </div>
+  </div>
+</div>
+
+<div class="pop-dialog-bkg" id="coupon-dialog" onclick="hideCouponDialog()">
+  <div class="coupon-inner-dialog" id="coupon-inner-dialog">
+    <div id="couponList"></div>
+    <div class="coupon-btn">
+      <div class="coupon-cancel">取消</div>
+      <div class="coupon-confirm">确认</div>
+    </div>
+  </div>
+</div>
+
+<div class="pop-dialog-bkg" id="brand-dialog" onclick="hideBrandDialog()">
+  <div class="brand-inner-dialog" id="brand-inner-dialog">
+    <div id="brandList" class="brand-list">
+    </div>
+    
   </div>
 </div>
 

@@ -21,6 +21,7 @@ var followCraftmanURL = "/masterdetail/markmaster";
 var getCommentListURL = "/comment/all";
 var craftmanLoginURL = "/masteruser/login";
 var getCraftmanInfoURL = "/masteruser/info";
+var getBrandListURL = "/getBrandList";
 
 exports.loginPage = function (req, res, next) {
     var loginData = {
@@ -130,7 +131,106 @@ exports.couponList = function (req, res, next) {
         }
         res.render('coupon', pageData);
     });
+};
 
+exports.couponListAsync = function (req, res, next) {
+    var token = req.cookies["token"];
+    var param = {
+        token: token
+    };
+
+    request.post({url: apiServerAddress + personalCouponURL, form: param}, function (err, response, body) {
+        console.log("coupon list:" + body);
+        var resObj = JSON.parse(body).results;
+        var couponList = [];
+        for (var i = 0; i < resObj.length; i++) {
+            var startDateString = (new Date(resObj[i].startTime)).toISOString();
+            var endDateString = (new Date(resObj[i].endTime)).toISOString();
+            var item = {
+                id: i,
+                amount: resObj[i].money,
+                validStartTime: startDateString.substr(0,10),
+                validEndTime: endDateString.substr(0,10)
+            };
+            couponList.push(item);
+        }
+        var pageData = {
+            list: couponList
+        }
+        res.render("async/coupon_list_fragment", pageData);
+    });
+};
+
+exports.brandListAsync = function (req, res, next) {
+    var token = req.cookies["token"];
+    var param = {
+        token: token
+    };
+    
+    var brandList = [
+            {
+                id: 1,
+                name: "宝格丽"
+            }, {
+                id: 2,
+                name: "阿玛尼"
+            },
+            {
+                id: 3,
+                name: "万宝龙"
+            },
+            {
+                id: 4,
+                name: "劳力士"
+            },
+            {
+                id: 5,
+                name: "百达翠丽"
+            },
+            {
+                id: 6,
+                name: "浪琴"
+            }
+        ];
+        
+        var pageData = {
+            list: brandList
+        }
+        res.render("async/brand_list_fragment", pageData);
+    // request.post({url: apiServerAddress + getBrandListURL, form: param}, function (err, response, body) {
+    //     console.log("brand list:" + body);
+    //     var resObj = JSON.parse(body).results;
+    //     var brandList = [
+    //         {
+    //             id: 1,
+    //             name: "宝格丽"
+    //         }, {
+    //             id: 2,
+    //             name: "阿玛尼"
+    //         },
+    //         {
+    //             id: 3,
+    //             name: "万宝龙"
+    //         },
+    //         {
+    //             id: 4,
+    //             name: "劳力士"
+    //         },
+    //         {
+    //             id: 5,
+    //             name: "百达翠丽"
+    //         },
+    //         {
+    //             id: 6,
+    //             name: "浪琴"
+    //         }
+    //     ];
+        
+    //     var pageData = {
+    //         list: brandList
+    //     }
+    //     res.render("async/brand_list_fragment", pageData);
+    // });
 };
 
 exports.followedCraftmanList = function (req, res, next) {
@@ -369,7 +469,7 @@ exports.craftmanDetail = function (req, res, next) {
             intro: detailObj.description,
             telephone: detailObj.masterPhone,
             skilledBrandList: detailObj.brands,
-            commentList: detailObj.comments
+            commentList: detailObj.comments.length===0?{}:detailObj.comments
         };
         res.render('craftman_detail', craftmanDetail);
     });

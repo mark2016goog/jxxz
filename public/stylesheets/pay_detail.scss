@@ -163,11 +163,143 @@ input {
         padding-top: getRem640(32);
         .mobilenum-block{
             height:getRem640(86);
+            border-top: 1px solid #e7e7e7;
+            border-bottom: 1px solid #e7e7e7;
             input{
                 width: 80%;
+                height: 100%;
                 font-size: getRem640(28);
                 color: #aaa;
                 padding-left: getRem640(30);
+            }
+        }
+        .captcha {
+            margin-top: getRem640(12);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: getRem640(88);
+            border-top: 1px solid #e7e7e7;
+            border-bottom: 1px solid #e7e7e7;
+            font-size: getRem640(28);
+            input{
+                color: #aaa;
+                font-size: getRem640(28);
+                padding-left: getRem640(30);
+                width: getRem640(250);
+                height: 100%;
+            }
+            .send-captcha {
+                background-color:#ab9355;
+                color: #fff;
+                height: getRem640(88);
+                width: getRem640(180);
+                line-height: getRem640(88);
+                text-align: center;
+            }
+        }
+        .confirm {
+            margin-top: getRem640(46);
+            height: getRem640(90);
+            line-height: getRem640(90);
+            text-align:center;
+            color: #fff;
+            background-color: #ffb400;
+        }
+    }
+    .order-item {
+        height: getRem640(250);
+        margin-bottom: getRem640(16);
+        color: #FFF;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        background-image: url(../images/coupon-left.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: getRem640(625);
+        height: getRem640(169);
+        margin-left: getRem640(9);
+        .left {
+            width: getRem640(170);
+            text-align: center;
+            width: getRem640(242);
+            .brand-title {
+                font-size: getRem640(18);
+                color: #d7d6d6;
+            }
+            .amount {
+                font-size: getRem640(60);
+                color: #ffb400;
+            }
+        }
+        .right {
+            padding-left: getRem640(48);
+            .promotion {
+                font-size: getRem640(28);
+                color: #2e2e2e;
+            }
+            .time {
+                color: #2e2e2e;
+                font-size: getRem640(22);
+                line-height: getRem640(22);
+                margin-top: getRem640(16);
+                margin-bottom: getRem640(16);
+            }
+            .interpret{
+                font-size: getRem640(18);
+                color: #AAAAAA;
+            }
+        }
+    }
+    .coupon-inner-dialog {
+        height: getRem640(460);
+        background-color: #fff;
+        position:absolute;
+        left:0;
+        right:0;
+        bottom:0;
+        .coupon-btn {
+            display: flex;
+            align-items: center;
+            height: getRem640(90);
+            .coupon-cancel{
+                width:50%;
+                height: getRem640(90);
+                line-height: getRem640(90);
+                color: #a3a3a3;
+                font-size: getRem640(28);
+                background-color: #dcdcdc;
+                text-align: center;
+            }
+            .coupon-confirm {
+                width: 50%;
+                height: getRem640(90);
+                line-height: getRem640(90);
+                color: #fff;
+                font-size: getRem640(28);
+                background-color: #ffb400;
+                text-align: center;
+            }
+        }
+    }
+    .brand-inner-dialog{
+        height: getRem640(460);
+        background-color: #fff;
+        position:absolute;
+        left:0;
+        right:0;
+        bottom:0;
+        .brand-list{
+            .brand-item{
+                height: getRem640(76);
+                line-height: getRem640(76);
+                color: #aaa;
+                font-size: getRem640(26);
+                text-align: center;
+                /*border-top: 1px solid #e7e7e7;*/
+                border-bottom: 1px solid #e7e7e7;
             }
         }
     }
