@@ -33,7 +33,7 @@ input {
   border: none; }
 
 html, body, .wrapper {
-  height: 100%;
+  min-height: 100%;
   -webkit-overflow-scrolling: touch;
   font-size: 0.4375rem; }
 

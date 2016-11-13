@@ -7,7 +7,7 @@
 $bkg-color: #EEEEEE;
 
 html, body, .wrapper {
-    height: 100%;
+    min-height: 100%;
     -webkit-overflow-scrolling: touch;
     font-size: getRem640(28);
 }

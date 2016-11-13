@@ -40,7 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "/getAccountDetailList";
     };
 
+    var curCraftmanID = document.getElementById("curCraftmanID").value;
+
     window.businessCard = function(){
-        window.location.href = "/craftmanDetail?id=1";
+        window.location.href = "/craftmanDetail?id=" + curCraftmanID;
     };
 });

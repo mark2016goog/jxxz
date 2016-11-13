@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
             res = JSON.parse(res);
             if (res.loginSuc) {
                 window.location.href = "/craftmanPersonalInfo";
+            } else {
+                alert("用户名或者密码错误！请重新输入");
             }
         });
     };

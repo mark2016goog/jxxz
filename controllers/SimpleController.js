@@ -469,7 +469,7 @@ exports.craftmanDetail = function (req, res, next) {
             intro: detailObj.description,
             telephone: detailObj.masterPhone,
             skilledBrandList: detailObj.brands,
-            commentList: detailObj.comments.length===0?{}:detailObj.comments
+            commentList: detailObj.comments
         };
         res.render('craftman_detail', craftmanDetail);
     });
@@ -647,13 +647,14 @@ exports.craftmanPersonalInfo = function (req, res, next) {
     var param = {
         token:token
     };
-    //getCraftmanInfoURL
 
     request.post({url: apiServerAddress + getCraftmanInfoURL, form: param}, function(err, response, body) {
         console.log("get craftman detail:" + body);
-        var craftmanInfo = JSON.parse(body);
-        if(craftmanInfo.code == 1) {
+        var craftmanDetailResult = JSON.parse(body);
+        if(craftmanDetailResult.code == 1) {
+            var craftmanInfo = craftmanDetailResult.result;
             var craftmanData = {
+                id: craftmanInfo.id,
                 avator: "./images/avator.jpg",
                 name: craftmanInfo.basicInfo.name,
                 telephone: craftmanInfo.phoneNumber,
@@ -662,27 +663,12 @@ exports.craftmanPersonalInfo = function (req, res, next) {
                 withdrawingMoney: craftmanInfo.masterFinanceInfo.withDrawIng,
                 withdrawedMoney: craftmanInfo.masterFinanceInfo.withDrawEd,
                 totalIncome: craftmanInfo.masterFinanceInfo.serviceIncome,
-                realName: "王家卫",
+                realName: craftmanInfo.basicInfo.name,
                 withdrawAccount: craftmanInfo.masterFinanceInfo.bankAccount
             };
             res.render("craftman_personal", craftmanData);
         }
     });
-
-
-    // var craftmanData = {
-    //     avator: "./images/avator.jpg",
-    //     name: "黄师傅",
-    //     telephone: 15800622061,
-    //     orderAmount: 666,
-    //     remainMoney: 1000.00,
-    //     withdrawingMoney: 2200.00,
-    //     withdrawedMoney: 800.00,
-    //     totalIncome: 4000.00,
-    //     realName: "王家卫",
-    //     withdrawAccount: 421214
-    // };
-    // res.render("craftman_personal", craftmanData);
 };
 
 exports.withdraw = function (req, res, next) {
