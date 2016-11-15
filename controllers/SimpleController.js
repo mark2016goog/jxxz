@@ -3,6 +3,7 @@
  */
 var request = require("request");
 var crypto = require("crypto");
+var xml2js = require("xml2js");
 
 var getAccessTokenURL = "https://api.weixin.qq.com/sns/oauth2/access_token";
 var prePayURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
@@ -731,46 +732,6 @@ exports.getAccountDetailList = function (req, res, next) {
     res.render("account_detail", detailList);
 };
 
-
-// exports.prePay = function (req, res, next) {
-//     //生成商户订单
-//     var user_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-//     var amount = 1;//req.query.amount;
-
-//     var apiTicket = GlobalCache.getApiTicket();
-//     var nonceStr = GlobalCache.getRandomStr();
-//     var timestamp = (new Date()).getTime();
-//     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
-//     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-//     console.log("combineString:" + combineString);
-//     var shasum = crypto.createHash("sha1");
-//     shasum.update(combineString);
-//     var signature = shasum.digest("hex");
-//     var detaiJSON = {};
-
-//     var prepayParameter = {
-//         appid: appid,
-//         mch_id: commercialAccountID,
-//         device_info: "WEB",
-//         nonce_str: nonceStr,
-//         sign: signature,
-//         body: "小筑匠心-百货",
-//         detail: detaiJSON,
-//         out_trade_no: "1212121212121212121",//商户订单号
-//         total_fee: amount, //单位：分
-//         spbill_create_ip: user_ip,
-//         notify_url: "http://www.joinershow.cn/payCallback",
-//         trade_type: "JSAPI",
-//         openid: req.cookies['openid']
-//     };
-
-//     //商户server调用统一下单接口请求订单
-//     request.post({url: prePayURL}, {form: prepayParameter}, function (err, httpResponse, body) {
-//         console.log("pay result:" + body);
-//     });
-//     //
-// };
-
 exports.showPaypage = function(req, res, next){
     var craftmanId = req.query.craftmanID;
     var pageData = {
@@ -816,8 +777,11 @@ exports.showPaypage = function(req, res, next){
         openid: req.cookies['openid']
     };
 
+    var builder = new xml2js.Builder();
+    var postXML = builder.buildObject(prepayParameter);
+
     //商户server调用统一下单接口请求订单,使用post xml
-    request.post({url: prePayURL,form: prepayParameter}, function (err, httpResponse, body) {
+    request.post({url: prePayURL,body: postXML,headers: {'Content-Type': 'text/xml'}}, function (err, httpResponse, body) {
         console.log("pay result err:" + err);
         console.log("pay result httpResponse:" + httpResponse);
         console.log("pay result:" + body);
