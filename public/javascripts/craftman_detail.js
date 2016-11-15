@@ -61,6 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     window.ToPayPage = function(){
-        window.location.href = "/payPage?craftmanID=" + craftmanId;
+        window.location.href = "/daily/pay?craftmanID=" + craftmanId;
     }
 });

@@ -72,6 +72,7 @@ exports.weChatCallback = function (req, res, next) {
                 var token = resObj.token;
                 var cookieAge = 60 * 60 * 1000;
                 res.cookie("token", token, {maxAge: cookieAge});
+                res.cookie("openid", weixinLoginResult.openid, {maxAge: cookieAge});
                 res.render('personal_info', personalInfo);
             }
         );
@@ -731,10 +732,62 @@ exports.getAccountDetailList = function (req, res, next) {
 };
 
 
-exports.prePay = function (req, res, next) {
+// exports.prePay = function (req, res, next) {
+//     //生成商户订单
+//     var user_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+//     var amount = 1;//req.query.amount;
+
+//     var apiTicket = GlobalCache.getApiTicket();
+//     var nonceStr = GlobalCache.getRandomStr();
+//     var timestamp = (new Date()).getTime();
+//     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+//     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+//     console.log("combineString:" + combineString);
+//     var shasum = crypto.createHash("sha1");
+//     shasum.update(combineString);
+//     var signature = shasum.digest("hex");
+//     var detaiJSON = {};
+
+//     var prepayParameter = {
+//         appid: appid,
+//         mch_id: commercialAccountID,
+//         device_info: "WEB",
+//         nonce_str: nonceStr,
+//         sign: signature,
+//         body: "小筑匠心-百货",
+//         detail: detaiJSON,
+//         out_trade_no: "1212121212121212121",//商户订单号
+//         total_fee: amount, //单位：分
+//         spbill_create_ip: user_ip,
+//         notify_url: "http://www.joinershow.cn/payCallback",
+//         trade_type: "JSAPI",
+//         openid: req.cookies['openid']
+//     };
+
+//     //商户server调用统一下单接口请求订单
+//     request.post({url: prePayURL}, {form: prepayParameter}, function (err, httpResponse, body) {
+//         console.log("pay result:" + body);
+//     });
+//     //
+// };
+
+exports.showPaypage = function(req, res, next){
+    var craftmanId = req.query.craftmanID;
+    var pageData = {
+        name: "张师傅",
+        workAddress: "上海市长宁区",
+        orderCounts: 1234,
+        starLevel: 4,
+        money: 666,
+        avatorUrl: "./images/avator.jpg",
+        distance: 122,
+        company: "亨得利名表服务中心"
+    };
+    var payInfo = {};
+
     //生成商户订单
     var user_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    var amount = req.query.amount;
+    var amount = 1;//req.query.amount;
 
     var apiTicket = GlobalCache.getApiTicket();
     var nonceStr = GlobalCache.getRandomStr();
@@ -754,33 +807,25 @@ exports.prePay = function (req, res, next) {
         nonce_str: nonceStr,
         sign: signature,
         body: "小筑匠心-百货",
-        detail: detaiJSON,
-        out_trade_no: "12123123123",//商户订单号
+        // detail: detaiJSON,
+        out_trade_no: "1212121212121212121",//商户订单号
         total_fee: amount, //单位：分
         spbill_create_ip: user_ip,
-        notify_url: "http://www.joinershow.cn/prepayCallback",
-        trade_type: "JSAPI"
+        notify_url: "http://www.joinershow.cn/daily/pay/payCallback",
+        trade_type: "JSAPI",
+        openid: req.cookies['openid']
     };
 
-    //商户server调用统一下单接口请求订单
-    request.post({url: prePayURL}, {form: prepayParameter}, function (err, httpResponse, body) {
-
+    //商户server调用统一下单接口请求订单,使用post xml
+    request.post({url: prePayURL,form: prepayParameter}, function (err, httpResponse, body) {
+        console.log("pay result err:" + err);
+        console.log("pay result httpResponse:" + httpResponse);
+        console.log("pay result:" + body);
+        res.render('pay_detail',pageData);
     });
-    //
+    
 };
 
-exports.showPaypage = function(req, res, next){
-    var craftmanId = req.query.craftmanID;
-    var pageData = {
-        name: "张师傅",
-        workAddress: "上海市长宁区",
-        orderCounts: 1234,
-        starLevel: 4,
-        money: 666,
-        avatorUrl: "./images/avator.jpg",
-        distance: 122,
-        company: "亨得利名表服务中心"
-    };
-    var payInfo = {};
-    res.render('pay_detail',pageData);
+exports.payCallback = function(req,res,next){
+
 };
