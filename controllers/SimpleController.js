@@ -23,6 +23,7 @@ var getCommentListURL = "/comment/all";
 var craftmanLoginURL = "/masteruser/login";
 var getCraftmanInfoURL = "/masteruser/info";
 var getBrandListURL = "/getBrandList";
+var apiKey = "xiaozhujiangxin12340987656565482";
 
 exports.loginPage = function (req, res, next) {
     var loginData = {
@@ -747,38 +748,44 @@ exports.showPaypage = function(req, res, next){
     var payInfo = {};
 
     //生成商户订单
-    var user_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    var user_ip = "127.0.0.1";//req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     var amount = 1;//req.query.amount;
-
-    var apiTicket = GlobalCache.getApiTicket();
+    console.log("user_ip:" + user_ip);
     var nonceStr = GlobalCache.getRandomStr();
-    var timestamp = (new Date()).getTime();
-    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
-    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-    console.log("combineString:" + combineString);
-    var shasum = crypto.createHash("sha1");
-    shasum.update(combineString);
-    var signature = shasum.digest("hex");
-    var detaiJSON = {};
 
     var prepayParameter = {
         appid: appid,
-        mch_id: commercialAccountID,
-        device_info: "WEB",
-        nonce_str: nonceStr,
-        sign: signature,
         body: "小筑匠心-百货",
-        // detail: detaiJSON,
+        device_info: "WEB",
+        mch_id: commercialAccountID,
+        nonce_str: nonceStr,
+        notify_url: "http://www.joinershow.cn/daily/pay/payCallback",     
+        openid: req.cookies['openid'], 
         out_trade_no: "1212121212121212121",//商户订单号
-        total_fee: amount, //单位：分
         spbill_create_ip: user_ip,
-        notify_url: "http://www.joinershow.cn/daily/pay/payCallback",
-        trade_type: "JSAPI",
-        openid: req.cookies['openid']
+        total_fee: amount, //单位：分 
+        trade_type: "JSAPI"
     };
+
+    // var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+    var combineString = "appid="+prepayParameter.appid+"&body="+prepayParameter.body+"&device_info="+prepayParameter.device_info+
+    "&mch_id=" + prepayParameter.mch_id + "&nonce_str=" + prepayParameter.nonce_str + "&notify_url=" + prepayParameter.notify_url+
+    "&openid=" + prepayParameter.openid + "&out_trade_no=" + prepayParameter.out_trade_no + "&spbill_create_ip=" + prepayParameter.spbill_create_ip +
+    "&total_fee=" + prepayParameter.total_fee + "&trade_type=" + prepayParameter.trade_type;
+    console.log("combineString:" + combineString);
+    combineString += "&key="+apiKey;
+    console.log("combineString add apiKey:" + combineString);
+    // combineString = "appid=wxde4642a10788624f&body=小筑匠心-百货&device_info=WEB&mch_id=1387195102&nonce_str=zsiuocjaeoovlttgzkfl&notify_url=http://www.joinershow.cn/daily/pay/payCallback&openid=ox8tuwPgKfc-_ZmY3ues-4TfSrAI&out_trade_no=1212121212121212121&spbill_create_ip=::ffff:127.0.0.1&total_fee=1&trade_type=JSAPI&key=xiaozhujiangxin12340987656565482";
+    combineString = (new Buffer(combineString)).toString("binary");
+    var md5sum = crypto.createHash("md5");
+    md5sum.update(combineString);
+    var signature = md5sum.digest("hex");
+    prepayParameter.sign = signature.toUpperCase();
+    console.log("sign:" + prepayParameter.sign);
 
     var builder = new xml2js.Builder();
     var postXML = builder.buildObject(prepayParameter);
+    console.log("postXML:" + postXML);
 
     //商户server调用统一下单接口请求订单,使用post xml
     request.post({url: prePayURL,body: postXML,headers: {'Content-Type': 'text/xml'}}, function (err, httpResponse, body) {
