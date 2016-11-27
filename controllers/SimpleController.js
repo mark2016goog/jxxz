@@ -775,7 +775,7 @@ exports.showPaypage = function(req, res, next){
     console.log("combineString:" + combineString);
     combineString += "&key="+apiKey;
     console.log("combineString add apiKey:" + combineString);
-    // combineString = "appid=wxde4642a10788624f&body=小筑匠心-百货&device_info=WEB&mch_id=1387195102&nonce_str=zsiuocjaeoovlttgzkfl&notify_url=http://www.joinershow.cn/daily/pay/payCallback&openid=ox8tuwPgKfc-_ZmY3ues-4TfSrAI&out_trade_no=1212121212121212121&spbill_create_ip=::ffff:127.0.0.1&total_fee=1&trade_type=JSAPI&key=xiaozhujiangxin12340987656565482";
+    //中文md5，必须如下处理
     combineString = (new Buffer(combineString)).toString("binary");
     var md5sum = crypto.createHash("md5");
     md5sum.update(combineString);
