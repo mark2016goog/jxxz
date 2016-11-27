@@ -789,9 +789,25 @@ exports.showPaypage = function(req, res, next){
 
     //商户server调用统一下单接口请求订单,使用post xml
     request.post({url: prePayURL,body: postXML,headers: {'Content-Type': 'text/xml'}}, function (err, httpResponse, body) {
-        console.log("pay result err:" + err);
-        console.log("pay result httpResponse:" + httpResponse);
+        // console.log("pay result err:" + err);
+        // console.log("pay result httpResponse:" + httpResponse);
+        
+        //<xml><return_code><![CDATA[SUCCESS]]></return_code>
+        // <return_msg><![CDATA[OK]]></return_msg>
+        // <appid><![CDATA[wxde4642a10788624f]]></appid>
+        // <mch_id><![CDATA[1387195102]]></mch_id>
+        // <device_info><![CDATA[WEB]]></device_info>
+        // <nonce_str><![CDATA[BMEPclsK4AxU2hfV]]></nonce_str>
+        // <sign><![CDATA[4F9C6F2FC98A9AC812973078C397B0AD]]></sign>
+        // <result_code><![CDATA[SUCCESS]]></result_code>
+        // <prepay_id><![CDATA[wx20161127221433197c4155d00625535537]]></prepay_id>
+        // <trade_type><![CDATA[JSAPI]]></trade_type>
+        // </xml>
         console.log("pay result:" + body);
+
+        //get prepay_id from body, then generate prepay_id and paySign to the page.
+        //the page JSAPI-> getBrandWCPayRequest needs: appId,timeStamp,nonceStr,package(such as 'prepay_id=123456789'),signType(MD5),paySign
+        //All these parameters will be generated in the server.
         res.render('pay_detail',pageData);
     });
     
