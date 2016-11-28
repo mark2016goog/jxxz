@@ -735,16 +735,28 @@ exports.getAccountDetailList = function (req, res, next) {
 
 exports.showPaypage = function(req, res, next){
     var craftmanId = req.query.craftmanID;
-    var pageData = {
-        name: "张师傅",
-        workAddress: "上海市长宁区",
-        orderCounts: 1234,
-        starLevel: 4,
-        money: 666,
-        avatorUrl: "./images/avator.jpg",
-        distance: 122,
-        company: "亨得利名表服务中心"
+    var param = {
+        id:craftmanId,
+        longitude:100,
+        latitude:100
     };
+    request.post({url:apiServerAddress + getCraftmanDetailURL,form: param},function(err,response,body){
+        console.log("craftman detail:" , body);
+        var detailObj = JSON.parse(body).result;
+        detailObj = detailObj.length>0?detailObj[0]:{};
+        var pageData = {
+            name: detailObj.name,
+            workAddress: detailObj.address,
+            orderCounts: detailObj.orderCount,
+            starLevel: detailObj.marks,
+            avatorUrl: "../images/avator.jpg",
+            company: detailObj.shop
+        };
+        res.render('pay_detail',pageData); 
+    });
+};
+
+exports.confirmPayPage = function(req,res,next){
     var payInfo = {};
 
     //生成商户订单
@@ -808,9 +820,9 @@ exports.showPaypage = function(req, res, next){
         //get prepay_id from body, then generate prepay_id and paySign to the page.
         //the page JSAPI-> getBrandWCPayRequest needs: appId,timeStamp,nonceStr,package(such as 'prepay_id=123456789'),signType(MD5),paySign
         //All these parameters will be generated in the server.
-        res.render('pay_detail',pageData);
+        var pageData = {};
+        res.render('confirm_pay',pageData);
     });
-    
 };
 
 exports.payCallback = function(req,res,next){
