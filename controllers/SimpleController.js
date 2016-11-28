@@ -60,23 +60,23 @@ exports.weChatCallback = function (req, res, next) {
         };
 
         request.post({
-                url: apiServerAddress + commonUserLogin, form: loginParam
-            }, function (error, response, body) {
-                console.log("login result:" + body);
-                var resObj = JSON.parse(body);
-                var repsonseInfo = resObj.user;
-                var personalInfo = {
-                    avatorUrl: repsonseInfo.imageUrl,
-                    nickName: repsonseInfo.nickName,
-                    gender: repsonseInfo.gender == "1" ? "男" : "女",
-                    bindMobilephone: "未绑定"
-                };
-                var token = resObj.token;
-                var cookieAge = 60 * 60 * 1000;
-                res.cookie("token", token, {maxAge: cookieAge});
-                res.cookie("openid", weixinLoginResult.openid, {maxAge: cookieAge});
-                res.render('personal_info', personalInfo);
-            }
+            url: apiServerAddress + commonUserLogin, form: loginParam
+        }, function (error, response, body) {
+            console.log("login result:" + body);
+            var resObj = JSON.parse(body);
+            var repsonseInfo = resObj.user;
+            var personalInfo = {
+                avatorUrl: repsonseInfo.imageUrl,
+                nickName: repsonseInfo.nickName,
+                gender: repsonseInfo.gender == "1" ? "男" : "女",
+                bindMobilephone: "未绑定"
+            };
+            var token = resObj.token;
+            var cookieAge = 60 * 60 * 1000;
+            res.cookie("token", token, { maxAge: cookieAge });
+            res.cookie("openid", weixinLoginResult.openid, { maxAge: cookieAge });
+            res.render('personal_info', personalInfo);
+        }
         );
     });
 };
@@ -87,7 +87,7 @@ exports.orderList = function (req, res, next) {
         token: token
     };
     //{"brand":"天梭","createDate":"2016-11-01T01:00:00+08:00","masterName":"张师傅","money":300.0,"orderId":"订单号码"}
-    request.post({url: apiServerAddress + personalOrderURL, form: param}, function (err, response, body) {
+    request.post({ url: apiServerAddress + personalOrderURL, form: param }, function (err, response, body) {
         console.log("orderlist:" + body);
         var resObj = JSON.parse(body).results;
         var orderList = [];
@@ -114,7 +114,7 @@ exports.couponList = function (req, res, next) {
         token: token
     };
 
-    request.post({url: apiServerAddress + personalCouponURL, form: param}, function (err, response, body) {
+    request.post({ url: apiServerAddress + personalCouponURL, form: param }, function (err, response, body) {
         console.log("coupon list:" + body);
         var resObj = JSON.parse(body).results;
         var couponList = [];
@@ -124,8 +124,8 @@ exports.couponList = function (req, res, next) {
             var item = {
                 id: i,
                 amount: resObj[i].money,
-                validStartTime: startDateString.substr(0,10),
-                validEndTime: endDateString.substr(0,10)
+                validStartTime: startDateString.substr(0, 10),
+                validEndTime: endDateString.substr(0, 10)
             };
             couponList.push(item);
         }
@@ -142,7 +142,7 @@ exports.couponListAsync = function (req, res, next) {
         token: token
     };
 
-    request.post({url: apiServerAddress + personalCouponURL, form: param}, function (err, response, body) {
+    request.post({ url: apiServerAddress + personalCouponURL, form: param }, function (err, response, body) {
         console.log("coupon list:" + body);
         var resObj = JSON.parse(body).results;
         var couponList = [];
@@ -152,8 +152,8 @@ exports.couponListAsync = function (req, res, next) {
             var item = {
                 id: i,
                 amount: resObj[i].money,
-                validStartTime: startDateString.substr(0,10),
-                validEndTime: endDateString.substr(0,10)
+                validStartTime: startDateString.substr(0, 10),
+                validEndTime: endDateString.substr(0, 10)
             };
             couponList.push(item);
         }
@@ -169,37 +169,37 @@ exports.brandListAsync = function (req, res, next) {
     var param = {
         token: token
     };
-    
+
     var brandList = [
-            {
-                id: 1,
-                name: "宝格丽"
-            }, {
-                id: 2,
-                name: "阿玛尼"
-            },
-            {
-                id: 3,
-                name: "万宝龙"
-            },
-            {
-                id: 4,
-                name: "劳力士"
-            },
-            {
-                id: 5,
-                name: "百达翠丽"
-            },
-            {
-                id: 6,
-                name: "浪琴"
-            }
-        ];
-        
-        var pageData = {
-            list: brandList
+        {
+            id: 1,
+            name: "宝格丽"
+        }, {
+            id: 2,
+            name: "阿玛尼"
+        },
+        {
+            id: 3,
+            name: "万宝龙"
+        },
+        {
+            id: 4,
+            name: "劳力士"
+        },
+        {
+            id: 5,
+            name: "百达翠丽"
+        },
+        {
+            id: 6,
+            name: "浪琴"
         }
-        res.render("async/brand_list_fragment", pageData);
+    ];
+
+    var pageData = {
+        list: brandList
+    }
+    res.render("async/brand_list_fragment", pageData);
     // request.post({url: apiServerAddress + getBrandListURL, form: param}, function (err, response, body) {
     //     console.log("brand list:" + body);
     //     var resObj = JSON.parse(body).results;
@@ -228,7 +228,7 @@ exports.brandListAsync = function (req, res, next) {
     //             name: "浪琴"
     //         }
     //     ];
-        
+
     //     var pageData = {
     //         list: brandList
     //     }
@@ -242,7 +242,7 @@ exports.followedCraftmanList = function (req, res, next) {
         token: token
     };
 
-    request.post({url: apiServerAddress + followedCraftman, form: param}, function (err, response, body) {
+    request.post({ url: apiServerAddress + followedCraftman, form: param }, function (err, response, body) {
         console.log("followedcraftman list:" + body);
         var resObj = JSON.parse(body).result;
         var followedCraftmanList = [];
@@ -302,16 +302,16 @@ exports.followedCraftmanList = function (req, res, next) {
 
 exports.searchCraftman = function (req, res, next) {
     var param = {
-        searchType:1,
-        longitude:100,
-        latitude:100
+        searchType: 1,
+        longitude: 100,
+        latitude: 100
     };
 
-    request.post({url: apiServerAddress + searchCraftmanURL,form:param},function(error,response,body){
+    request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
         console.log("search result" + body);
         var resObj = JSON.parse(body).result;
         var craftmanList = [];
-        for(var i=0;i<resObj.length;i++) {
+        for (var i = 0; i < resObj.length; i++) {
             var item = {
                 id: resObj[i].id,
                 avatorUrl: "./images/avator.jpg",
@@ -370,16 +370,16 @@ exports.searchCraftmanAsync = function (req, res, next) {
     var searchType = req.query.searchType;
     console.log("searchType:" + searchType);
     var param = {
-        searchType:searchType,
-        longitude:100,
-        latitude:100
+        searchType: searchType,
+        longitude: 100,
+        latitude: 100
     };
 
-    request.post({url: apiServerAddress + searchCraftmanURL,form:param},function(error,response,body){
+    request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
         console.log("search result" + body);
         var resObj = JSON.parse(body).result;
         var craftmanList = [];
-        for(var i=0;i<resObj.length;i++) {
+        for (var i = 0; i < resObj.length; i++) {
             var item = {
                 id: resObj[i].id,
                 avatorUrl: "./images/avator.jpg",
@@ -447,15 +447,15 @@ exports.craftmanDetail = function (req, res, next) {
 
     var craftmanId = req.query.id;
     var param = {
-        id:craftmanId,
-        longitude:100,
-        latitude:100
+        id: craftmanId,
+        longitude: 100,
+        latitude: 100
     };
 
-    request.post({url:apiServerAddress + getCraftmanDetailURL,form: param},function(err,response,body){
+    request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
         console.log("craftman detai:" + body);
         var detailObj = JSON.parse(body).result;
-        detailObj = detailObj.length>0?detailObj[0]:{};
+        detailObj = detailObj.length > 0 ? detailObj[0] : {};
         var craftmanDetail = {
             geoText: detailObj.address,
             timestamp: timestamp,
@@ -541,30 +541,30 @@ exports.followCraftman = function (req, res, next) {
         token: token,
         id: craftmanID
     };
-    request.post({url:apiServerAddress + followCraftmanURL,form:param},function(err, response, body){
+    request.post({ url: apiServerAddress + followCraftmanURL, form: param }, function (err, response, body) {
         res.setHeader('Content-Type', 'application/json');
         console.log("follow result:" + body);
         var followResultObj = JSON.parse(body);
-        if(followResultObj.code == 1) {
-            res.send({followResult: 1});
+        if (followResultObj.code == 1) {
+            res.send({ followResult: 1 });
         } else {
-            res.send({followResult: 0});
+            res.send({ followResult: 0 });
         }
     });
-    
+
 };
 
 
 exports.commentList = function (req, res, next) {
     var craftmanID = req.query.id;
     var param = {
-        id:craftmanID
+        id: craftmanID
     };
-    request.post({url: apiServerAddress + getCommentListURL,form:param},function(error, response, body){
+    request.post({ url: apiServerAddress + getCommentListURL, form: param }, function (error, response, body) {
         console.log("get comment list:" + body);
         var cmtObj = JSON.parse(body).result;
         var commentList = [];
-        for(var i=0;i<cmtObj.length;i++){
+        for (var i = 0; i < cmtObj.length; i++) {
             var item = {
                 userAvatorUrl: "./images/avator.jpg",
                 starLevel: cmtObj[i].marks,
@@ -575,7 +575,7 @@ exports.commentList = function (req, res, next) {
             commentList.push(item);
         }
         var pageData = {
-            commentList:commentList
+            commentList: commentList
         };
         res.render('user_comment_list', pageData);
     });
@@ -616,7 +616,7 @@ exports.commentList = function (req, res, next) {
 };
 
 exports.craftmanLoginPage = function (req, res, next) {
-    
+
     var loginData = {
         title: '工匠登陆'
     };
@@ -631,16 +631,16 @@ exports.craftmanLogin = function (req, res, next) {
         password: pwd
     };
 
-    request.post({url: apiServerAddress+craftmanLoginURL,form:param},function(err,response,body){
+    request.post({ url: apiServerAddress + craftmanLoginURL, form: param }, function (err, response, body) {
         console.log("craftman login:" + body);
         var loginResult = JSON.parse(body);
         res.setHeader('Content-Type', 'application/json');
-        if(loginResult.code == 1) {
+        if (loginResult.code == 1) {
             var cookieAge = 60 * 1000;
-            res.cookie("b_token", loginResult.token, {maxAge: cookieAge});
-            res.send({loginSuc: true});
+            res.cookie("b_token", loginResult.token, { maxAge: cookieAge });
+            res.send({ loginSuc: true });
         } else {
-            res.send({loginSuc: false});
+            res.send({ loginSuc: false });
         }
     });
 };
@@ -648,13 +648,13 @@ exports.craftmanLogin = function (req, res, next) {
 exports.craftmanPersonalInfo = function (req, res, next) {
     var token = req.cookies["b_token"];
     var param = {
-        token:token
+        token: token
     };
 
-    request.post({url: apiServerAddress + getCraftmanInfoURL, form: param}, function(err, response, body) {
+    request.post({ url: apiServerAddress + getCraftmanInfoURL, form: param }, function (err, response, body) {
         console.log("get craftman detail:" + body);
         var craftmanDetailResult = JSON.parse(body);
-        if(craftmanDetailResult.code == 1) {
+        if (craftmanDetailResult.code == 1) {
             var craftmanInfo = craftmanDetailResult.result;
             var craftmanData = {
                 id: craftmanInfo.id,
@@ -677,7 +677,7 @@ exports.craftmanPersonalInfo = function (req, res, next) {
 exports.withdraw = function (req, res, next) {
     var amount = req.query.amount;
     res.setHeader('Content-Type', 'application/json');
-    res.send({withdrawResult: true});
+    res.send({ withdrawResult: true });
 };
 
 exports.craftmanSettingPage = function (req, res, next) {
@@ -699,7 +699,7 @@ exports.getVerifyCode = function (req, res, next) {
 exports.modifyPassword = function (req, res, next) {
     var teleNo = req.query.teleNo;
     var password = req.query.password;
-    res.send({result: true});
+    res.send({ result: true });
 };
 
 exports.getAccountDetailList = function (req, res, next) {
@@ -733,17 +733,17 @@ exports.getAccountDetailList = function (req, res, next) {
     res.render("account_detail", detailList);
 };
 
-exports.showPaypage = function(req, res, next){
+exports.showPaypage = function (req, res, next) {
     var craftmanId = req.query.craftmanID;
     var param = {
-        id:craftmanId,
-        longitude:100,
-        latitude:100
+        id: craftmanId,
+        longitude: 0,
+        latitude: 0
     };
-    request.post({url:apiServerAddress + getCraftmanDetailURL,form: param},function(err,response,body){
-        console.log("craftman detail:" , body);
+    request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
+        console.log("craftman detail:", body);
         var detailObj = JSON.parse(body).result;
-        detailObj = detailObj.length>0?detailObj[0]:{};
+        detailObj = detailObj.length > 0 ? detailObj[0] : {};
         var pageData = {
             name: detailObj.name,
             workAddress: detailObj.address,
@@ -752,11 +752,11 @@ exports.showPaypage = function(req, res, next){
             avatorUrl: "../images/avator.jpg",
             company: detailObj.shop
         };
-        res.render('pay_detail',pageData); 
+        res.render('pay_detail', pageData);
     });
 };
 
-exports.confirmPayPage = function(req,res,next){
+exports.confirmPayPage = function (req, res, next) {
     var payInfo = {};
 
     //生成商户订单
@@ -771,8 +771,8 @@ exports.confirmPayPage = function(req,res,next){
         device_info: "WEB",
         mch_id: commercialAccountID,
         nonce_str: nonceStr,
-        notify_url: "http://www.joinershow.cn/daily/pay/payCallback",     
-        openid: req.cookies['openid'], 
+        notify_url: "http://www.joinershow.cn/daily/pay/payCallback",
+        openid: req.cookies['openid'],
         out_trade_no: "1212121212121212121",//商户订单号
         spbill_create_ip: user_ip,
         total_fee: amount, //单位：分 
@@ -780,12 +780,12 @@ exports.confirmPayPage = function(req,res,next){
     };
 
     // var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-    var combineString = "appid="+prepayParameter.appid+"&body="+prepayParameter.body+"&device_info="+prepayParameter.device_info+
-    "&mch_id=" + prepayParameter.mch_id + "&nonce_str=" + prepayParameter.nonce_str + "&notify_url=" + prepayParameter.notify_url+
-    "&openid=" + prepayParameter.openid + "&out_trade_no=" + prepayParameter.out_trade_no + "&spbill_create_ip=" + prepayParameter.spbill_create_ip +
-    "&total_fee=" + prepayParameter.total_fee + "&trade_type=" + prepayParameter.trade_type;
+    var combineString = "appid=" + prepayParameter.appid + "&body=" + prepayParameter.body + "&device_info=" + prepayParameter.device_info +
+        "&mch_id=" + prepayParameter.mch_id + "&nonce_str=" + prepayParameter.nonce_str + "&notify_url=" + prepayParameter.notify_url +
+        "&openid=" + prepayParameter.openid + "&out_trade_no=" + prepayParameter.out_trade_no + "&spbill_create_ip=" + prepayParameter.spbill_create_ip +
+        "&total_fee=" + prepayParameter.total_fee + "&trade_type=" + prepayParameter.trade_type;
     console.log("combineString:" + combineString);
-    combineString += "&key="+apiKey;
+    combineString += "&key=" + apiKey;
     console.log("combineString add apiKey:" + combineString);
     //中文md5，必须如下处理
     combineString = (new Buffer(combineString)).toString("binary");
@@ -797,13 +797,12 @@ exports.confirmPayPage = function(req,res,next){
 
     var builder = new xml2js.Builder();
     var postXML = builder.buildObject(prepayParameter);
-    console.log("postXML:" + postXML);
 
     //商户server调用统一下单接口请求订单,使用post xml
-    request.post({url: prePayURL,body: postXML,headers: {'Content-Type': 'text/xml'}}, function (err, httpResponse, body) {
+    request.post({ url: prePayURL, body: postXML, headers: { 'Content-Type': 'text/xml' } }, function (err, httpResponse, body) {
         // console.log("pay result err:" + err);
         // console.log("pay result httpResponse:" + httpResponse);
-        
+
         //<xml><return_code><![CDATA[SUCCESS]]></return_code>
         // <return_msg><![CDATA[OK]]></return_msg>
         // <appid><![CDATA[wxde4642a10788624f]]></appid>
@@ -821,10 +820,10 @@ exports.confirmPayPage = function(req,res,next){
         //the page JSAPI-> getBrandWCPayRequest needs: appId,timeStamp,nonceStr,package(such as 'prepay_id=123456789'),signType(MD5),paySign
         //All these parameters will be generated in the server.
         var pageData = {};
-        res.render('confirm_pay',pageData);
+        res.render('confirm_pay', pageData);
     });
 };
 
-exports.payCallback = function(req,res,next){
+exports.payCallback = function (req, res, next) {
 
 };
