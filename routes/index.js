@@ -24,4 +24,5 @@ router.get('/daily/pay',controller.showPaypage);
 router.get('/daily/pay/payCallback',controller.payCallback);
 router.get('/couponlistAsync', controller.couponListAsync);
 router.get('/brandListAsync',controller.brandListAsync);
+router.get('/confirmPay',controller.confirmPayPage);
 module.exports = router;

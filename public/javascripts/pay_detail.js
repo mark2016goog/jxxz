@@ -41,4 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
         e.stopPropagation();
     });
 
+    var bindConfirmBtn = document.getElementById("bind-mobilephone-confirm-btn");
+    var realPayAmount = document.getElementById("realPayAmount");
+    bindConfirmBtn.addEventListener("click", function(e){
+        //amount 单位是分
+        window.location.href = "/confirmPay?amount=" + 100*realPayAmount.innerText;
+    });
+
 });

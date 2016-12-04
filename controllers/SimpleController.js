@@ -4,6 +4,7 @@
 var request = require("request");
 var crypto = require("crypto");
 var xml2js = require("xml2js");
+var xmlParser = new xml2js.Parser();
 
 var getAccessTokenURL = "https://api.weixin.qq.com/sns/oauth2/access_token";
 var prePayURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
@@ -477,61 +478,6 @@ exports.craftmanDetail = function (req, res, next) {
         res.render('craftman_detail', craftmanDetail);
     });
 
-    // var craftmanDetail = {
-    //     geoText: "上海市静安区南京西路1266号恒隆广场",
-    //     timestamp: timestamp,
-    //     nonceStr: nonceStr,
-    //     signature: signature,
-    //     id: craftmanId,
-    //     avatorUrl: "./images/avator.jpg",
-    //     name: "张师傅",
-    //     company: "亨得利国际名表服务中心",
-    //     starLevel: 4,
-    //     orderCounts: 1000,
-    //     workAddress: "上海市静安区南京西路1266号恒隆广场",
-    //     distance: "1.1km",
-    //     intro: "张师傅,拥有国际认证的XXXXXX牛逼证书,从业8年8年年年年年从业8年8年年年年年从业8年8年年年年年从业8年8年年年年年",
-    //     telephone: 15800622061,
-    //     skilledBrandList: [
-    //         {
-    //             id: 1,
-    //             name: "宝格丽"
-    //         }, {
-    //             id: 2,
-    //             name: "阿玛尼"
-    //         },
-    //         {
-    //             id: 3,
-    //             name: "万宝龙"
-    //         },
-    //         {
-    //             id: 4,
-    //             name: "劳力士"
-    //         },
-    //         {
-    //             id: 5,
-    //             name: "百达翠丽"
-    //         },
-    //         {
-    //             id: 6,
-    //             name: "浪琴"
-    //         }
-    //     ],
-    //     commentList: [
-    //         {
-    //             userAvatorUrl: "./images/avator.jpg",
-    //             starLevel: 3,
-    //             username: "柯南君1",
-    //             cmtDetail: "服务态度非常好,技术一流"
-    //         }, {
-    //             userAvatorUrl: "./images/avator.jpg",
-    //             starLevel: 4,
-    //             username: "柯南君2",
-    //             cmtDetail: "服务态度非常好,技术一流"
-    //         }
-    //     ]
-    // };
-    // res.render('craftman_detail', craftmanDetail);
 };
 
 exports.followCraftman = function (req, res, next) {
@@ -579,40 +525,7 @@ exports.commentList = function (req, res, next) {
         };
         res.render('user_comment_list', pageData);
     });
-    // var commentList = {
-    //     commentList: [{
-    //         userAvatorUrl: "./images/avator.jpg",
-    //         starLevel: 5,
-    //         username: "柯南君1",
-    //         cmtDetail: "服务态度非常好,技术一流aaa",
-    //         cmtTime: "10月2日"
-    //     }, {
-    //         userAvatorUrl: "./images/avator.jpg",
-    //         starLevel: 4,
-    //         username: "柯南君2",
-    //         cmtDetail: "服务态度非常好,技术一流nnnn",
-    //         cmtTime: "5月2日"
-    //     }, {
-    //         userAvatorUrl: "./images/avator.jpg",
-    //         starLevel: 4,
-    //         username: "柯南君2",
-    //         cmtDetail: "服务态度非常好,技术一流naaannn",
-    //         cmtTime: "5月2日"
-    //     }, {
-    //         userAvatorUrl: "./images/avator.jpg",
-    //         starLevel: 4,
-    //         username: "柯南君2",
-    //         cmtDetail: "服务态度非常好,技术一流啊啊啊nn",
-    //         cmtTime: "5月2日"
-    //     }, {
-    //         userAvatorUrl: "./images/avator.jpg",
-    //         starLevel: 4,
-    //         username: "柯南君2",
-    //         cmtDetail: "服务态度非常好,技术一流n啊啊啊阿瑟斯nnn",
-    //         cmtTime: "5月2日"
-    //     }]
-    // };
-    // res.render('user_comment_list', commentList);
+  
 };
 
 exports.craftmanLoginPage = function (req, res, next) {
@@ -761,9 +674,10 @@ exports.confirmPayPage = function (req, res, next) {
 
     //生成商户订单
     var user_ip = "127.0.0.1";//req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    var amount = 1;//req.query.amount;
-    console.log("user_ip:" + user_ip);
+    var amount = req.query.amount;//req.query.amount;
+   
     var nonceStr = GlobalCache.getRandomStr();
+    var commercialOrderID = GlobalCache.getRandomStr();
 
     var prepayParameter = {
         appid: appid,
@@ -773,7 +687,7 @@ exports.confirmPayPage = function (req, res, next) {
         nonce_str: nonceStr,
         notify_url: "http://www.joinershow.cn/daily/pay/payCallback",
         openid: req.cookies['openid'],
-        out_trade_no: "1212121212121212121",//商户订单号
+        out_trade_no: commercialOrderID,//商户订单号,不能重复
         spbill_create_ip: user_ip,
         total_fee: amount, //单位：分 
         trade_type: "JSAPI"
@@ -784,16 +698,15 @@ exports.confirmPayPage = function (req, res, next) {
         "&mch_id=" + prepayParameter.mch_id + "&nonce_str=" + prepayParameter.nonce_str + "&notify_url=" + prepayParameter.notify_url +
         "&openid=" + prepayParameter.openid + "&out_trade_no=" + prepayParameter.out_trade_no + "&spbill_create_ip=" + prepayParameter.spbill_create_ip +
         "&total_fee=" + prepayParameter.total_fee + "&trade_type=" + prepayParameter.trade_type;
-    console.log("combineString:" + combineString);
+   
     combineString += "&key=" + apiKey;
-    console.log("combineString add apiKey:" + combineString);
     //中文md5，必须如下处理
     combineString = (new Buffer(combineString)).toString("binary");
     var md5sum = crypto.createHash("md5");
     md5sum.update(combineString);
     var signature = md5sum.digest("hex");
     prepayParameter.sign = signature.toUpperCase();
-    console.log("sign:" + prepayParameter.sign);
+    // console.log("sign:" + prepayParameter.sign);
 
     var builder = new xml2js.Builder();
     var postXML = builder.buildObject(prepayParameter);
@@ -814,13 +727,48 @@ exports.confirmPayPage = function (req, res, next) {
         // <prepay_id><![CDATA[wx20161127221433197c4155d00625535537]]></prepay_id>
         // <trade_type><![CDATA[JSAPI]]></trade_type>
         // </xml>
-        console.log("pay result:" + body);
+        // console.log("pay result:" + body);
+        xmlParser.parseString(body,function(err,result){
+            if(err){
+                console.log("xmlParser error",err);
+            }else{
+                try{
+                    console.log("result.xml",result.xml);
+                    var prepayID = result.xml.prepay_id[0];
+                    //get prepay_id from body, then generate prepay_id and paySign to the page.
+                    //the page JSAPI-> getBrandWCPayRequest needs: appId,timeStamp,nonceStr,package(such as 'prepay_id=123456789'),signType(MD5),paySign
+                    //All these parameters will be generated in the server.
+                    console.log("prepayID:",prepayID);
+                    var payTimeStamp = (new Date()).getTime()/1000;//转化为秒
+                    var payNonceStr = GlobalCache.getRandomStr();
+                    var payPackage = "prepay_id="+prepayID;
+                    var signType = "MD5";
+                    //nonceStr,package,timestamp,signType 
+                    var stringCombine = "nonceStr="+payNonceStr+"&package="+payPackage+"&timestamp="+payTimeStamp+"&signType="+signType;
+                    //拼接api key
+                    stringCombine+="$key=" + apiKey;
+                    var md5Sum = crypto.createHash("md5");
+                    md5Sum.update(stringCombine);
+                    var signPay = md5Sum.digest("hex").toUpperCase();
 
-        //get prepay_id from body, then generate prepay_id and paySign to the page.
-        //the page JSAPI-> getBrandWCPayRequest needs: appId,timeStamp,nonceStr,package(such as 'prepay_id=123456789'),signType(MD5),paySign
-        //All these parameters will be generated in the server.
-        var pageData = {};
-        res.render('confirm_pay', pageData);
+                    var pageData = {
+                        timestamp:payTimeStamp,
+                        nonceStr:payNonceStr,
+                        package:payPackage,
+                        signType:signType,
+                        paySign:signPay,
+                        configSign: configSign,
+                        appId:appid,
+                        payAmount:amount/100//转化为元为单位
+                    };
+                    res.render('confirm_pay', pageData);
+                }
+                catch(e) {
+                    res.render('confirm_pay', {});
+                }
+            }
+        });
+       
     });
 };
 
