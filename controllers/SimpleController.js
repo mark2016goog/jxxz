@@ -751,6 +751,17 @@ exports.confirmPayPage = function (req, res, next) {
                     md5Sum.update(stringCombine);
                     var signPay = md5Sum.digest("hex").toUpperCase();
 
+
+                    //generate config param
+                    var apiTicket = GlobalCache.getApiTicket();
+                    var configTimestamp = (new Date()).getTime();
+                    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+                    var configCombineStr = "jsapi_ticket=" + apiTicket + "&noncestr=" + payNonceStr + "&timestamp=" + configTimestamp + "&url=" + url;
+                    var shasum = crypto.createHash("sha1");
+                    shasum.update(configCombineStr);
+                    var configSign = shasum.digest("hex");
+                    
+             
                     var pageData = {
                         timestamp:payTimeStamp,
                         nonceStr:payNonceStr,
@@ -758,6 +769,7 @@ exports.confirmPayPage = function (req, res, next) {
                         signType:signType,
                         paySign:signPay,
                         configSign: configSign,
+                        configTimestamp: configTimestamp,
                         appId:appid,
                         payAmount:amount/100//转化为元为单位
                     };
