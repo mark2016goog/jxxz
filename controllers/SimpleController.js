@@ -267,38 +267,6 @@ exports.followedCraftmanList = function (req, res, next) {
         res.render('followed_craftman_list', pageData);
     });
 
-    //var craftmanList = {
-    //    title: "followedCraftman",
-    //    list: [{
-    //        id: 1,
-    //        avatorUrl: "./images/avator.jpg",
-    //        name: "张师傅",
-    //        company: "亨得利国际名表服务中心",
-    //        starLevel: 4,
-    //        orderCounts: 1000,
-    //        workAddress: "上海市静安区南京西路1266号恒隆广场",
-    //        distance: "1.1km"
-    //    }, {
-    //        id: 2,
-    //        avatorUrl: "./images/avator.jpg",
-    //        name: "张师傅",
-    //        company: "亨得利国际名表服务中心",
-    //        starLevel: 3,
-    //        orderCounts: 1000,
-    //        workAddress: "上海市静安区南京西路1266号恒隆广场",
-    //        distance: "1.1km"
-    //    }, {
-    //        id: 3,
-    //        avatorUrl: "./images/avator.jpg",
-    //        name: "张师傅",
-    //        company: "亨得利国际名表服务中心",
-    //        starLevel: 2,
-    //        orderCounts: 1000,
-    //        workAddress: "上海市静安区南京西路1266号恒隆广场",
-    //        distance: "1.1km"
-    //    }]
-    //};
-    //res.render('followed_craftman_list', craftmanList);
 };
 
 exports.searchCraftman = function (req, res, next) {
@@ -331,39 +299,6 @@ exports.searchCraftman = function (req, res, next) {
         };
         res.render('craftman_filter_list', pageData);
     });
-
-    // var craftmanList = {
-    //     title: "searchCraftman",
-    //     list: [{
-    //         id: 1,
-    //         avatorUrl: "./images/avator.jpg",
-    //         name: "张师傅",
-    //         company: "亨得利国际名表服务中心",
-    //         starLevel: 4,
-    //         orderCounts: 1000,
-    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
-    //         distance: "1.1km"
-    //     }, {
-    //         id: 2,
-    //         avatorUrl: "./images/avator.jpg",
-    //         name: "张师傅",
-    //         company: "亨得利国际名表服务中心",
-    //         starLevel: 3,
-    //         orderCounts: 1000,
-    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
-    //         distance: "2.1km"
-    //     }, {
-    //         id: 3,
-    //         avatorUrl: "./images/avator.jpg",
-    //         name: "张师傅",
-    //         company: "亨得利国际名表服务中心",
-    //         starLevel: 2,
-    //         orderCounts: 1000,
-    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
-    //         distance: "3.1km"
-    //     }]
-    // };
-    // res.render('craftman_filter_list', craftmanList);
 };
 
 
@@ -399,39 +334,6 @@ exports.searchCraftmanAsync = function (req, res, next) {
         };
         res.render('async/craftman_list_fragment', pageData);
     });
-
-    // var craftmanList = {
-    //     title: "searchCraftman",
-    //     list: [{
-    //         id: 1,
-    //         avatorUrl: "./images/avator.jpg",
-    //         name: "杨师傅",
-    //         company: "亨得利国际名表服务中心",
-    //         starLevel: 4,
-    //         orderCounts: 1000,
-    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
-    //         distance: "1.1km"
-    //     }, {
-    //         id: 2,
-    //         avatorUrl: "./images/avator.jpg",
-    //         name: "顾师傅",
-    //         company: "亨得利国际名表服务中心",
-    //         starLevel: 3,
-    //         orderCounts: 1000,
-    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
-    //         distance: "1.1km"
-    //     }, {
-    //         id: 3,
-    //         avatorUrl: "./images/avator.jpg",
-    //         name: "项师傅",
-    //         company: "亨得利国际名表服务中心",
-    //         starLevel: 2,
-    //         orderCounts: 1000,
-    //         workAddress: "上海市静安区南京西路1266号恒隆广场",
-    //         distance: "1.1km"
-    //     }]
-    // };
-    // res.render('async/craftman_list_fragment', craftmanList);
 };
 
 exports.craftmanDetail = function (req, res, next) {
@@ -739,18 +641,19 @@ exports.confirmPayPage = function (req, res, next) {
                     //the page JSAPI-> getBrandWCPayRequest needs: appId,timeStamp,nonceStr,package(such as 'prepay_id=123456789'),signType(MD5),paySign
                     //All these parameters will be generated in the server.
                     console.log("prepayID:",prepayID);
-                    var payTimeStamp = (new Date()).getTime()/1000;//转化为秒
+                    var payTimeStamp = Math.floor((new Date()).getTime()/1000);//转化为秒
                     var payNonceStr = GlobalCache.getRandomStr();
                     var payPackage = "prepay_id="+prepayID;
                     var signType = "MD5";
                     //nonceStr,package,timestamp,signType 
-                    var stringCombine = "nonceStr="+payNonceStr+"&package="+payPackage+"&timestamp="+payTimeStamp+"&signType="+signType;
+                    var stringCombine = "appId="+appid+"&nonceStr="+payNonceStr+"&package="+payPackage+"&signType="+signType+"&timeStamp="+payTimeStamp;//+"&signType="+signType;
                     //拼接api key
-                    stringCombine+="$key=" + apiKey;
+                    stringCombine+="&key=" + apiKey;
+                    console.log("pay string combine",stringCombine);
                     var md5Sum = crypto.createHash("md5");
                     md5Sum.update(stringCombine);
                     var signPay = md5Sum.digest("hex").toUpperCase();
-
+                    console.log("signPay",signPay);
 
                     //generate config param
                     var apiTicket = GlobalCache.getApiTicket();
