@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+$bkg-color: #EEEEEE;
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    font-size: getRem640(28);
+}
+
+.wrapper {
+    background-color: $bkg-color;
+    padding-top: getRem640(20);
+    padding-left: getRem640(32);
+    padding-right: getRem640(32);
+    .top-label{
+        background-color: #fff;
+        .payAmount{
+            font-size: getRem640(22);
+            color: #2e2e2e;
+        }
+        .payNum{
+            font-size: getRem640(32);
+            color: #2e2e2e;
+            margin-left: getRem640(34);
+        }
+        .orderNum{
+            font-size: getRem640(22);
+            color:#aaa;
+        }
+    }
+    .confirm{
+        width:100%;
+        margin-top: getRem640(26);
+        height:getRem640(88);
+        line-height:getRem640(88);
+        background-color: #1cd00f;
+        color: #fff;
+        text-align: center;
+    }
+}

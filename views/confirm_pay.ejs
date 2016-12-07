@@ -35,7 +35,14 @@
 </head>
 <body>
 <div class="wrapper">
-  支付金额<%= payAmount%>
+  <div class="top-label">
+    <div>
+      <span class="payAmount">支付金额</span><span class="payNum">￥<%= payAmount%></span>
+    </div>
+    <div>
+      <span class="orderNum">订单编号</span>
+    </div>
+  </div>
   <input type="hidden" id="appId" value="<%= appId%>" />
   <input type="hidden" id="ts" value="<%= timestamp%>" />
   <input type="hidden" id="nonceStr" value="<%= nonceStr%>" />
@@ -44,7 +51,7 @@
   <input type="hidden" id="signType" value="<%= signType%>" />
   <input type="hidden" id="configTimestamp" value="<%= configTimestamp%>" />
   <input type="hidden" id="configSign" value="<%= configSign%>" />
-  <div onclick="finalPay()">确认支付</div>
+  <div onclick="finalPay()" class="confirm">确认支付</div>
 </div>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="/javascripts/lib/simple_ajax.js"></script>
