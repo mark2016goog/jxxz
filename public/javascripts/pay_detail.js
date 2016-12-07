@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var realPayAmount = document.getElementById("realPayAmount");
     bindConfirmBtn.addEventListener("click", function(e){
         //amount 单位是分
-        window.location.href = "/confirmPay?amount=" + 100*realPayAmount.innerText;
+        window.location.href = "/confirmPay/?amount=" + 100*realPayAmount.innerText;
     });
 
 });
