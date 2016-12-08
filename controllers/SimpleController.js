@@ -51,7 +51,7 @@ exports.weChatCallback = function (req, res, next) {
     // \"openid\":\"ox8tuwPgKfc-_ZmY3ues-4TfSrAI\",\"scope\":\"snsapi_userinfo\"}
 
     request.get(reqParam, function (error, response, body) {
-        console.log(body);
+        
         var weixinLoginResult = JSON.parse(body);
         var loginParam = {
             openID: weixinLoginResult.openid,
@@ -63,7 +63,6 @@ exports.weChatCallback = function (req, res, next) {
         request.post({
             url: apiServerAddress + commonUserLogin, form: loginParam
         }, function (error, response, body) {
-            console.log("login result:" + body);
             var resObj = JSON.parse(body);
             var repsonseInfo = resObj.user;
             var personalInfo = {
@@ -89,7 +88,7 @@ exports.orderList = function (req, res, next) {
     };
     //{"brand":"天梭","createDate":"2016-11-01T01:00:00+08:00","masterName":"张师傅","money":300.0,"orderId":"订单号码"}
     request.post({ url: apiServerAddress + personalOrderURL, form: param }, function (err, response, body) {
-        console.log("orderlist:" + body);
+       
         var resObj = JSON.parse(body).results;
         var orderList = [];
         for (var i = 0; i < resObj.length; i++) {
@@ -116,7 +115,7 @@ exports.couponList = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + personalCouponURL, form: param }, function (err, response, body) {
-        console.log("coupon list:" + body);
+        
         var resObj = JSON.parse(body).results;
         var couponList = [];
         for (var i = 0; i < resObj.length; i++) {
@@ -201,40 +200,6 @@ exports.brandListAsync = function (req, res, next) {
         list: brandList
     }
     res.render("async/brand_list_fragment", pageData);
-    // request.post({url: apiServerAddress + getBrandListURL, form: param}, function (err, response, body) {
-    //     console.log("brand list:" + body);
-    //     var resObj = JSON.parse(body).results;
-    //     var brandList = [
-    //         {
-    //             id: 1,
-    //             name: "宝格丽"
-    //         }, {
-    //             id: 2,
-    //             name: "阿玛尼"
-    //         },
-    //         {
-    //             id: 3,
-    //             name: "万宝龙"
-    //         },
-    //         {
-    //             id: 4,
-    //             name: "劳力士"
-    //         },
-    //         {
-    //             id: 5,
-    //             name: "百达翠丽"
-    //         },
-    //         {
-    //             id: 6,
-    //             name: "浪琴"
-    //         }
-    //     ];
-
-    //     var pageData = {
-    //         list: brandList
-    //     }
-    //     res.render("async/brand_list_fragment", pageData);
-    // });
 };
 
 exports.followedCraftmanList = function (req, res, next) {
@@ -244,7 +209,7 @@ exports.followedCraftmanList = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + followedCraftman, form: param }, function (err, response, body) {
-        console.log("followedcraftman list:" + body);
+       
         var resObj = JSON.parse(body).result;
         var followedCraftmanList = [];
         for (var i = 0; i < resObj.length; i++) {
@@ -277,7 +242,7 @@ exports.searchCraftman = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
-        console.log("search result" + body);
+        
         var resObj = JSON.parse(body).result;
         var craftmanList = [];
         for (var i = 0; i < resObj.length; i++) {
@@ -304,7 +269,6 @@ exports.searchCraftman = function (req, res, next) {
 
 exports.searchCraftmanAsync = function (req, res, next) {
     var searchType = req.query.searchType;
-    console.log("searchType:" + searchType);
     var param = {
         searchType: searchType,
         longitude: 100,
@@ -312,7 +276,7 @@ exports.searchCraftmanAsync = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
-        console.log("search result" + body);
+        
         var resObj = JSON.parse(body).result;
         var craftmanList = [];
         for (var i = 0; i < resObj.length; i++) {
@@ -343,7 +307,7 @@ exports.craftmanDetail = function (req, res, next) {
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
 
     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-    console.log("combineString:" + combineString);
+  
     var shasum = crypto.createHash("sha1");
     shasum.update(combineString);
     var signature = shasum.digest("hex");
@@ -356,7 +320,7 @@ exports.craftmanDetail = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
-        console.log("craftman detai:" + body);
+       
         var detailObj = JSON.parse(body).result;
         detailObj = detailObj.length > 0 ? detailObj[0] : {};
         var craftmanDetail = {
@@ -391,7 +355,7 @@ exports.followCraftman = function (req, res, next) {
     };
     request.post({ url: apiServerAddress + followCraftmanURL, form: param }, function (err, response, body) {
         res.setHeader('Content-Type', 'application/json');
-        console.log("follow result:" + body);
+    
         var followResultObj = JSON.parse(body);
         if (followResultObj.code == 1) {
             res.send({ followResult: 1 });
@@ -409,7 +373,7 @@ exports.commentList = function (req, res, next) {
         id: craftmanID
     };
     request.post({ url: apiServerAddress + getCommentListURL, form: param }, function (error, response, body) {
-        console.log("get comment list:" + body);
+       
         var cmtObj = JSON.parse(body).result;
         var commentList = [];
         for (var i = 0; i < cmtObj.length; i++) {
@@ -447,7 +411,7 @@ exports.craftmanLogin = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + craftmanLoginURL, form: param }, function (err, response, body) {
-        console.log("craftman login:" + body);
+   
         var loginResult = JSON.parse(body);
         res.setHeader('Content-Type', 'application/json');
         if (loginResult.code == 1) {
@@ -612,15 +576,12 @@ exports.confirmPayPage = function (req, res, next) {
     md5sum.update(combineString);
     var signature = md5sum.digest("hex");
     prepayParameter.sign = signature.toUpperCase();
-    // console.log("sign:" + prepayParameter.sign);
 
     var builder = new xml2js.Builder();
     var postXML = builder.buildObject(prepayParameter);
 
     //商户server调用统一下单接口请求订单,使用post xml
     request.post({ url: prePayURL, body: postXML, headers: { 'Content-Type': 'text/xml' } }, function (err, httpResponse, body) {
-        // console.log("pay result err:" + err);
-        // console.log("pay result httpResponse:" + httpResponse);
 
         //<xml><return_code><![CDATA[SUCCESS]]></return_code>
         // <return_msg><![CDATA[OK]]></return_msg>
@@ -633,7 +594,7 @@ exports.confirmPayPage = function (req, res, next) {
         // <prepay_id><![CDATA[wx20161127221433197c4155d00625535537]]></prepay_id>
         // <trade_type><![CDATA[JSAPI]]></trade_type>
         // </xml>
-        // console.log("pay result:" + body);
+
         xmlParser.parseString(body,function(err,result){
             if(err){
                 console.log("xmlParser error",err);
