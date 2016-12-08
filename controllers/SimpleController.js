@@ -574,8 +574,12 @@ exports.showPaypage = function (req, res, next) {
 exports.confirmPayPage = function (req, res, next) {
     var payInfo = {};
 
-    //生成商户订单
-    var user_ip = "127.0.0.1";//req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    var user_ip = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+     //IPV6   ::ffff:127.0.0.1
+    if(user_ip.substr(0,7) === "::ffff:"){
+          user_ip = user_ip.substr(7);  
+    }
+
     var amount = req.query.amount;//req.query.amount;
    
     var nonceStr = GlobalCache.getRandomStr();
