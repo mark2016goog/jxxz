@@ -27,15 +27,23 @@ var getBrandListURL = "/getBrandList";
 var apiKey = "xiaozhujiangxin12340987656565482";
 
 exports.loginPage = function (req, res, next) {
+    var callbackURL = req.query.callbackURL; //任何需要三方登录的业务都需要传递这个callbackURL，否则登录成功后就默认跳到个人信息页
+    console.log("callbackURL",callbackURL);
+    var redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login');
+    if(callbackURL != undefined) {
+        redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login'+'/?callbackURL='+callbackURL);
+    }
     var loginData = {
         title: '用户登录',
-        redirectUrl: encodeURIComponent('http://www.joinershow.cn/wechat_login')
+        redirectUrl: redirectURL
     };
     res.render('login_c', loginData);
 };
 
 exports.weChatCallback = function (req, res, next) {
     var oauthCode = req.query.code;
+    var cbURL = req.query.callbackURL;
+    console.log("cbURL",cbURL);
     var reqParam = {
         url: getAccessTokenURL,
         qs: {
@@ -60,6 +68,7 @@ exports.weChatCallback = function (req, res, next) {
             expire: weixinLoginResult.expires_in
         };
 
+        
         request.post({
             url: apiServerAddress + commonUserLogin, form: loginParam
         }, function (error, response, body) {
@@ -72,12 +81,17 @@ exports.weChatCallback = function (req, res, next) {
                 bindMobilephone: "未绑定"
             };
             var token = resObj.token;
-            var cookieAge = 60 * 60 * 1000;
+            var cookieAge = 1000 * 60 * 60 * 1000;
             res.cookie("token", token, { maxAge: cookieAge });
             res.cookie("openid", weixinLoginResult.openid, { maxAge: cookieAge });
-            res.render('personal_info', personalInfo);
-        }
-        );
+            console.log("aaaaa",cbURL);
+            if(cbURL === undefined){
+                res.render('personal_info', personalInfo);
+            } else {
+                res.redirect(cbURL);
+            }
+        });
+        
     });
 };
 
@@ -426,6 +440,9 @@ exports.craftmanLogin = function (req, res, next) {
 
 exports.craftmanPersonalInfo = function (req, res, next) {
     var token = req.cookies["b_token"];
+    if(token === undefined || token === null) {
+        res.redirect("/craftmanLoginPage");
+    }
     var param = {
         token: token
     };
@@ -514,6 +531,13 @@ exports.getAccountDetailList = function (req, res, next) {
 
 exports.showPaypage = function (req, res, next) {
     var craftmanId = req.query.craftmanID;
+    //首先判断是否登陆
+    if(req.cookies['openid'] === null || req.cookies['openid'] === undefined) {
+        res.redirect("/?callbackURL=" + encodeURIComponent("/daily/pay?craftmanID="+craftmanId));
+    }
+
+    //已经登陆就跳转到支付展示页
+    
     var param = {
         id: craftmanId,
         longitude: 0,
@@ -570,13 +594,14 @@ exports.confirmPayPage = function (req, res, next) {
         "&total_fee=" + prepayParameter.total_fee + "&trade_type=" + prepayParameter.trade_type;
    
     combineString += "&key=" + apiKey;
+    console.log("combineString:"+combineString);
     //中文md5，必须如下处理
     combineString = (new Buffer(combineString)).toString("binary");
     var md5sum = crypto.createHash("md5");
     md5sum.update(combineString);
     var signature = md5sum.digest("hex");
     prepayParameter.sign = signature.toUpperCase();
-
+    console.log("prepayParameter.sign",prepayParameter.sign);
     var builder = new xml2js.Builder();
     var postXML = builder.buildObject(prepayParameter);
 
@@ -644,7 +669,8 @@ exports.confirmPayPage = function (req, res, next) {
                     res.render('confirm_pay', pageData);
                 }
                 catch(e) {
-                    res.render('confirm_pay', {});
+                    console.log("pay error",e);
+                    res.render('confirm_pay', {error:e});
                 }
             }
         });

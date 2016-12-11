@@ -55,16 +55,16 @@
       </div>
     </div>
     <div class="line top-add">
-      <input type="text" type="tel" placeholder="请输入支付金额"/>
+      <input type="text" type="number" id="payAmountInput" placeholder="请输入支付金额"/>
     </div>
     <div class="line top-add bot-border complex-line" onclick="showCouponList()">
       <div class="left-title">优惠券/抵用券</div>
-      <div class="coupon-amount">-20.00</div>
+      <div class="coupon-amount">0.00</div>
       <div class="right-arrow"></div>
     </div>
     <div class="line bot-border complex-line">
       <div class="left-title">实付金额</div>
-      <div class="pay-amount" >￥<span id="realPayAmount">1</span></div>
+      <div class="pay-amount" >￥<span id="realPayAmount"></span></div>
     </div>
     <div class="line complex-line" onclick="showBrandList()">
       <div class="brand-title">手表品牌</div>

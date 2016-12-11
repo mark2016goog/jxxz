@@ -45,7 +45,18 @@ document.addEventListener("DOMContentLoaded", function () {
     var realPayAmount = document.getElementById("realPayAmount");
     bindConfirmBtn.addEventListener("click", function(e){
         //amount 单位是分
-        window.location.href = "/confirmPay/?amount=" + 100*realPayAmount.innerText;
+        var payAmountInputValue = realPayAmount.innerText;
+        var reg = /^\d+$/;
+        if(reg.test(payAmountInputValue)){
+            window.location.href = "/confirmPay/?amount=" + 100*payAmountInputValue;
+        } else {
+            alert("输入的金额不是数字！");
+        }
+    });
+
+    var payAmountInput = document.getElementById("payAmountInput");
+    payAmountInput.addEventListener("input",function(e){
+        realPayAmount.innerText = payAmountInput.value;
     });
 
 });

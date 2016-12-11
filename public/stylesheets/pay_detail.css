@@ -101,6 +101,7 @@ input {
       padding-right: 0.46875rem; }
       .wrapper .body .line input {
         height: 100%;
+        width: 100%;
         font-size: 0.4375rem;
         color: #aaa; }
     .wrapper .body .complex-line {
@@ -119,7 +120,8 @@ input {
         font-size: 0.4375rem; }
       .wrapper .body .complex-line .pay-amount {
         color: #17b50b;
-        font-size: 0.4375rem; }
+        font-size: 0.4375rem;
+        max-width: 6.25rem; }
       .wrapper .body .complex-line .select-tip {
         color: #aaa;
         font-size: 0.34375rem; }
