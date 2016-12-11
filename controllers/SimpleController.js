@@ -11,7 +11,8 @@ var prePayURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 var appid = "wxde4642a10788624f";
 var secret = "4e67e578e0318def0512293bff7e1550";
 var commercialAccountID = "1387195102";
-var apiServerAddress = "http://139.196.243.125:17001/server/webapi";
+var apiServerAddress="http://139.196.243.125:17001/server/webapi";
+// var apiServerAddress = "http://127.0.0.1:17001/server/webapi";
 var commonUserLogin = "/normaluser/login";//普通用户登录
 var personalOrderURL = "/order/normaluser/orders";//获取自己的订单列表
 var personalCouponURL = "/coupon/coupon"; //获取优惠券列表
@@ -664,6 +665,7 @@ exports.confirmPayPage = function (req, res, next) {
                         configSign: configSign,
                         configTimestamp: configTimestamp,
                         appId:appid,
+                        orderID:commercialOrderID,
                         payAmount:amount/100//转化为元为单位
                     };
                     res.render('confirm_pay', pageData);
