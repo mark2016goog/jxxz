@@ -25,4 +25,5 @@ router.get('/daily/pay/payCallback',controller.payCallback);
 router.get('/couponlistAsync', controller.couponListAsync);
 router.get('/brandListAsync',controller.brandListAsync);
 router.get('/confirmPay/',controller.confirmPayPage);
+router.get('/craftmanBusinessCard',controller.businessCard);
 module.exports = router;

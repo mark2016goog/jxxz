@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+$bkg-color: #EEEEEE;
+
+html, body, .wrapper {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    font-size: getRem640(28);
+}
+
+.wrapper {
+    background-color: $bkg-color;
+    .top{
+        width: 100%;
+        height: getRem640(726);
+        background-image: url('/images/business_card_bkg.jpg');
+        position: relative;
+        .order-count{
+            position: absolute;
+            top: getRem640(37);
+            left: getRem640(23);
+            color: #FFF;
+            font-size: getRem640(20);
+            span{
+                font-size: getRem640(24);
+            }
+        }
+    }
+}

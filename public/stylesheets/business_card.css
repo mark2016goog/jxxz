@@ -1,0 +1,56 @@
+@charset "UTF-8";
+.iconfont {
+  -webkit-font-smoothing: antialiased; }
+
+.iconfont {
+  -webkit-text-stroke-width: 0.2px; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: none; }
+
+body {
+  font-family: 'PingFang SC', Arial, 'Microsoft YaHei', 'SimHei', sans-serif;
+  margin: 0;
+  background-color: #293340; }
+
+/*
+去掉点击时的选择和阴影
+*/
+div, a, img {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none; }
+
+a {
+  text-decoration: none; }
+
+input {
+  outline: none;
+  border: none; }
+
+html, body, .wrapper {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.4375rem; }
+
+.wrapper {
+  background-color: #EEEEEE; }
+  .wrapper .top {
+    width: 100%;
+    height: 11.34375rem;
+    background-image: url("/images/business_card_bkg.jpg");
+    position: relative; }
+    .wrapper .top .order-count {
+      position: absolute;
+      top: 0.57813rem;
+      left: 0.35938rem;
+      color: #FFF;
+      font-size: 0.3125rem; }
+      .wrapper .top .order-count span {
+        font-size: 0.375rem; }
+
+/*# sourceMappingURL=business_card.css.map */

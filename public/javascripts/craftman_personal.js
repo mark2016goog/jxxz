@@ -43,6 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var curCraftmanID = document.getElementById("curCraftmanID").value;
 
     window.businessCard = function(){
-        window.location.href = "/craftmanDetail?id=" + curCraftmanID;
+        window.location.href = "/craftmanBusinessCard?id=" + curCraftmanID;
     };
 });
