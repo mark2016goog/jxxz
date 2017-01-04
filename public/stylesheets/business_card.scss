@@ -29,5 +29,54 @@ html, body, .wrapper {
                 font-size: getRem640(24);
             }
         }
+
+        .avatar{
+            width: getRem640(180);
+            height: getRem640(180);
+            position: absolute;
+            top: getRem640(23);
+            margin: 0 auto;
+            border-radius: 50%;
+            left: getRem640(230);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .username {
+            position: absolute;
+            top: getRem640(206);
+            width: getRem640(640);
+            text-align: center;
+            color: #FFF;
+            // font-weight: lighter;
+            .name{
+                font-size: getRem640(37);
+            }
+            .company{
+                font-size: getRem640(25);
+            }
+        }
+        .follow{
+            width: getRem640(128);
+            height: getRem640(35);
+            line-height: getRem640(35);
+            position: absolute;
+            top: getRem640(160);
+            right: getRem640(16);
+            border: 1px solid #FFF;
+            border-radius: getRem640(13);
+            padding-left: getRem640(5);
+            padding-right: getRem640(5);
+            img{
+                width: getRem640(22);
+                height: getRem640(20);
+            }
+            span{
+                font-size: getRem640(18);
+                height: getRem640(35);
+                line-height: getRem640(35);
+                color: #FFF;
+            }
+        }
     }
 }
