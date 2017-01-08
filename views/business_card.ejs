@@ -47,10 +47,81 @@
           <img src="./images/follow.png"></img>
           <span>添加关注</span>
         </div>
+        <div class="star-level">
+          <% for(var j = 0; j < starLevel;j++){ %>
+          <img src="./images/star-fill.png" alt="">
+          <% } %>
+          <% for(var j = 0; j < 5 - starLevel;j++){ %>
+          <img src="./images/star-empty.png" alt="">
+          <% } %>
+        </div>
+        <div class="line first-line">
+          <div class="first-left">
+            <div class="img profile">
+            </div>
+            <div class="line-text">
+              个人资料
+            </div>
+          </div>
+
+          <div class="first-right">
+            <div class="img comment">
+            </div>
+            <div class="line-text">
+              用户评价
+            </div>
+          </div>
+        </div>
+
+        <div class="line second-line">
+          <div class="second-left">
+            <div class="img skilled-brand">
+            </div>
+            <div class="line-text">
+              擅长品牌
+            </div>
+          </div>
+
+          <div class="second-right">
+            <div class="img pay">
+            </div>
+            <div class="line-text">
+              我要付款
+            </div>
+          </div>
+        </div>
+
+        <div class="line third-line">
+            <div class="img tele">
+            </div>
+            <div class="line-text tele-text">
+              电话咨询
+            </div>
+        </div>
+
+        <div class="apply-business-card">
+          <div class="apply-img"></div>
+          <div>申请名片</div>
+        </div>
+
+        <div class="position">
+          <div class="dis">
+            <div class="location"></div>
+            <div class="add-left-margin"><%= distance %>km</div>
+            <div class="add-left-margin"><%= workAddress %></div>
+          </div>
+          <div class="right-arrow"></div>
+        </div>
     </div>
     <div class="bottom">
-
-    </div>
+      <div class="title">
+        <div class="line"></div>
+        <div class="text">个人简介</div>
+        <div class="line"></div>
+      </div>
+      <div class="content">
+        <p><%= intro %></p>
+      </div>
 </div>
 <input type="hidden" value="<%= id%>" id="craftmanId" />
 <input type="hidden" value="<%= geoText %>" id="geoText"/>

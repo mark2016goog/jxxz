@@ -77,10 +77,10 @@ html, body, .wrapper {
       height: 0.54688rem;
       line-height: 0.54688rem;
       position: absolute;
-      top: 2.5rem;
+      top: 2.8125rem;
       right: 0.25rem;
       border: 1px solid #FFF;
-      border-radius: 0.20313rem;
+      border-radius: 0.39063rem;
       padding-left: 0.07813rem;
       padding-right: 0.07813rem; }
       .wrapper .top .follow img {
@@ -90,7 +90,134 @@ html, body, .wrapper {
         font-size: 0.28125rem;
         height: 0.54688rem;
         line-height: 0.54688rem;
+        color: #FFF; }
+    .wrapper .top .star-level {
+      position: absolute;
+      top: 5.03125rem;
+      width: 100%;
+      text-align: center; }
+      .wrapper .top .star-level img {
+        width: 0.46875rem;
+        height: 0.4375rem; }
+    .wrapper .top .line {
+      display: flex;
+      position: absolute;
+      width: 100%;
+      justify-content: space-between; }
+      .wrapper .top .line .img {
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 50%;
+        background-size: 0.625rem 0.6875rem;
+        background-position: center center;
+        background-color: rgba(1, 1, 1, 0.3);
+        background-repeat: no-repeat; }
+      .wrapper .top .line .profile {
+        background-image: url("/images/profile.png"); }
+      .wrapper .top .line .comment {
+        background-image: url("/images/comment.png"); }
+      .wrapper .top .line .line-text {
+        font-size: 0.3125rem;
         color: #FFF;
-        margin-top: -0.03125rem; }
+        margin-top: 0.15625rem; }
+    .wrapper .top .first-line {
+      top: 5rem; }
+      .wrapper .top .first-line .first-left {
+        margin-left: 0.78125rem; }
+      .wrapper .top .first-line .first-right {
+        margin-right: 0.78125rem; }
+    .wrapper .top .second-line {
+      top: 7.0625rem; }
+      .wrapper .top .second-line .second-left {
+        margin-left: 1.875rem; }
+        .wrapper .top .second-line .second-left .skilled-brand {
+          background-image: url("/images/skilled-brand.png"); }
+      .wrapper .top .second-line .second-right {
+        margin-right: 1.875rem; }
+        .wrapper .top .second-line .second-right .pay {
+          background-image: url("/images/pay.png"); }
+    .wrapper .top .third-line {
+      top: 7.34375rem;
+      display: block; }
+      .wrapper .top .third-line .tele {
+        width: 1.5625rem;
+        height: 1.5625rem;
+        background-image: url("/images/telephone.png");
+        margin: 0 auto;
+        background-size: 0.85938rem 0.78125rem; }
+      .wrapper .top .third-line .tele-text {
+        text-align: center; }
+    .wrapper .top .apply-business-card {
+      width: 1.90625rem;
+      height: 0.54688rem;
+      border: 1px solid #FFF;
+      border-radius: 0.26563rem;
+      font-size: 0.29688rem;
+      color: #FFF;
+      display: flex;
+      padding-left: 0.15625rem;
+      align-items: center;
+      position: absolute;
+      top: 9.34375rem;
+      left: 0.8125rem; }
+      .wrapper .top .apply-business-card .apply-img {
+        width: 0.35938rem;
+        height: 0.375rem;
+        background-image: url("/images/apply-business-card.png");
+        background-size: contain; }
+    .wrapper .top .position {
+      display: flex;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      align-items: center;
+      color: #FFF;
+      font-size: 0.3125rem;
+      height: 0.82813rem;
+      justify-content: space-between;
+      border-top: 1px solid #eee; }
+      .wrapper .top .position .dis {
+        display: flex;
+        margin-left: 0.40625rem; }
+        .wrapper .top .position .dis .location {
+          width: 0.21875rem;
+          height: 0.82813rem;
+          background-image: url("/images/location.png");
+          background-size: contain;
+          background-position: center center;
+          background-repeat: no-repeat; }
+        .wrapper .top .position .dis .add-left-margin {
+          margin-left: 0.15625rem;
+          height: 0.82813rem;
+          line-height: 0.82813rem; }
+      .wrapper .top .position .right-arrow {
+        width: 0.15625rem;
+        height: 0.82813rem;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-image: url("/images/right-arrow.png");
+        background-position: center center;
+        margin-right: 0.34375rem; }
+  .wrapper .bottom {
+    background-color: #FFF; }
+    .wrapper .bottom .title {
+      display: flex;
+      align-items: center;
+      padding: 0.40625rem 0.375rem; }
+      .wrapper .bottom .title .line {
+        height: 0.125rem;
+        width: 3.125rem;
+        background-color: #efefef; }
+      .wrapper .bottom .title .text {
+        width: 3.0625rem;
+        text-align: center; }
+    .wrapper .bottom .content {
+      font-size: 0.28125rem;
+      color: #333;
+      border-bottom: 1px solid #e7e7e7; }
+      .wrapper .bottom .content p {
+        text-indent: 2em;
+        margin: 0;
+        padding: 0rem 0.375rem 0.375rem 0.375rem; }
 
 /*# sourceMappingURL=business_card.css.map */
