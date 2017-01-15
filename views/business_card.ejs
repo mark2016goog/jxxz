@@ -43,7 +43,7 @@
           <div class="name"><%= name %></div>
           <div class="company"><%= company %></div>
         </div>
-        <div class="follow">
+        <div class="follow" id="follow-btn">
           <img src="./images/follow.png"></img>
           <span>添加关注</span>
         </div>
@@ -64,7 +64,7 @@
             </div>
           </div>
 
-          <div class="first-right">
+          <div class="first-right" id="comment-btn">
             <div class="img comment">
             </div>
             <div class="line-text">
@@ -82,7 +82,7 @@
             </div>
           </div>
 
-          <div class="second-right">
+          <div class="second-right" onclick="ToPayPage()">
             <div class="img pay">
             </div>
             <div class="line-text">
@@ -91,7 +91,7 @@
           </div>
         </div>
 
-        <div class="line third-line">
+        <div class="line third-line" id="callphone">
             <div class="img tele">
             </div>
             <div class="line-text tele-text">
@@ -104,7 +104,7 @@
           <div>申请名片</div>
         </div>
 
-        <div class="position">
+        <div class="position" id="geoBtn">
           <div class="dis">
             <div class="location"></div>
             <div class="add-left-margin"><%= distance %>km</div>
@@ -123,6 +123,22 @@
         <p><%= intro %></p>
       </div>
 </div>
+<div class="pop-dlg" id="pop-dlg">
+  <div class="dialog">
+    <div class="tele-num">
+      <%= telephone %>
+    </div>
+    <div class="button">
+      <a class="call" href="tel:<%= telephone %>">
+        呼叫
+      </a>
+
+      <div class="cancel" id="cancel-call">
+        取消
+      </div>
+    </div>
+  </div>
+</div>
 <input type="hidden" value="<%= id%>" id="craftmanId" />
 <input type="hidden" value="<%= geoText %>" id="geoText"/>
 <input type="hidden" value="<%= timestamp %>" id="ts"/>
@@ -130,6 +146,7 @@
 <input type="hidden" value="<%= signature %>" id="sign"/>
 
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/javascripts/lib/simple_ajax.js"></script>
 <script src="/javascripts/business_card.js"></script>
 </body>
 </html>

@@ -220,4 +220,46 @@ html, body, .wrapper {
         margin: 0;
         padding: 0rem 0.375rem 0.375rem 0.375rem; }
 
+.pop-dlg {
+  width: 10rem;
+  height: 17.75rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none; }
+  .pop-dlg .dialog {
+    width: 8.4375rem;
+    height: 3.90625rem;
+    background-color: #FFF;
+    border-radius: 0.07813rem;
+    margin: 0 auto;
+    margin-top: 4.6875rem;
+    text-align: center;
+    font-size: 0.625rem;
+    color: #FFb400; }
+    .pop-dlg .dialog .tele-num {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      font-weight: 300; }
+    .pop-dlg .dialog .button {
+      display: flex;
+      font-size: 0.53125rem;
+      height: 1.01563rem;
+      line-height: 1.01563rem;
+      border-radius: 0.07813rem;
+      font-weight: 300; }
+      .pop-dlg .dialog .button .call {
+        flex-basis: 50%;
+        background-color: #FFb400;
+        color: #FFF;
+        border-bottom-left-radius: 0.07813rem; }
+      .pop-dlg .dialog .button .cancel {
+        flex-basis: 50%;
+        color: #A3A3A3;
+        background-color: #dcdcdc;
+        border-bottom-right-radius: 0.07813rem; }
+
 /*# sourceMappingURL=business_card.css.map */
