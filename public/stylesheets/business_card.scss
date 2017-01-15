@@ -133,6 +133,7 @@ html, body, .wrapper {
             }
             .second-right{
                 margin-right: getRem640(120);
+                z-index: 1000;
                 .pay{
                     background-image: url('/images/pay.png');
                 }
@@ -142,14 +143,16 @@ html, body, .wrapper {
             top: getRem640(470);
             display: block;
             .tele{
-                width:getRem640(100);
-                height:getRem640(100);
+                width: getRem640(100);
+                height: getRem640(100);
                 background-image: url('/images/telephone.png');
                 margin: 0 auto;
                 background-size: getRem640(55) getRem640(50);
             }
             .tele-text{
                 text-align: center;
+                width:getRem640(100);
+                margin: 0 auto;
             }
         }
         .apply-business-card{
@@ -250,6 +253,7 @@ html, body, .wrapper {
     top: 0;
     bottom: 0;
     display: none;
+    z-index: 2000;
     .dialog {
         width: getRem640(540);
         height: getRem640(250);

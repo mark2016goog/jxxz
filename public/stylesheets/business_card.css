@@ -133,7 +133,8 @@ html, body, .wrapper {
         .wrapper .top .second-line .second-left .skilled-brand {
           background-image: url("/images/skilled-brand.png"); }
       .wrapper .top .second-line .second-right {
-        margin-right: 1.875rem; }
+        margin-right: 1.875rem;
+        z-index: 1000; }
         .wrapper .top .second-line .second-right .pay {
           background-image: url("/images/pay.png"); }
     .wrapper .top .third-line {
@@ -146,7 +147,9 @@ html, body, .wrapper {
         margin: 0 auto;
         background-size: 0.85938rem 0.78125rem; }
       .wrapper .top .third-line .tele-text {
-        text-align: center; }
+        text-align: center;
+        width: 1.5625rem;
+        margin: 0 auto; }
     .wrapper .top .apply-business-card {
       width: 1.90625rem;
       height: 0.54688rem;
@@ -229,7 +232,8 @@ html, body, .wrapper {
   right: 0;
   top: 0;
   bottom: 0;
-  display: none; }
+  display: none;
+  z-index: 2000; }
   .pop-dlg .dialog {
     width: 8.4375rem;
     height: 3.90625rem;

@@ -3,15 +3,19 @@
  */
 
 document.addEventListener("DOMContentLoaded", function () {
-    var callBtn = document.getElementById("callphone");
+    // var callBtn = document.getElementById("callphone");
     var popDialog = document.getElementById("pop-dlg");
     var cancelCallBtn = document.getElementById("cancel-call");
-    callBtn.addEventListener("click", function () {
-        popDialog.style.display = "block";
-    });
+    // callBtn.addEventListener("click", function () {
+    //     popDialog.style.display = "block";
+    // });
     cancelCallBtn.addEventListener("click", function () {
         popDialog.style.display = "none";
     });
+
+    window.callPhone = function(){
+        popDialog.style.display = "block";
+    };
 
     var followBtn = document.getElementById("follow-btn");
     var craftmanId = document.getElementById("craftmanId").value;
