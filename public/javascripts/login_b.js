@@ -20,4 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     };
+
+    window.toRegisterPage = function (){
+        window.location.href = "/register-telephone";
+    };
 });

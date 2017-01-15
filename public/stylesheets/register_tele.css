@@ -57,11 +57,28 @@ input, button {
     display: flex;
     align-items: center;
     justify-content: space-between; }
+    .wrapper .username .captcha-left {
+      display: flex;
+      align-items: center; }
+    .wrapper .username .get-captcha-btn {
+      color: #ffb400;
+      font-size: 0.5rem;
+      border-left: 1px solid #ffb400;
+      padding-left: 0.15625rem; }
+    .wrapper .username .referrer-tip {
+      color: #9e9e9e;
+      font-size: 0.3125rem; }
     .wrapper .username .input {
       height: 0.625rem;
       width: 8.28125rem;
       font-size: 0.4375rem;
       color: #aaa; }
+    .wrapper .username .captcha {
+      width: 5.15625rem;
+      margin-left: 0.3125rem; }
+    .wrapper .username .referrer {
+      width: 5.15625rem;
+      margin-left: 0.3125rem; }
     .wrapper .username .right-img {
       width: 0.4375rem;
       height: 0.625rem; }
@@ -69,8 +86,8 @@ input, button {
     border-bottom: 1px solid #e7e7e7; }
   .wrapper .bot-link {
     padding: 0.5rem; }
-    .wrapper .bot-link .login-btn button {
-      background-color: #575757;
+    .wrapper .bot-link .next-step-btn button {
+      background-color: #ffb400;
       color: #FFF;
       border: none;
       border-radius: 0.07813rem;
@@ -86,4 +103,4 @@ input, button {
       .wrapper .bot-link .bottom-link .reg {
         color: #fac33f; }
 
-/*# sourceMappingURL=login_b.css.map */
+/*# sourceMappingURL=register_tele.css.map */

@@ -729,3 +729,7 @@ exports.businessCard = function (req, res, next) {
         res.render('business_card', craftmanDetail);
     });
 };
+
+exports.registerTelephonePage = function(req, res, next) {
+    res.render('register_tele',null);
+};

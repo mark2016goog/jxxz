@@ -26,4 +26,5 @@ router.get('/couponlistAsync', controller.couponListAsync);
 router.get('/brandListAsync',controller.brandListAsync);
 router.get('/confirmPay/',controller.confirmPayPage);
 router.get('/craftmanBusinessCard',controller.businessCard);
+router.get('/register-telephone',controller.registerTelephonePage);
 module.exports = router;
