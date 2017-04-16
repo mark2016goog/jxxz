@@ -4,6 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var Singleton = require('./accessTokenCache');
+var session = require('express-session');
 GlobalCache = (new Singleton()).getInstance();
 
 var routes = require('./routes');
@@ -20,6 +21,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: 'uijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgywuijnhgyw', // 建议使用 128 个字符的随机字符串
+  cookie: { maxAge: 60 * 1000 },
+  resave: true,
+  saveUninitialized: false
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/",routes);

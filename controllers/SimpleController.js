@@ -73,6 +73,7 @@ exports.weChatCallback = function (req, res, next) {
         request.post({
             url: apiServerAddress + commonUserLogin, form: loginParam
         }, function (error, response, body) {
+            console.log("commonUserLogin",body);
             var resObj = JSON.parse(body);
             var repsonseInfo = resObj.user;
             var personalInfo = {
@@ -85,7 +86,7 @@ exports.weChatCallback = function (req, res, next) {
             var cookieAge = 1000 * 60 * 60 * 1000;
             res.cookie("token", token, { maxAge: cookieAge });
             res.cookie("openid", weixinLoginResult.openid, { maxAge: cookieAge });
-            console.log("aaaaa",cbURL);
+            
             if(cbURL === undefined){
                 res.render('personal_info', personalInfo);
             } else {
@@ -539,7 +540,11 @@ exports.showPaypage = function (req, res, next) {
     }
 
     //已经登陆就跳转到支付展示页
-    
+    //支付对象（钟表匠）的id
+    req.session.craftmanIdPayTo = craftmanId;
+    //支付人（当前登录用户）在我们server上的openid
+    req.session.openIdPay = req.cookies['openid'];
+
     var param = {
         id: craftmanId,
         longitude: 0,
@@ -573,6 +578,12 @@ exports.confirmPayPage = function (req, res, next) {
     var amount = req.query.amount;//req.query.amount;
    
     var nonceStr = GlobalCache.getRandomStr();
+
+    //支付对象（钟表匠）的id
+    var currentCraftmanId = req.session.craftmanIdPayTo;
+    //支付人（当前登录用户）在我们server上的openid
+    var currentOpenId = req.session.openIdPay;
+    //根据currentCraftmanId和currentOpenId，amount生成订单号
     var commercialOrderID = GlobalCache.getRandomStr();
 
     var prepayParameter = {
