@@ -25,6 +25,7 @@ var getCommentListURL = "/comment/all";
 var craftmanLoginURL = "/masteruser/login";
 var getCraftmanInfoURL = "/masteruser/info";
 var getBrandListURL = "/getBrandList";
+var getValidateNumberURL = "/masteruser/register/apply";
 var apiKey = "xiaozhujiangxin12340987656565482";
 
 exports.loginPage = function (req, res, next) {
@@ -744,3 +745,20 @@ exports.businessCard = function (req, res, next) {
 exports.registerTelephonePage = function(req, res, next) {
     res.render('register_tele',null);
 };
+
+exports.getValidateNumber = function(req, res, next) {
+    var mobilephoneNumber = req.query.mobilephoneNumber;
+    var param = {
+        phone: mobilephoneNumber
+    };
+    request.post({ url: apiServerAddress + getValidateNumberURL, form: param}, function(err, response, body) {
+        if (!err && response.statusCode == 200) {
+            console.log("body", body);
+            var validateNumberResult = JSON.parse(body).result;
+            console.log(validateNumberResult);
+            res.send({ validateSendResult: true });
+        } else {
+            res.send({ validateSendResult: false });
+        }
+    });
+}
