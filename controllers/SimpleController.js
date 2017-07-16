@@ -26,6 +26,9 @@ var craftmanLoginURL = "/masteruser/login";
 var getCraftmanInfoURL = "/masteruser/info";
 var getBrandListURL = "/getBrandList";
 var getValidateNumberURL = "/masteruser/register/apply";
+var postValidateNumberURL = '/masteruser/register/validate';
+var generateNewOrderURL = '/order/neworder';
+var payResultURL = '/order/payresult';
 var apiKey = "xiaozhujiangxin12340987656565482";
 
 exports.loginPage = function (req, res, next) {
@@ -610,10 +613,12 @@ exports.confirmPayPage = function (req, res, next) {
     combineString += "&key=" + apiKey;
     console.log("combineString:"+combineString);
     //中文md5，必须如下处理
-    combineString = (new Buffer(combineString)).toString("binary");
-    var md5sum = crypto.createHash("md5");
-    md5sum.update(combineString);
-    var signature = md5sum.digest("hex");
+    // combineString = (new Buffer(combineString)).toString("binary");
+    // var md5sum = crypto.createHash("md5");
+    // md5sum.update(combineString);
+    // var signature = md5sum.digest("hex");
+
+    var signature = crypto.createHash('md5').update(combineString, 'utf-8').digest('hex');
     prepayParameter.sign = signature.toUpperCase();
     console.log("prepayParameter.sign",prepayParameter.sign);
     var builder = new xml2js.Builder();
@@ -752,6 +757,7 @@ exports.getValidateNumber = function(req, res, next) {
         phone: mobilephoneNumber
     };
     request.post({ url: apiServerAddress + getValidateNumberURL, form: param}, function(err, response, body) {
+        console.log("getValidateNumber", err, response, body);
         if (!err && response.statusCode == 200) {
             console.log("body", body);
             var validateNumberResult = JSON.parse(body).result;
@@ -759,6 +765,28 @@ exports.getValidateNumber = function(req, res, next) {
             res.send({ validateSendResult: true });
         } else {
             res.send({ validateSendResult: false });
+        }
+    });
+}
+
+exports.postValidateNumber = function(req, res, next) {
+    var recommendMobilephoneNumber = '15800622061'; //test
+    var validateNo = '1234';
+    var param = {
+        phonenum: validateNo,
+        recommend: recommendMobilephoneNumber
+    };
+
+    request.post({ url: apiServerAddress + postValidateNumberURL, form: param }, function(error, response, body){
+        if(!err && response.statusCode == 200) {
+            var postValidateNoResult = JSON.parse(body).result;
+            if(postValidateNoResult){
+                res.send({postValidateNo: true});
+            } else {
+                res.send({postValidateNo: false});
+            }
+        } else {
+            res.send({postValidateNo: false});
         }
     });
 }

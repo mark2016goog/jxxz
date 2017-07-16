@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
     bindConfirmBtn.addEventListener("click", function(e){
         //amount 单位是分
         var payAmountInputValue = realPayAmount.innerText;
-        var reg = /^\d+$/;
+        var reg = /^\d+(\.\d+)?$/;
         if(reg.test(payAmountInputValue)){
-            window.location.href = "/confirmPay/?amount=" + 100*payAmountInputValue;
+            window.location.href = "/confirmPay/?amount=" + 100*parseFloat(payAmountInputValue);
         } else {
             alert("输入的金额不是数字！");
         }
