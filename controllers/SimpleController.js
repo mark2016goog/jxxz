@@ -879,25 +879,29 @@ exports.getValidateNumber = function(req, res, next) {
         console.log("getValidateNumber", err, response, body);
         if (!err && response.statusCode == 200) {
             console.log("body", body);
-            var validateNumberResult = JSON.parse(body).result;
+            var validateNumberResult = JSON.parse(body);
             console.log(validateNumberResult);
-            res.send({ validateSendResult: true });
+            res.send({ validateSendResult: validateNumberResult.code });
         } else {
-            res.send({ validateSendResult: false });
+            res.send({ validateSendResult: 0 });
         }
     });
 }
 
-exports.postValidateNumber = function(req, res, next) {
-    var recommendMobilephoneNumber = '15800622061'; //test
-    var validateNo = '1234';
+exports.businessmanReg = function(req, res, next) {
+    var phone = req.query.phone; 
+    var num = req.query.num;
+    var recommend = req.query.recommend;
+
     var param = {
-        phonenum: validateNo,
-        recommend: recommendMobilephoneNumber
+        num: num,
+        phone: phone,
+        recommend: recommend
     };
 
     request.post({ url: apiServerAddress + postValidateNumberURL, form: param }, function(error, response, body){
         if(!err && response.statusCode == 200) {
+            console.log("businessmanReg", response);
             var postValidateNoResult = JSON.parse(body).result;
             if(postValidateNoResult){
                 res.send({postValidateNo: true});
@@ -908,4 +912,8 @@ exports.postValidateNumber = function(req, res, next) {
             res.send({postValidateNo: false});
         }
     });
+}
+
+exports.toUploadBusiessCardPage = function(req, res, next) {
+    res.render('upload_businesscard',null);
 }
