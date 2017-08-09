@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var payAmountInputValue = realPayAmount.innerText;
         var reg = /^\d+(\.\d+)?$/;
         if(reg.test(payAmountInputValue)){
-            window.location.href = "/confirmPay/?amount=" + 100*parseFloat(payAmountInputValue);
+            window.location.href = "/pay/confirmPay/?amount=" + 100*parseFloat(payAmountInputValue);
         } else {
             alert("输入的金额不是数字！");
         }

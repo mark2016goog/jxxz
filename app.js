@@ -5,11 +5,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var Singleton = require('./accessTokenCache');
 var session = require('express-session');
+var fs = require('fs');
+var morgan = require('morgan');
 GlobalCache = (new Singleton()).getInstance();
 
 var routes = require('./routes');
 
 var app = express();
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,7 +20,8 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+app.use(morgan('combined', {stream: accessLogStream}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

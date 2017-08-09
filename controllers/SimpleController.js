@@ -28,14 +28,15 @@ var getBrandListURL = "/getBrandList";
 var getValidateNumberURL = "/masteruser/register/apply";
 var postValidateNumberURL = '/masteruser/register/validate';
 var generateNewOrderURL = '/order/neworder';
+var updateOrderUrl = '/order/updateorder';
 var payResultURL = '/order/payresult';
 var apiKey = "xiaozhujiangxin12340987656565482";
 
 exports.loginPage = function (req, res, next) {
     var callbackURL = req.query.callbackURL; //任何需要三方登录的业务都需要传递这个callbackURL，否则登录成功后就默认跳到个人信息页
-    console.log("callbackURL",callbackURL);
     var redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login');
     if(callbackURL != undefined) {
+        callbackURL = encodeURIComponent("http://www.joinershow.cn" + callbackURL);
         redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login'+'/?callbackURL='+callbackURL);
     }
     var loginData = {
@@ -554,6 +555,7 @@ exports.showPaypage = function (req, res, next) {
         longitude: 0,
         latitude: 0
     };
+    
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
         console.log("craftman detail:", body);
         var detailObj = JSON.parse(body).result;
@@ -595,6 +597,7 @@ exports.confirmPayPage = function (req, res, next) {
     };
     console.log("getOrderIDParam", getOrderIDParam);
     var commercialOrderID = '';
+
     request.post({ url: apiServerAddress + generateNewOrderURL, form: getOrderIDParam }, function (err, response, body) {
         if(!err && response.statusCode == 200) {
             var generateOrderResult = JSON.parse(body);
@@ -608,7 +611,9 @@ exports.confirmPayPage = function (req, res, next) {
                 };
 
                 res.render("login_c", loginData);
+                return;
             }
+            console.log("generateOrderResult", generateOrderResult);
             commercialOrderID = generateOrderResult.order.orderId;
             console.log("commercialOrderID", commercialOrderID);
              var prepayParameter = {
@@ -617,7 +622,7 @@ exports.confirmPayPage = function (req, res, next) {
                 device_info: "WEB",
                 mch_id: commercialAccountID,
                 nonce_str: nonceStr,
-                notify_url: "http://www.joinershow.cn/daily/pay/payCallback",
+                notify_url: "http://www.joinershow.cn/pay/payCallback",
                 openid: req.cookies['openid'],
                 out_trade_no: commercialOrderID,//商户订单号,不能重复
                 spbill_create_ip: user_ip,
@@ -720,117 +725,14 @@ exports.confirmPayPage = function (req, res, next) {
         }
     });
 
-    // var commercialOrderID = GlobalCache.getRandomStr();
-    // var prepayParameter = {
-    //     appid: appid,
-    //     body: "小筑匠心-百货",
-    //     device_info: "WEB",
-    //     mch_id: commercialAccountID,
-    //     nonce_str: nonceStr,
-    //     notify_url: "http://www.joinershow.cn/daily/pay/payCallback",
-    //     openid: req.cookies['openid'],
-    //     out_trade_no: commercialOrderID,//商户订单号,不能重复
-    //     spbill_create_ip: user_ip,
-    //     total_fee: amount, //单位：分 
-    //     trade_type: "JSAPI"
-    // };
-
-    // // var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-    // var combineString = "appid=" + prepayParameter.appid + "&body=" + prepayParameter.body + "&device_info=" + prepayParameter.device_info +
-    //     "&mch_id=" + prepayParameter.mch_id + "&nonce_str=" + prepayParameter.nonce_str + "&notify_url=" + prepayParameter.notify_url +
-    //     "&openid=" + prepayParameter.openid + "&out_trade_no=" + prepayParameter.out_trade_no + "&spbill_create_ip=" + prepayParameter.spbill_create_ip +
-    //     "&total_fee=" + prepayParameter.total_fee + "&trade_type=" + prepayParameter.trade_type;
-   
-    // combineString += "&key=" + apiKey;
-    // console.log("combineString:"+combineString);
-    // //中文md5，必须如下处理
-    // // combineString = (new Buffer(combineString)).toString("binary");
-    // // var md5sum = crypto.createHash("md5");
-    // // md5sum.update(combineString);
-    // // var signature = md5sum.digest("hex");
-
-    // var signature = crypto.createHash('md5').update(combineString, 'utf-8').digest('hex');
-    // prepayParameter.sign = signature.toUpperCase();
-    // console.log("prepayParameter.sign",prepayParameter.sign);
-    // var builder = new xml2js.Builder();
-    // var postXML = builder.buildObject(prepayParameter);
-
-    // //商户server调用统一下单接口请求订单,使用post xml
-    // request.post({ url: prePayURL, body: postXML, headers: { 'Content-Type': 'text/xml' } }, function (err, httpResponse, body) {
-
-    //     //<xml><return_code><![CDATA[SUCCESS]]></return_code>
-    //     // <return_msg><![CDATA[OK]]></return_msg>
-    //     // <appid><![CDATA[wxde4642a10788624f]]></appid>
-    //     // <mch_id><![CDATA[1387195102]]></mch_id>
-    //     // <device_info><![CDATA[WEB]]></device_info>
-    //     // <nonce_str><![CDATA[BMEPclsK4AxU2hfV]]></nonce_str>
-    //     // <sign><![CDATA[4F9C6F2FC98A9AC812973078C397B0AD]]></sign>
-    //     // <result_code><![CDATA[SUCCESS]]></result_code>
-    //     // <prepay_id><![CDATA[wx20161127221433197c4155d00625535537]]></prepay_id>
-    //     // <trade_type><![CDATA[JSAPI]]></trade_type>
-    //     // </xml>
-
-    //     xmlParser.parseString(body,function(err,result){
-    //         if(err){
-    //             console.log("xmlParser error",err);
-    //         }else{
-    //             try{
-    //                 console.log("result.xml",result.xml);
-    //                 var prepayID = result.xml.prepay_id[0];
-    //                 //get prepay_id from body, then generate prepay_id and paySign to the page.
-    //                 //the page JSAPI-> getBrandWCPayRequest needs: appId,timeStamp,nonceStr,package(such as 'prepay_id=123456789'),signType(MD5),paySign
-    //                 //All these parameters will be generated in the server.
-    //                 console.log("prepayID:",prepayID);
-    //                 var payTimeStamp = Math.floor((new Date()).getTime()/1000);//转化为秒
-    //                 var payNonceStr = GlobalCache.getRandomStr();
-    //                 var payPackage = "prepay_id="+prepayID;
-    //                 var signType = "MD5";
-    //                 //nonceStr,package,timestamp,signType 
-    //                 var stringCombine = "appId="+appid+"&nonceStr="+payNonceStr+"&package="+payPackage+"&signType="+signType+"&timeStamp="+payTimeStamp;//+"&signType="+signType;
-    //                 //拼接api key
-    //                 stringCombine+="&key=" + apiKey;
-    //                 console.log("pay string combine",stringCombine);
-    //                 var md5Sum = crypto.createHash("md5");
-    //                 md5Sum.update(stringCombine);
-    //                 var signPay = md5Sum.digest("hex").toUpperCase();
-    //                 console.log("signPay",signPay);
-
-    //                 //generate config param
-    //                 var apiTicket = GlobalCache.getApiTicket();
-    //                 var configTimestamp = (new Date()).getTime();
-    //                 var url = req.protocol + "://" + req.get("host") + req.originalUrl;
-    //                 var configCombineStr = "jsapi_ticket=" + apiTicket + "&noncestr=" + payNonceStr + "&timestamp=" + configTimestamp + "&url=" + url;
-    //                 var shasum = crypto.createHash("sha1");
-    //                 shasum.update(configCombineStr);
-    //                 var configSign = shasum.digest("hex");
-                    
-             
-    //                 var pageData = {
-    //                     timestamp:payTimeStamp,
-    //                     nonceStr:payNonceStr,
-    //                     package:payPackage,
-    //                     signType:signType,
-    //                     paySign:signPay,
-    //                     configSign: configSign,
-    //                     configTimestamp: configTimestamp,
-    //                     appId:appid,
-    //                     orderID:commercialOrderID,
-    //                     payAmount:amount/100//转化为元为单位
-    //                 };
-    //                 res.render('confirm_pay', pageData);
-    //             }
-    //             catch(e) {
-    //                 console.log("pay error",e);
-    //                 res.render('confirm_pay', {error:e});
-    //             }
-    //         }
-    //     });
-       
-    // });
 };
 
+//支付后，微信会回调此API通知支付状态
 exports.payCallback = function (req, res, next) {
-
+    console.log("payCallback rec");
+    var returnCode = req.query.return_code;
+    var returnMsg = req.query.return_msg;
+    res.send({ result : 1});
 };
 
 exports.businessCard = function (req, res, next) {
