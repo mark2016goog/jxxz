@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+@import "./common/_functions";
+@import "./common/_icons";
+@import "./common/_reboot";
+
+$bkg-color: #EEEEEE;
+
+.wrapper{
+  .photo {
+    height: getRem();
+  }
+}

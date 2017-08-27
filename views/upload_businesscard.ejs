@@ -35,9 +35,18 @@
 </head>
 <body>
   <div class="wrapper">
-    <div class="select-photo"></div>
+    <div class="photo" id="photo">
+      <img src="" id="preview-img" class="preview-img" alt="" />
+      <div>本名片仅作为平台审核验证使用，不作他用！</div>
+    </div>
+    <div class="submit-btn" id="submit-btn">确认提交</div>
   </div>
+  <input type="hidden" value="<%= timestamp %>" id="ts"/>
+  <input type="hidden" value="<%= nonceStr %>" id="nstr"/>
+  <input type="hidden" value="<%= signature %>" id="sign"/>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script src="/javascripts/lib/simple_ajax.js"></script>
-<script src="/javascripts/register_tele.js"></script>
+<script src="/javascripts/upload_businesscard.js"></script>
 </body>
 </html>

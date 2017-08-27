@@ -43,7 +43,9 @@ document.addEventListener("DOMContentLoaded", function(){
     } 
 
     ajax.get("/businessmanRegister", param, function(res) {
-
+        if(res.postValidateNo === 'false') {
+          alert("注册失败！");
+        }
     });
   }
 })

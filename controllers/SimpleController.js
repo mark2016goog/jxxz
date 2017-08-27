@@ -730,9 +730,63 @@ exports.confirmPayPage = function (req, res, next) {
 //支付后，微信会回调此API通知支付状态
 exports.payCallback = function (req, res, next) {
     console.log("payCallback rec");
+    var token = req.cookies["token"];
     var returnCode = req.query.return_code;
     var returnMsg = req.query.return_msg;
-    res.send({ result : 1});
+    if(returnCode === "SUCCESS") {
+        var detail = req.query;
+        var appid = detail.appid;
+        var mch_id = detail.mch_id;
+        var device_info = detail.device_info;
+        var nonce_str = detail.nonce_str;
+        var sign = detail.sign;
+        var sign_type = detail.sign_type;
+        var result_code = detail.result_code;
+        var err_code = detail.err_code;
+        var err_code_des = detail.err_code_des;
+        var openid = detail.openid;
+        var is_subscribe = detail.is_subscribe;
+        var trade_type = detail.trade_type;
+        var bank_type = detail.bank_type; //银行类型
+        var total_fee = detail.total_fee; //单位：分
+        var settlement_total_fee = detail.settlement_total_fee;//应结订单金额=订单金额-非充值代金券金额，应结订单金额<=订单金额
+        var fee_type = detail.fee_type;
+        var cash_fee = detail.cash_fee;
+        var cash_fee_type = detail.cash_fee_type;
+        var coupon_fee = detail.coupon_fee;
+        var coupon_count = detail.coupon_count;
+        var coupon_type_$n = detail.coupon_type_$n;
+        var coupon_id_$n = detail.coupon_id_$n;
+        var coupon_fee_$n = detail.coupon_fee_$n;
+        var transaction_id = detail.transaction_id; //微信支付订单号
+        var out_trade_no = detail.out_trade_no; //商家订单号
+        var attach = detail.attach; //商家数据包
+        var time_end = detail.time_end; //支付完成时间
+        //根据返回参数，进行校验，如果校验通过
+        //就返回给weixin server return_code:SUCCESS
+        //如果未通过校验，则返回给weixin sever return_code:FAIL return_msg:签名失败或者参数格式校验错误
+        // res.send({ result : 1});
+        
+        var getPayConfirmInfo = {
+            return_code: "SUCCESS"
+        };
+
+        confirmParam = {
+            token: token,
+            orderid: out_trade_no,
+            status: 2 //1：初始化 2：成功 3：失败
+        };
+        request.post({ url: apiServerAddress + updateOrderUrl, form: confirmParam } , function(err, response, body){
+            console.log("err", err);
+            console.log("body", body);
+        });
+
+        var builder = new xml2js.Builder();
+        var resultXml = builder.buildObject(getPayConfirmInfo);
+        res.set('Content-Type', 'text/xml');
+        res.send(resultXml);
+    }
+    
 };
 
 exports.businessCard = function (req, res, next) {
@@ -755,7 +809,6 @@ exports.businessCard = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
-       
         var detailObj = JSON.parse(body).result;
         detailObj = detailObj.length > 0 ? detailObj[0] : {};
         var craftmanDetail = {
@@ -803,29 +856,47 @@ exports.getValidateNumber = function(req, res, next) {
 }
 
 exports.businessmanReg = function(req, res, next) {
-    var phone = req.query.phone; 
-    var num = req.query.num;
-    var recommend = req.query.recommend;
+    // var phone = req.query.phone; 
+    // var num = req.query.num;
+    // var recommend = req.query.recommend;
 
-    var param = {
-        num: num,
-        phone: phone,
-        recommend: recommend
+    // var param = {
+    //     num: num,
+    //     phone: phone,
+    //     recommend: recommend
+    // };
+
+    // request.post({ url: apiServerAddress + postValidateNumberURL, form: param }, function(error, response, body){
+    //     if(!error && response.statusCode == 200) {
+    //         console.log("businessmanReg", response);
+    //         var postValidateNoResult = JSON.parse(body).result;
+    //         if(postValidateNoResult){
+    //             // res.send({postValidateNo: true});
+    //             res.render('upload_businesscard', { phone: phone });
+    //         } else {
+    //             res.send({ postValidateNo: false});
+    //         }
+    //     } else {
+    //         res.send({  postValidateNo: false});
+    //     }
+    // });
+    var apiTicket = GlobalCache.getApiTicket();
+    var nonceStr = GlobalCache.getRandomStr();
+    var timestamp = (new Date()).getTime();
+    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+    var shasum = crypto.createHash("sha1");
+    shasum.update(combineString);
+    var signature = shasum.digest("hex");
+
+    var uploadBusinesscardDetail = {
+        phone: 15800622061,
+        timestamp: timestamp,
+        nonceStr: nonceStr,
+        signature: signature,
     };
 
-    request.post({ url: apiServerAddress + postValidateNumberURL, form: param }, function(error, response, body){
-        if(!err && response.statusCode == 200) {
-            console.log("businessmanReg", response);
-            var postValidateNoResult = JSON.parse(body).result;
-            if(postValidateNoResult){
-                res.send({postValidateNo: true});
-            } else {
-                res.send({postValidateNo: false});
-            }
-        } else {
-            res.send({postValidateNo: false});
-        }
-    });
+    res.render('upload_businesscard', uploadBusinesscardDetail);
 }
 
 exports.toUploadBusiessCardPage = function(req, res, next) {

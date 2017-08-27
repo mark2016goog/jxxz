@@ -1,0 +1,70 @@
+@charset "UTF-8";
+.iconfont {
+  -webkit-font-smoothing: antialiased; }
+
+.iconfont {
+  -webkit-text-stroke-width: 0.2px; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: none; }
+
+body {
+  font-family: 'PingFang SC', Arial, 'Microsoft YaHei', 'SimHei', sans-serif;
+  margin: 0;
+  background-color: #eee; }
+
+/*
+去掉点击时的选择和阴影
+*/
+div, a, img {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none; }
+
+a {
+  text-decoration: none; }
+
+input {
+  outline: none;
+  border: none; }
+
+html, body, .wrapper {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.4375rem; }
+
+input, button {
+  outline: none;
+  margin: 0;
+  border: none; }
+
+.wrapper .photo {
+    height: 7.8125rem;
+    background-color: #fff;
+    background-image: url(../images/select-photo.png);
+    background-repeat: no-repeat;
+    background-size: 2.578125rem 1.78125rem;
+    background-position: center center;
+    color: #d9d9d9;
+    text-align: center;
+    /* padding-top: 6.84375rem; */
+    font-size: 0.375;
+}
+
+.wrapper .preview-img {
+    height: 6.84375rem;
+    width: 10rem;
+}
+
+.wrapper .submit-btn {
+    height: 1.375rem; 
+    line-height: 1.375rem;
+    margin-top: 0.34375rem;
+    background-color: #fff;
+    text-align: center;
+    color: #ffc844;
+}

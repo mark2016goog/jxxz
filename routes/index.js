@@ -29,5 +29,5 @@ router.get('/craftmanBusinessCard',controller.businessCard);
 router.get('/register-telephone',controller.registerTelephonePage);
 router.get('/retrieveValidateNumer', controller.getValidateNumber);
 router.get('/businessmanRegister', controller.businessmanReg);
-router.get('/uploadBusinessCard', controller.toUploadBusiessCardPage);
+// router.get('/uploadBusinessCard', controller.toUploadBusiessCardPage);
 module.exports = router;
