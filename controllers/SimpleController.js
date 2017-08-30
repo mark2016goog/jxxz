@@ -30,6 +30,7 @@ var postValidateNumberURL = '/masteruser/register/validate';
 var generateNewOrderURL = '/order/neworder';
 var updateOrderUrl = '/order/updateorder';
 var payResultURL = '/order/payresult';
+var updateCraftmanImage = '/masteruser/register/updatecard';
 var apiKey = "xiaozhujiangxin12340987656565482";
 
 exports.loginPage = function (req, res, next) {
@@ -843,7 +844,6 @@ exports.getValidateNumber = function(req, res, next) {
         phone: mobilephoneNumber
     };
     request.post({ url: apiServerAddress + getValidateNumberURL, form: param}, function(err, response, body) {
-        console.log("getValidateNumber", err, response, body);
         if (!err && response.statusCode == 200) {
             console.log("body", body);
             var validateNumberResult = JSON.parse(body);
@@ -856,49 +856,65 @@ exports.getValidateNumber = function(req, res, next) {
 }
 
 exports.businessmanReg = function(req, res, next) {
-    // var phone = req.query.phone; 
-    // var num = req.query.num;
-    // var recommend = req.query.recommend;
+    var phone = req.query.phone; 
+    var num = req.query.num;
+    var recommend = req.query.recommend;
 
-    // var param = {
-    //     num: num,
-    //     phone: phone,
-    //     recommend: recommend
-    // };
-
-    // request.post({ url: apiServerAddress + postValidateNumberURL, form: param }, function(error, response, body){
-    //     if(!error && response.statusCode == 200) {
-    //         console.log("businessmanReg", response);
-    //         var postValidateNoResult = JSON.parse(body).result;
-    //         if(postValidateNoResult){
-    //             // res.send({postValidateNo: true});
-    //             res.render('upload_businesscard', { phone: phone });
-    //         } else {
-    //             res.send({ postValidateNo: false});
-    //         }
-    //     } else {
-    //         res.send({  postValidateNo: false});
-    //     }
-    // });
-    var apiTicket = GlobalCache.getApiTicket();
-    var nonceStr = GlobalCache.getRandomStr();
-    var timestamp = (new Date()).getTime();
-    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
-    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-    var shasum = crypto.createHash("sha1");
-    shasum.update(combineString);
-    var signature = shasum.digest("hex");
-
-    var uploadBusinesscardDetail = {
-        phone: 15800622061,
-        timestamp: timestamp,
-        nonceStr: nonceStr,
-        signature: signature,
+    var param = {
+        num: num,
+        phone: phone,
+        recommend: recommend
     };
 
-    res.render('upload_businesscard', uploadBusinesscardDetail);
+    request.post({ url: apiServerAddress + postValidateNumberURL, form: param }, function(error, response, body){
+        if(!error && response.statusCode == 200) {
+            var postValidateNoResult = JSON.parse(body).result;
+            if(postValidateNoResult){
+                // res.send({postValidateNo: true});
+                var apiTicket = GlobalCache.getApiTicket();
+                var nonceStr = GlobalCache.getRandomStr();
+                var timestamp = (new Date()).getTime();
+                var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+                var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+                var shasum = crypto.createHash("sha1");
+                shasum.update(combineString);
+                var signature = shasum.digest("hex");
+            
+                var uploadBusinesscardDetail = {
+                    phone: 15800622061,
+                    timestamp: timestamp,
+                    nonceStr: nonceStr,
+                    signature: signature,
+                };
+                res.render('upload_businesscard', uploadBusinesscardDetail);
+            } else {
+                res.send({ postValidateNo: false});
+            }
+        } else {
+            res.send({  postValidateNo: false});
+        }
+    });
+    
 }
 
 exports.toUploadBusiessCardPage = function(req, res, next) {
     res.render('upload_businesscard',null);
+}
+
+exports.uploadCraftmanImage = function(req, res, next) {
+    var phone = req.query.phone;
+    var serverId = req.query.serverid;
+    var param = {
+        phone: phone,
+        serverid: serverId
+    };
+    request.post({ url: apiServerAddress + updateCraftmanImage, form: param},function(err, response, body) {
+        var result = JSON.parse(body);
+        console.log("result", result);
+        if(result.code == 1) {
+            res.send({result: 1})
+        } else {
+            res.send({result: 0})
+        }
+    })
 }

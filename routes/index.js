@@ -30,4 +30,5 @@ router.get('/register-telephone',controller.registerTelephonePage);
 router.get('/retrieveValidateNumer', controller.getValidateNumber);
 router.get('/businessmanRegister', controller.businessmanReg);
 // router.get('/uploadBusinessCard', controller.toUploadBusiessCardPage);
+router.get('/uploadCraftmanImage', controller.uploadCraftmanImage)
 module.exports = router;

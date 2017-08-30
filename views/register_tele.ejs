@@ -45,7 +45,8 @@
       <img src="/images/captcha.png" class="right-img" alt="">
       <input type="password" class="input captcha" id="authcode" placeholder="请输入验证码"/>
     </div>
-    <div class="get-captcha-btn" onClick="retrieveValidateNo()">获取验证码</div>
+    <div class="get-captcha-btn" id="getCaptchaBtn" onClick="retrieveValidateNo()">获取验证码</div>
+    <div class="get-captcha-btn hide-countdown" id="countdown"></div>
   </div>
   <div class="username">
     <div class="captcha-left">

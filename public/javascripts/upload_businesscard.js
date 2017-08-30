@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var ts = document.getElementById("ts").value;
   var nstr = document.getElementById("nstr").value;
   var sign = document.getElementById("sign").value;
+  var phone = document.getElementById("phone").value;
+
   wx.config({
       debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
       appId: 'wxde4642a10788624f', // 必填，公众号的唯一标识
@@ -26,13 +28,19 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   submitBtn.addEventListener("click", function() {
-    alert(localId);
     wx.uploadImage({
       localId: localId,
       isShowProgressTips: 1,
       success: function(res) {
         var serverId = res.serverId;
         console.log(serverId);
+        var imageParam = {
+          serverId: serverId,
+          phone: phone
+        };
+        ajax.get("/uploadCraftmanImage", imageParam, function (res) {
+          console.log(res);
+        });
       }
     })
   })
