@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   submitBtn.addEventListener("click", function() {
-    console.log("Start to uploadImage");
     wx.uploadImage({
       localId: localId,
       isShowProgressTips: 1,

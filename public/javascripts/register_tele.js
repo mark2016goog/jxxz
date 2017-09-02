@@ -8,10 +8,18 @@ document.addEventListener("DOMContentLoaded", function(){
     countdown.style.display = "block";
     countdown.innerHTML = initValue + "S";
     initValue--;
-    setInterval(function(){
+    var countDownTime = setInterval(function(){
       countdown.innerHTML = initValue + "S";
-      initValue--;
+      if(initValue > 0){
+        initValue--;
+      } else {
+        getCaptchaBtn.style.display = "block";
+        countdown.style.display = "none";
+      }
+
     },1000);
+
+
   }
   
   window.retrieveValidateNo = function() {
@@ -58,8 +66,11 @@ document.addEventListener("DOMContentLoaded", function(){
     } 
 
     ajax.get("/businessmanRegister", param, function(res) {
-        if(res.postValidateNo === 'false') {
+        var result = JSON.parse(res);
+        if(result.result === 'false') {
           alert("注册失败！");
+        } else {
+          window.location.href = "/toUploadBusinessCardPage?phone="+mobilephone;
         }
     });
   }

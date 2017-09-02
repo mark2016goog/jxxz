@@ -6,6 +6,4 @@ document.addEventListener("DOMContentLoaded", function () {
     window.craftmanDetail = function (id) {
         window.location.href = "/craftmanDetail" + "?id=" + id;
     }
-
-
 });
