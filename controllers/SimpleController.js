@@ -881,7 +881,7 @@ exports.businessmanReg = function(req, res, next) {
                 var signature = shasum.digest("hex");
             
                 var uploadBusinesscardDetail = {
-                    phone: 15800622061,
+                    phone: phone,
                     timestamp: timestamp,
                     nonceStr: nonceStr,
                     signature: signature,
@@ -894,20 +894,35 @@ exports.businessmanReg = function(req, res, next) {
             res.send({  postValidateNo: false});
         }
     });
-    
-}
 
-exports.toUploadBusiessCardPage = function(req, res, next) {
-    res.render('upload_businesscard',null);
+    //for test
+    // var apiTicket = GlobalCache.getApiTicket();
+    // var nonceStr = GlobalCache.getRandomStr();
+    // var timestamp = (new Date()).getTime();
+    // var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+    // var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+    // var shasum = crypto.createHash("sha1");
+    // shasum.update(combineString);
+    // var signature = shasum.digest("hex");
+
+    // var uploadBusinesscardDetail = {
+    //     phone: 15800622061,
+    //     timestamp: timestamp,
+    //     nonceStr: nonceStr,
+    //     signature: signature,
+    // };
+    // res.render('upload_businesscard', uploadBusinesscardDetail);
+    
 }
 
 exports.uploadCraftmanImage = function(req, res, next) {
     var phone = req.query.phone;
-    var serverId = req.query.serverid;
+    var serverId = req.query.serverId;
     var param = {
         phone: phone,
         serverid: serverId
     };
+    console.log("UploadCraftmanImage param:", param);
     request.post({ url: apiServerAddress + updateCraftmanImage, form: param},function(err, response, body) {
         var result = JSON.parse(body);
         console.log("result", result);

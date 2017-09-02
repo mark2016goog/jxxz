@@ -28,18 +28,23 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   submitBtn.addEventListener("click", function() {
+    console.log("Start to uploadImage");
     wx.uploadImage({
       localId: localId,
       isShowProgressTips: 1,
       success: function(res) {
         var serverId = res.serverId;
-        console.log(serverId);
+        console.log("uploadImage succ:", serverId);
         var imageParam = {
           serverId: serverId,
           phone: phone
         };
         ajax.get("/uploadCraftmanImage", imageParam, function (res) {
           console.log(res);
+          var result = JSON.parse(res);
+          if(result.result == 1) {
+            alert("您的名片已经上传成功！请耐心等待审核。");
+          }
         });
       }
     })
