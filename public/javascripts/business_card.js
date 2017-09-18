@@ -45,6 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var nstr = document.getElementById("nstr").value;
     var sign = document.getElementById("sign").value;
     var geoText = document.getElementById("geoText").value;
+    var longitude = document.getElementById("longitude").value;
+    var latitude = document.getElementById("latitude").value;
+    var shop = document.getElementById("shop").value;
     wx.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: 'wxde4642a10788624f', // 必填，公众号的唯一标识
@@ -55,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     geoBtn.addEventListener("click", function () {
         wx.openLocation({
-            latitude: 31.233562,
-            longitude: 121.459938,
-            name: '恒隆广场的测试师傅',
+            latitude: parseFloat(longitude),
+            longitude: parseFloat(latitude),
+            name: shop,
             address: geoText,
             scale: 14,
             infoUrl: 'http://weixin.qq.com'

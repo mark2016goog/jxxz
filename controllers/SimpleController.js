@@ -243,7 +243,7 @@ exports.followedCraftmanList = function (req, res, next) {
                 starLevel: parseInt(resObj[i].marks),
                 orderCounts: resObj[i].orderCount,
                 workAddress: resObj[i].address,
-                distance: resObj[i].distance
+                distance: resObj[i].distance.toFixed(1)
             };
             followedCraftmanList.push(item);
         }
@@ -266,6 +266,7 @@ exports.searchCraftman = function (req, res, next) {
     request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
         
         var resObj = JSON.parse(body).result;
+        console.log(resObj);
         var craftmanList = [];
         for (var i = 0; i < resObj.length; i++) {
             var item = {
@@ -276,7 +277,9 @@ exports.searchCraftman = function (req, res, next) {
                 starLevel: resObj[i].marks,
                 orderCounts: resObj[i].orderCount,
                 workAddress: resObj[i].address,
-                distance: resObj[i].distance
+                distance: resObj[i].distance.toFixed(1),
+                longitude: resObj[i].longitude,
+                latitude: resObj[i].latitude
             };
             craftmanList.push(item);
         }
@@ -310,7 +313,9 @@ exports.searchCraftmanAsync = function (req, res, next) {
                 starLevel: resObj[i].marks,
                 orderCounts: resObj[i].orderCount,
                 workAddress: resObj[i].address,
-                distance: resObj[i].distance
+                distance: resObj[i].distance,
+                longitude: resObj[i].longitude,
+                latitude: resObj[i].latitude
             };
             craftmanList.push(item);
         }
@@ -344,6 +349,7 @@ exports.craftmanDetail = function (req, res, next) {
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
        
         var detailObj = JSON.parse(body).result;
+        console.log(detailObj);
         detailObj = detailObj.length > 0 ? detailObj[0] : {};
         var craftmanDetail = {
             geoText: detailObj.address,
@@ -361,7 +367,9 @@ exports.craftmanDetail = function (req, res, next) {
             intro: detailObj.description,
             telephone: detailObj.masterPhone,
             skilledBrandList: detailObj.brands,
-            commentList: detailObj.comments
+            commentList: detailObj.comments,
+            longitude: detailObj.longitude,
+            latitude: detailObj.latitude
         };
         res.render('craftman_detail', craftmanDetail);
     });
@@ -811,6 +819,7 @@ exports.businessCard = function (req, res, next) {
 
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
         var detailObj = JSON.parse(body).result;
+        console.log(detailObj)
         detailObj = detailObj.length > 0 ? detailObj[0] : {};
         var craftmanDetail = {
             geoText: detailObj.address,
@@ -824,11 +833,13 @@ exports.businessCard = function (req, res, next) {
             starLevel: detailObj.marks,
             orderCounts: detailObj.orderCount,
             workAddress: detailObj.address,
-            distance: detailObj.distance,
+            distance: detailObj.distance.toFixed(1),
             intro: detailObj.description,
             telephone: detailObj.masterPhone,
             skilledBrandList: detailObj.brands,
-            commentList: detailObj.comments
+            commentList: detailObj.comments,
+            longitude: detailObj.longitude,
+            latitude: detailObj.latitude
         };
         res.render('business_card', craftmanDetail);
     });

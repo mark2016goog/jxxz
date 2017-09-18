@@ -107,6 +107,8 @@ html, body, .wrapper {
         float: left;
         font-size: 0.28125rem;
         color: #aaaaaa;
-        margin-left: 0.15625rem; }
+        margin-left: 0.15625rem; 
+        max-width: 6.4rem;
+      }
 
 /*# sourceMappingURL=craftman_filter_list.css.map */
