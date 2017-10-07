@@ -11,6 +11,7 @@ router.get('/searchCraftmanByBrand', controller.searchCraftman);
 router.get('/searchCraftmanAsync', controller.searchCraftmanAsync);
 router.get('/craftmanDetail', controller.craftmanDetail);
 router.get('/followCraftman', controller.followCraftman);
+router.get('/unFollowCraftman', controller.unFollowCraftman);
 router.get('/commentList', controller.commentList);
 router.get('/craftmanLoginPage',controller.craftmanLoginPage);
 router.get('/loginCraftman',controller.craftmanLogin);

@@ -91,6 +91,28 @@ html, body, .wrapper {
         height: 0.54688rem;
         line-height: 0.54688rem;
         color: #FFF; }
+        .wrapper .top .unfollow {
+          display: none;
+          width: 2rem;
+          height: 0.54688rem;
+          line-height: 0.54688rem;
+          position: absolute;
+          top: 2.8125rem;
+          right: 0.25rem;
+          border: 1px solid #FFF;
+          border-radius: 0.39063rem;
+          padding-left: 0.07813rem;
+          padding-right: 0.07813rem; }
+        
+          .wrapper .top .unfollow img {
+            width: 0.34375rem;
+            height: 0.3125rem; }
+
+          .wrapper .top .unfollow span {
+            font-size: 0.28125rem;
+            height: 0.54688rem;
+            line-height: 0.54688rem;
+            color: #FFF; }
     .wrapper .top .star-level {
       position: absolute;
       top: 5.03125rem;

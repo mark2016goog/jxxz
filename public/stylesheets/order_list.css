@@ -51,6 +51,9 @@ html, body, .wrapper {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center; }
+    .wrapper .empty-info {
+      text-align: center;
+    }
     .wrapper .order-item .left {
       width: 2.65625rem;
       text-align: center; }

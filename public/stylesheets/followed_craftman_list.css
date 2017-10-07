@@ -47,6 +47,9 @@ html, body, .wrapper {
     color: #FFF;
     padding-left: 0.40625rem;
     padding-right: 0.40625rem; }
+    .wrapper .empty-info {
+      text-align: center;
+    }
     .wrapper .order-item .top-line {
       border-bottom: 1px solid #dbdbdb;
       height: 2.34375rem;

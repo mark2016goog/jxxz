@@ -35,6 +35,7 @@
 </head>
 <body>
 <div class="wrapper">
+  <% if(list.length>0){ %>
   <% for(var i = 0;i < list.length;i++){ %>
   <div class="order-item">
     <div class="left">
@@ -48,6 +49,9 @@
     </div>
   </div>
   <% } %>
+  <% } else {%>
+    <div class="empty-info">没有优惠券</div>
+  <%}%>
 </div>
 <script src="/javascripts/coupon.js"></script>
 </body>

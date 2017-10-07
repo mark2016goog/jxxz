@@ -109,6 +109,9 @@ html, body, .wrapper {
         color: #aaaaaa;
         margin-left: 0.15625rem; 
         max-width: 6.4rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
 /*# sourceMappingURL=craftman_filter_list.css.map */

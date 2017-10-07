@@ -4,6 +4,7 @@
 var request = require("request");
 var crypto = require("crypto");
 var xml2js = require("xml2js");
+var util = require("./util");
 var xmlParser = new xml2js.Parser();
 
 var getAccessTokenURL = "https://api.weixin.qq.com/sns/oauth2/access_token";
@@ -21,6 +22,7 @@ var logoutURL = "/normaluser/login";
 var searchCraftmanURL = "/masters/all";
 var getCraftmanDetailURL = "/masterdetail/detail";
 var followCraftmanURL = "/masterdetail/markmaster";
+var unFollowCraftmanURL = "/masterdetail/unmarkmaster";
 var getCommentListURL = "/comment/all";
 var craftmanLoginURL = "/masteruser/login";
 var getCraftmanInfoURL = "/masteruser/info";
@@ -313,7 +315,7 @@ exports.searchCraftmanAsync = function (req, res, next) {
                 starLevel: resObj[i].marks,
                 orderCounts: resObj[i].orderCount,
                 workAddress: resObj[i].address,
-                distance: resObj[i].distance,
+                distance: resObj[i].distance.toFixed(1),
                 longitude: resObj[i].longitude,
                 latitude: resObj[i].latitude
             };
@@ -393,8 +395,25 @@ exports.followCraftman = function (req, res, next) {
             res.send({ followResult: 0 });
         }
     });
-
 };
+
+exports.unFollowCraftman = function(req, res, next) {
+    var token = req.cookies["token"];
+    var craftmanId = req.query.id;
+    var param = {
+        token: token,
+        id: craftmanId
+    };
+    request.post({ url: apiServerAddress + unFollowCraftmanURL, form: param }, function (err, response, body) {
+        res.setHeader('Content-Type', 'application/json');
+        var followResultObj = JSON.parse(body);
+        if (followResultObj.code == 1) {
+            res.send({ followResult: 1 });
+        } else {
+            res.send({ followResult: 0 });
+        }
+    });
+}
 
 
 exports.commentList = function (req, res, next) {
@@ -839,7 +858,8 @@ exports.businessCard = function (req, res, next) {
             skilledBrandList: detailObj.brands,
             commentList: detailObj.comments,
             longitude: detailObj.longitude,
-            latitude: detailObj.latitude
+            latitude: detailObj.latitude,
+            focused: 1
         };
         res.render('business_card', craftmanDetail);
     });
@@ -952,4 +972,8 @@ exports.uploadCraftmanImage = function(req, res, next) {
             res.send({result: 0})
         }
     })
+}
+
+exports.receiveWXMsg = function(req, res, next) {
+    
 }

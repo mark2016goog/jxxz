@@ -54,6 +54,9 @@ html, body, .wrapper {
     width: 9.76563rem;
     height: 2.64063rem;
     margin-left: 0.14063rem; }
+  .wrapper .empty-info {
+    text-align: center;
+  }
     .wrapper .order-item .left {
       width: 2.65625rem;
       text-align: center;

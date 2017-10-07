@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
           var result = JSON.parse(res);
           if(result.result == 1) {
             alert("您的名片已经上传成功！请耐心等待审核。");
+            window.location.href="/craftmanLoginPage";
           }
         });
       }

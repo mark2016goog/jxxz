@@ -35,6 +35,7 @@
 </head>
 <body>
 <div class="wrapper" id="wrapper">
+  <% if(list.length>0){ %>
   <% for(var i = 0;i < list.length;i++){ %>
   <div class="order-item" onClick="craftmanDetail(<%= list[i].id%>)">
     <div class="top-line">
@@ -61,6 +62,9 @@
     </div>
   </div>
   <% } %>
+  <% } else {%>
+    <div class="empty-info">没有关注的工匠</div>
+  <%}%>
 </div>
 <script src="/javascripts/followed_craftman_list.js"></script>
 </body>

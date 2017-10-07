@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function(){
       } else {
         getCaptchaBtn.style.display = "block";
         countdown.style.display = "none";
+        initValue = 60;
       }
 
     },1000);

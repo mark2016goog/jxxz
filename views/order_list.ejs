@@ -35,6 +35,7 @@
 </head>
 <body>
 <div class="wrapper">
+  <% if(list.length>0){ %>
   <% for(var i = 0;i < list.length;i++){ %>
   <div class="order-item">
     <div class="left">
@@ -49,6 +50,9 @@
     </div>
   </div>
   <% } %>
+  <% } else {%>
+    <div class="empty-info">没有订单</div>
+  <%}%>
 </div>
 <script src="/javascripts/order_list.js"></script>
 </body>
