@@ -4,6 +4,6 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     window.craftmanDetail = function (id) {
-        window.location.href = "/craftmanDetail" + "?id=" + id;
+        window.location.href = "/craftmanBusinessCard" + "?id=" + id;
     }
 });
