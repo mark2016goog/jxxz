@@ -488,18 +488,29 @@ exports.craftmanPersonalInfo = function (req, res, next) {
         var craftmanDetailResult = JSON.parse(body);
         if (craftmanDetailResult.code == 1) {
             var craftmanInfo = craftmanDetailResult.result;
+            var financeInfo = craftmanInfo.masterFinanceInfo;
+            if(financeInfo == undefined) {
+                financeInfo = {
+                    orderAmount: 0,
+                    remainMoney: 0,
+                    withdrawingMoney: 0,
+                    withdrawedMoney: 0,
+                    totalIncome: 0,
+                    withdrawAccount: ""
+                }
+            }
             var craftmanData = {
                 id: craftmanInfo.id,
                 avator: "./images/avator.jpg",
                 name: craftmanInfo.basicInfo.name,
                 telephone: craftmanInfo.phoneNumber,
-                orderAmount: craftmanInfo.masterFinanceInfo.totalOrderAmount,
-                remainMoney: craftmanInfo.masterFinanceInfo.rewordIncome,
-                withdrawingMoney: craftmanInfo.masterFinanceInfo.withDrawIng,
-                withdrawedMoney: craftmanInfo.masterFinanceInfo.withDrawEd,
-                totalIncome: craftmanInfo.masterFinanceInfo.serviceIncome,
+                orderAmount: financeInfo.totalOrderAmount,
+                remainMoney: financeInfo.rewordIncome,
+                withdrawingMoney: financeInfo.withDrawIng,
+                withdrawedMoney: financeInfo.withDrawEd,
+                totalIncome: financeInfo.serviceIncome,
                 realName: craftmanInfo.basicInfo.name,
-                withdrawAccount: craftmanInfo.masterFinanceInfo.bankAccount
+                withdrawAccount: financeInfo.bankAccount
             };
             res.render("craftman_personal", craftmanData);
         }

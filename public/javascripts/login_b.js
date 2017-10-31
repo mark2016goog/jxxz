@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ajax.get("/loginCraftman", loginParam, function (res) {
             console.log(res);
             res = JSON.parse(res);
+            console.log(res);
             if (res.loginSuc) {
                 window.location.href = "/craftmanPersonalInfo";
             } else {
@@ -21,7 +22,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
-    window.toRegisterPage = function (){
+    window.toRegisterPage = function () {
         window.location.href = "/register-telephone";
     };
+
+    window.findbackPwd = function() {
+        
+    }
+
+    window.contactCustomerService = function() {
+
+    }
 });
