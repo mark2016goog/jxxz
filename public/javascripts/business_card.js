@@ -3,7 +3,6 @@
  */
 
 document.addEventListener("DOMContentLoaded", function () {
-    // var callBtn = document.getElementById("callphone");
     var popDialog = document.getElementById("pop-dlg");
     var cancelCallBtn = document.getElementById("cancel-call");
     // callBtn.addEventListener("click", function () {
