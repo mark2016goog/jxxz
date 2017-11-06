@@ -7,6 +7,7 @@ router.get('/wechat_login', controller.weChatCallback);
 router.get('/orderlist', controller.orderList);
 router.get('/couponlist', controller.couponList);
 router.get('/followedCraftmanList', controller.followedCraftmanList);
+router.get('/preloadPosition', controller.preloadPosition)
 router.get('/searchCraftmanByBrand', controller.searchCraftman);
 router.get('/searchCraftmanAsync', controller.searchCraftmanAsync);
 router.get('/craftmanDetail', controller.craftmanDetail);
@@ -32,4 +33,6 @@ router.get('/retrieveValidateNumer', controller.getValidateNumber);
 router.get('/businessmanRegister', controller.businessmanReg);
 router.get('/toUploadBusinessCardPage', controller.toUploadBusinessCard)
 router.get('/uploadCraftmanImage', controller.uploadCraftmanImage)
+router.get('/receive_push', controller.receiveWXMsg)
+router.post('/receive_push', controller.getPushMsg)
 module.exports = router;

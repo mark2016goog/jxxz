@@ -5,6 +5,8 @@ var request = require("request");
 var crypto = require("crypto");
 var xml2js = require("xml2js");
 var util = require("./util");
+var log4js = require("log4js");
+
 var xmlParser = new xml2js.Parser();
 
 var getAccessTokenURL = "https://api.weixin.qq.com/sns/oauth2/access_token";
@@ -34,6 +36,8 @@ var updateOrderUrl = '/order/updateorder';
 var payResultURL = '/order/payresult';
 var updateCraftmanImage = '/masteruser/register/updatecard';
 var apiKey = "xiaozhujiangxin12340987656565482";
+var url_token = "xzjx";
+var logger = log4js.getLogger('cheese');
 
 exports.loginPage = function (req, res, next) {
     var callbackURL = req.query.callbackURL; //任何需要三方登录的业务都需要传递这个callbackURL，否则登录成功后就默认跳到个人信息页
@@ -258,17 +262,40 @@ exports.followedCraftmanList = function (req, res, next) {
 
 };
 
+exports.preloadPosition = function( req, res, next) {
+    var apiTicket = GlobalCache.getApiTicket();
+    var nonceStr = GlobalCache.getRandomStr();
+    var timestamp = (new Date()).getTime();
+    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+
+    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+  
+    var shasum = crypto.createHash("sha1");
+    shasum.update(combineString);
+    var signature = shasum.digest("hex");
+
+    var detail = {
+        timestamp: timestamp,
+        nonceStr: nonceStr,
+        signature: signature,
+    };
+
+    res.render('get_position',detail);
+}
+
 exports.searchCraftman = function (req, res, next) {
     var param = {
         searchType: 1,
-        longitude: 100,
-        latitude: 100
+        longitude: parseFloat(req.query.longitude),
+        latitude: parseFloat(req.query.latitude)
     };
 
+    console.log(param);
+
     request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
-        
+        console.log(body);
         var resObj = JSON.parse(body).result;
-        console.log(resObj);
+        // console.log(resObj);
         var craftmanList = [];
         for (var i = 0; i < resObj.length; i++) {
             var item = {
@@ -846,10 +873,10 @@ exports.businessCard = function (req, res, next) {
         longitude: 100,
         latitude: 100
     };
-
+    console.log("param",param);
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
         var detailObj = JSON.parse(body).result;
-        console.log(detailObj)
+        console.log("Businessman detail:", detailObj)
         detailObj = detailObj.length > 0 ? detailObj[0] : {};
         var craftmanDetail = {
             geoText: detailObj.address,
@@ -973,10 +1000,8 @@ exports.uploadCraftmanImage = function(req, res, next) {
         phone: phone,
         serverid: serverId
     };
-    console.log("UploadCraftmanImage param:", param);
     request.post({ url: apiServerAddress + updateCraftmanImage, form: param},function(err, response, body) {
         var result = JSON.parse(body);
-        console.log("result", result);
         if(result.code == 1) {
             res.send({result: 1})
         } else {
@@ -986,5 +1011,19 @@ exports.uploadCraftmanImage = function(req, res, next) {
 }
 
 exports.receiveWXMsg = function(req, res, next) {
-    
+    var echostr = req.query.echostr;
+    res.send(echostr);
+}
+
+exports.getPushMsg = function(req, res, next) {
+    // console.log(res);
+    // logger.trace('Entering cheese testing');
+    // logger.debug('Got cheese.');
+    // logger.info('Cheese is Gouda.');
+    // logger.warn('Cheese is quite smelly.');
+    // logger.error('Cheese is too ripe!');
+    // logger.fatal('Cheese was breeding ground for listeria.');
+    console.log(req.body);
+    logger.info("req.body",req.body);
+    res.send("success");
 }

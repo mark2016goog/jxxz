@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>用户评价</title>
+  <title></title>
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
@@ -31,41 +31,18 @@
       })
     }();</script>
 
-  <link rel='stylesheet' href='/stylesheets/user_comment_list.css'/>
 </head>
 <body>
-<div class="wrapper" id="wrapper">
-  <% if(commentList.length>0){ %>
-  <% for(var i = 0;i < commentList.length;i++){ %>
-
-  <div class="comment-item">
-    <div class="avator" style="background-image:url(<%= commentList[0].userAvatorUrl %>)"></div>
-    <div class="comment-score">
-      <div class="name">
-        <%= commentList[i].username %>
-
-      </div>
-      <div class="cmt-time">
-        <%= commentList[i].cmtTime %>
-      </div>
-      <div class="score">
-        <span>评分</span>
-        <% for(var j = 0; j < commentList[i].starLevel;j++){ %>
-        <img src="./images/star-fill.png" alt="">
-        <% } %>
-        <% for(var j = 0; j < 5 - commentList[i].starLevel;j++){ %>
-        <img src="./images/star-empty.png" alt="">
-        <% } %>
-      </div>
-    </div>
-    <div class="cmt-detail">
-      <%= commentList[i].cmtDetail %>
-    </div>
-  </div>
-  <% } %>
-  <% } else {%>
-    <div class="empty-info">暂时没有评价</div>
-  <%}%>
+<div class="wrapper">
+  aa
+  <input type="hidden" value="<%= timestamp %>" id="ts"/>
+  <input type="hidden" value="<%= nonceStr %>" id="nstr"/>
+  <input type="hidden" value="<%= signature %>" id="sign"/> 
 </div>
+
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="/javascripts/lib/simple_ajax.js"></script>
+<script src="/javascripts/get_position.js"></script>
 </body>
 </html>
