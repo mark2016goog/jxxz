@@ -65,7 +65,12 @@
   <% } else {%>
     <div class="empty-info">没有关注的工匠</div>
   <%}%>
+  <input type="hidden" value="<%= timestamp %>" id="ts"/>
+  <input type="hidden" value="<%= nonceStr %>" id="nstr"/>
+  <input type="hidden" value="<%= signature %>" id="sign"/> 
 </div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="/javascripts/lib/simple_ajax.js"></script>
 <script src="/javascripts/followed_craftman_list.js"></script>
 </body>
 </html>

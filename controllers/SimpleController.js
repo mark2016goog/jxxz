@@ -236,6 +236,18 @@ exports.followedCraftmanList = function (req, res, next) {
         token: token
     };
 
+    var apiTicket = GlobalCache.getApiTicket();
+    var nonceStr = GlobalCache.getRandomStr();
+    var timestamp = (new Date()).getTime();
+    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+
+    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+  
+    var shasum = crypto.createHash("sha1");
+    shasum.update(combineString);
+    var signature = shasum.digest("hex");
+
+
     request.post({ url: apiServerAddress + followedCraftman, form: param }, function (err, response, body) {
        
         var resObj = JSON.parse(body).result;
@@ -255,7 +267,10 @@ exports.followedCraftmanList = function (req, res, next) {
         }
         var pageData = {
             title: "followedCraftman",
-            list: followedCraftmanList
+            list: followedCraftmanList,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature
         }
         res.render('followed_craftman_list', pageData);
     });
@@ -277,7 +292,7 @@ exports.preloadPosition = function( req, res, next) {
     var detail = {
         timestamp: timestamp,
         nonceStr: nonceStr,
-        signature: signature,
+        signature: signature
     };
 
     res.render('get_position',detail);
@@ -290,43 +305,63 @@ exports.searchCraftman = function (req, res, next) {
         latitude: parseFloat(req.query.latitude)
     };
 
-    console.log(param);
+    var apiTicket = GlobalCache.getApiTicket();
+    var nonceStr = GlobalCache.getRandomStr();
+    var timestamp = (new Date()).getTime();
+    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+
+    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+  
+    var shasum = crypto.createHash("sha1");
+    shasum.update(combineString);
+    var signature = shasum.digest("hex");
 
     request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
         console.log(body);
-        var resObj = JSON.parse(body).result;
-        // console.log(resObj);
-        var craftmanList = [];
-        for (var i = 0; i < resObj.length; i++) {
-            var item = {
-                id: resObj[i].id,
-                avatorUrl: "./images/avator.jpg",
-                name: resObj[i].name,
-                company: resObj[i].shop,
-                starLevel: resObj[i].marks,
-                orderCounts: resObj[i].orderCount,
-                workAddress: resObj[i].address,
-                distance: resObj[i].distance.toFixed(1),
-                longitude: resObj[i].longitude,
-                latitude: resObj[i].latitude
+        try{
+            var resObj = JSON.parse(body).result;
+            // console.log(resObj);
+            var craftmanList = [];
+            for (var i = 0; i < resObj.length; i++) {
+                var item = {
+                    id: resObj[i].id,
+                    avatorUrl: "./images/avator.jpg",
+                    name: resObj[i].name,
+                    company: resObj[i].shop,
+                    starLevel: resObj[i].marks,
+                    orderCounts: resObj[i].orderCount,
+                    workAddress: resObj[i].address,
+                    distance: resObj[i].distance.toFixed(1),
+                    longitude: resObj[i].longitude,
+                    latitude: resObj[i].latitude
+                };
+                craftmanList.push(item);
+            }
+
+            var pageData = {
+                title: "searchCraftman",
+                list: craftmanList,
+                timestamp: timestamp,
+                nonceStr: nonceStr,
+                signature: signature
             };
-            craftmanList.push(item);
+            res.render('craftman_filter_list', pageData);
         }
-        var pageData = {
-            title: "searchCraftman",
-            list: craftmanList
-        };
-        res.render('craftman_filter_list', pageData);
+        catch(e){
+            console.log(e);
+        }
     });
 };
 
 
 exports.searchCraftmanAsync = function (req, res, next) {
     var searchType = req.query.searchType;
+    var longitude = parseFloat(req.query.longitude);
+    var latitude = parseFloat(req.query.latitude);
     var param = {
         searchType: searchType,
-        longitude: 100,
-        latitude: 100
+        longitude: longitude,
+        latitude: latitude
     };
 
     request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
@@ -416,6 +451,7 @@ exports.followCraftman = function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
     
         var followResultObj = JSON.parse(body);
+        console.log("followResultObj",followResultObj);
         if (followResultObj.code == 1) {
             res.send({ followResult: 1 });
         } else {
@@ -426,6 +462,16 @@ exports.followCraftman = function (req, res, next) {
 
 exports.unFollowCraftman = function(req, res, next) {
     var token = req.cookies["token"];
+    // console.log("token",token);
+    if(token === undefined || token === "") {
+        callbackURL = encodeURIComponent("http://www.joinershow.cn/craftmanBusinessCard");
+        redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login'+'/?callbackURL='+callbackURL);
+        var loginData = {
+            title: '用户登录',
+            redirectUrl: redirectURL
+        };
+        res.render('login_c', loginData);
+    }
     var craftmanId = req.query.id;
     var param = {
         token: token,
@@ -434,6 +480,7 @@ exports.unFollowCraftman = function(req, res, next) {
     request.post({ url: apiServerAddress + unFollowCraftmanURL, form: param }, function (err, response, body) {
         res.setHeader('Content-Type', 'application/json');
         var followResultObj = JSON.parse(body);
+        console.log("followResultObj",followResultObj);
         if (followResultObj.code == 1) {
             res.send({ followResult: 1 });
         } else {
@@ -510,8 +557,18 @@ exports.craftmanPersonalInfo = function (req, res, next) {
         token: token
     };
 
+    var apiTicket = GlobalCache.getApiTicket();
+    var nonceStr = GlobalCache.getRandomStr();
+    var timestamp = (new Date()).getTime();
+    var url = req.protocol + "://" + req.get("host") + req.originalUrl;
+
+    var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+  
+    var shasum = crypto.createHash("sha1");
+    shasum.update(combineString);
+    var signature = shasum.digest("hex");
+
     request.post({ url: apiServerAddress + getCraftmanInfoURL, form: param }, function (err, response, body) {
-        console.log("get craftman detail:" + body);
         var craftmanDetailResult = JSON.parse(body);
         if (craftmanDetailResult.code == 1) {
             var craftmanInfo = craftmanDetailResult.result;
@@ -537,7 +594,10 @@ exports.craftmanPersonalInfo = function (req, res, next) {
                 withdrawedMoney: financeInfo.withDrawEd,
                 totalIncome: financeInfo.serviceIncome,
                 realName: craftmanInfo.basicInfo.name,
-                withdrawAccount: financeInfo.bankAccount
+                withdrawAccount: financeInfo.bankAccount,
+                timestamp: timestamp,
+                nonceStr: nonceStr,
+                signature: signature
             };
             res.render("craftman_personal", craftmanData);
         }
@@ -552,7 +612,7 @@ exports.withdraw = function (req, res, next) {
 
 exports.craftmanSettingPage = function (req, res, next) {
     var craftmanData = {
-        name: "王家卫"
+        name: ""
     };
     res.render("craftman_setting", craftmanData);
 };
@@ -859,6 +919,7 @@ exports.businessCard = function (req, res, next) {
     var apiTicket = GlobalCache.getApiTicket();
     var nonceStr = GlobalCache.getRandomStr();
     var timestamp = (new Date()).getTime();
+    var token = req.cookies["token"];
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
 
     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
@@ -868,38 +929,44 @@ exports.businessCard = function (req, res, next) {
     var signature = shasum.digest("hex");
 
     var craftmanId = req.query.id;
+    var longitude = parseFloat(req.query.longitude);
+    var latitude = parseFloat(req.query.latitude);
     var param = {
         id: craftmanId,
-        longitude: 100,
-        latitude: 100
+        longitude: longitude,
+        latitude: latitude,
+        token: token
     };
     console.log("param",param);
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
-        var detailObj = JSON.parse(body).result;
-        console.log("Businessman detail:", detailObj)
-        detailObj = detailObj.length > 0 ? detailObj[0] : {};
-        var craftmanDetail = {
-            geoText: detailObj.address,
-            timestamp: timestamp,
-            nonceStr: nonceStr,
-            signature: signature,
-            id: detailObj.id,
-            avatorUrl: "./images/avator.jpg",
-            name: detailObj.name,
-            company: detailObj.shop,
-            starLevel: detailObj.marks,
-            orderCounts: detailObj.orderCount,
-            workAddress: detailObj.address,
-            distance: detailObj.distance.toFixed(1),
-            intro: detailObj.description,
-            telephone: detailObj.masterPhone,
-            skilledBrandList: detailObj.brands,
-            commentList: detailObj.comments,
-            longitude: detailObj.longitude,
-            latitude: detailObj.latitude,
-            focused: 1
-        };
-        res.render('business_card', craftmanDetail);
+        try{
+            var detailObj = JSON.parse(body).result;
+            detailObj = detailObj.length > 0 ? detailObj[0] : {};
+            var craftmanDetail = {
+                geoText: detailObj.address,
+                timestamp: timestamp,
+                nonceStr: nonceStr,
+                signature: signature,
+                id: detailObj.id,
+                avatorUrl: "./images/avator.jpg",
+                name: detailObj.name,
+                company: detailObj.shop,
+                starLevel: detailObj.marks,
+                orderCounts: detailObj.orderCount,
+                workAddress: detailObj.address,
+                distance: detailObj.distance.toFixed(1),
+                intro: detailObj.description,
+                telephone: detailObj.masterPhone,
+                skilledBrandList: detailObj.brands,
+                commentList: detailObj.comments,
+                longitude: detailObj.longitude,
+                latitude: detailObj.latitude,
+                focused: detailObj.markStatusByCurrentUser
+            };
+            res.render('business_card', craftmanDetail);
+        } catch (e) {
+            console.log(e);
+        }
     });
 };
 

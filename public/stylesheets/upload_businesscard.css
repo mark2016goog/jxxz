@@ -60,6 +60,10 @@ input, button {
     width: 10rem;
 }
 
+.wrapper .upload-tip-text {
+  margin-top: 1.6rem;
+}
+
 .wrapper .submit-btn {
     height: 1.375rem; 
     line-height: 1.375rem;

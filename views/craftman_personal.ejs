@@ -111,8 +111,11 @@
 
 <div>
   <input type="hidden" value="<%= id %>" id="curCraftmanID" />
+  <input type="hidden" value="<%= timestamp %>" id="ts"/>
+  <input type="hidden" value="<%= nonceStr %>" id="nstr"/>
+  <input type="hidden" value="<%= signature %>" id="sign"/> 
 </div>
-
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="/javascripts/lib/simple_ajax.js"></script>
 <script src="/javascripts/craftman_personal.js"></script>
 </body>

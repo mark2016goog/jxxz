@@ -52,10 +52,12 @@ document.addEventListener("DOMContentLoaded", function(){
     var mobilephone = document.getElementById("mobilephone").value.trim();
     if(mobilephone === "") {
       alert("手机号码不能为空！");
+      return;
     }
     var authcode = document.getElementById("authcode").value.trim(); 
     if(authcode === "") {
       alert("验证码不能为空！");
+      return;
     }
     var param = {
       phone: mobilephone,

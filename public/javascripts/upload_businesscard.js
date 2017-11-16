@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
     wx.chooseImage({
       success: function (res) {
         localId = res.localIds[0]; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-        previewImg.src = localId.toString();
-        
+        // previewImg.src = localId.toString();
+        alert("上传成功！点击下方的确认提交按钮即可正确提交");
       }
     })
   });
