@@ -14,7 +14,7 @@ var prePayURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 var appid = "wxde4642a10788624f";
 var secret = "4e67e578e0318def0512293bff7e1550";
 var commercialAccountID = "1387195102";
-var apiServerAddress="http://139.196.243.125:17001/server/webapi";
+var apiServerAddress = "http://139.196.243.125:17001/server/webapi";
 // var apiServerAddress = "http://127.0.0.1:17001/server/webapi";
 var commonUserLogin = "/normaluser/login";//普通用户登录
 var personalOrderURL = "/order/normaluser/orders";//获取自己的订单列表
@@ -42,9 +42,9 @@ var logger = log4js.getLogger('cheese');
 exports.loginPage = function (req, res, next) {
     var callbackURL = req.query.callbackURL; //任何需要三方登录的业务都需要传递这个callbackURL，否则登录成功后就默认跳到个人信息页
     var redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login');
-    if(callbackURL != undefined) {
+    if (callbackURL != undefined) {
         callbackURL = encodeURIComponent("http://www.joinershow.cn" + callbackURL);
-        redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login'+'/?callbackURL='+callbackURL);
+        redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login' + '/?callbackURL=' + callbackURL);
     }
     var loginData = {
         title: '用户登录',
@@ -56,7 +56,7 @@ exports.loginPage = function (req, res, next) {
 exports.weChatCallback = function (req, res, next) {
     var oauthCode = req.query.code;
     var cbURL = req.query.callbackURL;
-    console.log("cbURL",cbURL);
+    console.log("cbURL", cbURL);
     var reqParam = {
         url: getAccessTokenURL,
         qs: {
@@ -72,7 +72,7 @@ exports.weChatCallback = function (req, res, next) {
     // \"openid\":\"ox8tuwPgKfc-_ZmY3ues-4TfSrAI\",\"scope\":\"snsapi_userinfo\"}
 
     request.get(reqParam, function (error, response, body) {
-        
+
         var weixinLoginResult = JSON.parse(body);
         var loginParam = {
             openID: weixinLoginResult.openid,
@@ -81,11 +81,11 @@ exports.weChatCallback = function (req, res, next) {
             expire: weixinLoginResult.expires_in
         };
 
-        
+
         request.post({
             url: apiServerAddress + commonUserLogin, form: loginParam
         }, function (error, response, body) {
-            console.log("commonUserLogin",body);
+            console.log("commonUserLogin", body);
             var resObj = JSON.parse(body);
             var repsonseInfo = resObj.user;
             var personalInfo = {
@@ -98,14 +98,14 @@ exports.weChatCallback = function (req, res, next) {
             var cookieAge = 1000 * 60 * 60 * 1000;
             res.cookie("token", token, { maxAge: cookieAge });
             res.cookie("openid", weixinLoginResult.openid, { maxAge: cookieAge });
-            
-            if(cbURL === undefined){
+
+            if (cbURL === undefined) {
                 res.render('personal_info', personalInfo);
             } else {
                 res.redirect(cbURL);
             }
         });
-        
+
     });
 };
 
@@ -116,7 +116,7 @@ exports.orderList = function (req, res, next) {
     };
     //{"brand":"天梭","createDate":"2016-11-01T01:00:00+08:00","masterName":"张师傅","money":300.0,"orderId":"订单号码"}
     request.post({ url: apiServerAddress + personalOrderURL, form: param }, function (err, response, body) {
-       
+
         var resObj = JSON.parse(body).results;
         var orderList = [];
         for (var i = 0; i < resObj.length; i++) {
@@ -143,7 +143,7 @@ exports.couponList = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + personalCouponURL, form: param }, function (err, response, body) {
-        
+
         var resObj = JSON.parse(body).results;
         var couponList = [];
         for (var i = 0; i < resObj.length; i++) {
@@ -242,14 +242,14 @@ exports.followedCraftmanList = function (req, res, next) {
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
 
     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-  
+
     var shasum = crypto.createHash("sha1");
     shasum.update(combineString);
     var signature = shasum.digest("hex");
 
 
     request.post({ url: apiServerAddress + followedCraftman, form: param }, function (err, response, body) {
-       
+
         var resObj = JSON.parse(body).result;
         var followedCraftmanList = [];
         for (var i = 0; i < resObj.length; i++) {
@@ -277,14 +277,14 @@ exports.followedCraftmanList = function (req, res, next) {
 
 };
 
-exports.preloadPosition = function( req, res, next) {
+exports.preloadPosition = function (req, res, next) {
     var apiTicket = GlobalCache.getApiTicket();
     var nonceStr = GlobalCache.getRandomStr();
     var timestamp = (new Date()).getTime();
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
 
     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-  
+
     var shasum = crypto.createHash("sha1");
     shasum.update(combineString);
     var signature = shasum.digest("hex");
@@ -295,7 +295,7 @@ exports.preloadPosition = function( req, res, next) {
         signature: signature
     };
 
-    res.render('get_position',detail);
+    res.render('get_position', detail);
 }
 
 exports.searchCraftman = function (req, res, next) {
@@ -311,14 +311,14 @@ exports.searchCraftman = function (req, res, next) {
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
 
     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-  
+
     var shasum = crypto.createHash("sha1");
     shasum.update(combineString);
     var signature = shasum.digest("hex");
 
     request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
         console.log(body);
-        try{
+        try {
             var resObj = JSON.parse(body).result;
             // console.log(resObj);
             var craftmanList = [];
@@ -347,7 +347,7 @@ exports.searchCraftman = function (req, res, next) {
             };
             res.render('craftman_filter_list', pageData);
         }
-        catch(e){
+        catch (e) {
             console.log(e);
         }
     });
@@ -365,7 +365,7 @@ exports.searchCraftmanAsync = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
-        
+
         var resObj = JSON.parse(body).result;
         var craftmanList = [];
         for (var i = 0; i < resObj.length; i++) {
@@ -398,7 +398,7 @@ exports.craftmanDetail = function (req, res, next) {
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
 
     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-  
+
     var shasum = crypto.createHash("sha1");
     shasum.update(combineString);
     var signature = shasum.digest("hex");
@@ -411,7 +411,7 @@ exports.craftmanDetail = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
-       
+
         var detailObj = JSON.parse(body).result;
         console.log(detailObj);
         detailObj = detailObj.length > 0 ? detailObj[0] : {};
@@ -449,9 +449,9 @@ exports.followCraftman = function (req, res, next) {
     };
     request.post({ url: apiServerAddress + followCraftmanURL, form: param }, function (err, response, body) {
         res.setHeader('Content-Type', 'application/json');
-    
+
         var followResultObj = JSON.parse(body);
-        console.log("followResultObj",followResultObj);
+        console.log("followResultObj", followResultObj);
         if (followResultObj.code == 1) {
             res.send({ followResult: 1 });
         } else {
@@ -460,12 +460,12 @@ exports.followCraftman = function (req, res, next) {
     });
 };
 
-exports.unFollowCraftman = function(req, res, next) {
+exports.unFollowCraftman = function (req, res, next) {
     var token = req.cookies["token"];
     // console.log("token",token);
-    if(token === undefined || token === "") {
+    if (token === undefined || token === "") {
         callbackURL = encodeURIComponent("http://www.joinershow.cn/craftmanBusinessCard");
-        redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login'+'/?callbackURL='+callbackURL);
+        redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login' + '/?callbackURL=' + callbackURL);
         var loginData = {
             title: '用户登录',
             redirectUrl: redirectURL
@@ -480,7 +480,7 @@ exports.unFollowCraftman = function(req, res, next) {
     request.post({ url: apiServerAddress + unFollowCraftmanURL, form: param }, function (err, response, body) {
         res.setHeader('Content-Type', 'application/json');
         var followResultObj = JSON.parse(body);
-        console.log("followResultObj",followResultObj);
+        console.log("followResultObj", followResultObj);
         if (followResultObj.code == 1) {
             res.send({ followResult: 1 });
         } else {
@@ -496,7 +496,7 @@ exports.commentList = function (req, res, next) {
         id: craftmanID
     };
     request.post({ url: apiServerAddress + getCommentListURL, form: param }, function (error, response, body) {
-       
+
         var cmtObj = JSON.parse(body).result;
         var commentList = [];
         for (var i = 0; i < cmtObj.length; i++) {
@@ -514,7 +514,7 @@ exports.commentList = function (req, res, next) {
         };
         res.render('user_comment_list', pageData);
     });
-  
+
 };
 
 exports.craftmanLoginPage = function (req, res, next) {
@@ -534,7 +534,7 @@ exports.craftmanLogin = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + craftmanLoginURL, form: param }, function (err, response, body) {
-   
+
         var loginResult = JSON.parse(body);
         res.setHeader('Content-Type', 'application/json');
         if (loginResult.code == 1) {
@@ -549,7 +549,7 @@ exports.craftmanLogin = function (req, res, next) {
 
 exports.craftmanPersonalInfo = function (req, res, next) {
     var token = req.cookies["b_token"];
-    if(token === undefined || token === null) {
+    if (token === undefined || token === null) {
         res.redirect("/craftmanLoginPage");
     }
 
@@ -563,7 +563,7 @@ exports.craftmanPersonalInfo = function (req, res, next) {
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
 
     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-  
+
     var shasum = crypto.createHash("sha1");
     shasum.update(combineString);
     var signature = shasum.digest("hex");
@@ -573,7 +573,7 @@ exports.craftmanPersonalInfo = function (req, res, next) {
         if (craftmanDetailResult.code == 1) {
             var craftmanInfo = craftmanDetailResult.result;
             var financeInfo = craftmanInfo.masterFinanceInfo;
-            if(financeInfo == undefined) {
+            if (financeInfo == undefined) {
                 financeInfo = {
                     orderAmount: 0,
                     remainMoney: 0,
@@ -666,8 +666,8 @@ exports.getAccountDetailList = function (req, res, next) {
 exports.showPaypage = function (req, res, next) {
     var craftmanId = req.query.craftmanID;
     //首先判断是否登陆
-    if(req.cookies['openid'] === null || req.cookies['openid'] === undefined) {
-        res.redirect("/?callbackURL=" + encodeURIComponent("/daily/pay?craftmanID="+craftmanId));
+    if (req.cookies['openid'] === null || req.cookies['openid'] === undefined) {
+        res.redirect("/?callbackURL=" + encodeURIComponent("/daily/pay?craftmanID=" + craftmanId));
     }
 
     //已经登陆就跳转到支付展示页
@@ -681,7 +681,7 @@ exports.showPaypage = function (req, res, next) {
         longitude: 0,
         latitude: 0
     };
-    
+
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
         console.log("craftman detail:", body);
         var detailObj = JSON.parse(body).result;
@@ -702,13 +702,13 @@ exports.confirmPayPage = function (req, res, next) {
     var payInfo = {};
 
     var user_ip = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-     //IPV6   ::ffff:127.0.0.1
-    if(user_ip.substr(0,7) === "::ffff:"){
-          user_ip = user_ip.substr(7);  
+    //IPV6   ::ffff:127.0.0.1
+    if (user_ip.substr(0, 7) === "::ffff:") {
+        user_ip = user_ip.substr(7);
     }
 
     var amount = req.query.amount;//req.query.amount;
-   
+
     var nonceStr = GlobalCache.getRandomStr();
 
     //支付对象（钟表匠）的id
@@ -725,9 +725,9 @@ exports.confirmPayPage = function (req, res, next) {
     var commercialOrderID = '';
 
     request.post({ url: apiServerAddress + generateNewOrderURL, form: getOrderIDParam }, function (err, response, body) {
-        if(!err && response.statusCode == 200) {
+        if (!err && response.statusCode == 200) {
             var generateOrderResult = JSON.parse(body);
-            if(generateOrderResult.code === -2) {
+            if (generateOrderResult.code === -2) {
                 var fullURL = req.protocol + '://' + req.get('host') + req.originalUrl;
                 console.log("fullURL", fullURL);
                 var redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login/?callbackURL=' + fullURL);
@@ -742,7 +742,7 @@ exports.confirmPayPage = function (req, res, next) {
             console.log("generateOrderResult", generateOrderResult);
             commercialOrderID = generateOrderResult.order.orderId;
             console.log("commercialOrderID", commercialOrderID);
-             var prepayParameter = {
+            var prepayParameter = {
                 appid: appid,
                 body: "小筑匠心-百货",
                 device_info: "WEB",
@@ -761,9 +761,9 @@ exports.confirmPayPage = function (req, res, next) {
                 "&mch_id=" + prepayParameter.mch_id + "&nonce_str=" + prepayParameter.nonce_str + "&notify_url=" + prepayParameter.notify_url +
                 "&openid=" + prepayParameter.openid + "&out_trade_no=" + prepayParameter.out_trade_no + "&spbill_create_ip=" + prepayParameter.spbill_create_ip +
                 "&total_fee=" + prepayParameter.total_fee + "&trade_type=" + prepayParameter.trade_type;
-        
+
             combineString += "&key=" + apiKey;
-            console.log("combineString:"+combineString);
+            console.log("combineString:" + combineString);
             //中文md5，必须如下处理
             // combineString = (new Buffer(combineString)).toString("binary");
             // var md5sum = crypto.createHash("md5");
@@ -772,7 +772,7 @@ exports.confirmPayPage = function (req, res, next) {
 
             var signature = crypto.createHash('md5').update(combineString, 'utf-8').digest('hex');
             prepayParameter.sign = signature.toUpperCase();
-            console.log("prepayParameter.sign",prepayParameter.sign);
+            console.log("prepayParameter.sign", prepayParameter.sign);
             var builder = new xml2js.Builder();
             var postXML = builder.buildObject(prepayParameter);
 
@@ -791,30 +791,30 @@ exports.confirmPayPage = function (req, res, next) {
                 // <trade_type><![CDATA[JSAPI]]></trade_type>
                 // </xml>
 
-                xmlParser.parseString(body,function(err,result){
-                    if(err){
-                        console.log("xmlParser error",err);
-                    }else{
-                        try{
-                            console.log("result.xml",result.xml);
+                xmlParser.parseString(body, function (err, result) {
+                    if (err) {
+                        console.log("xmlParser error", err);
+                    } else {
+                        try {
+                            console.log("result.xml", result.xml);
                             var prepayID = result.xml.prepay_id[0];
                             //get prepay_id from body, then generate prepay_id and paySign to the page.
                             //the page JSAPI-> getBrandWCPayRequest needs: appId,timeStamp,nonceStr,package(such as 'prepay_id=123456789'),signType(MD5),paySign
                             //All these parameters will be generated in the server.
-                            console.log("prepayID:",prepayID);
-                            var payTimeStamp = Math.floor((new Date()).getTime()/1000);//转化为秒
+                            console.log("prepayID:", prepayID);
+                            var payTimeStamp = Math.floor((new Date()).getTime() / 1000);//转化为秒
                             var payNonceStr = GlobalCache.getRandomStr();
-                            var payPackage = "prepay_id="+prepayID;
+                            var payPackage = "prepay_id=" + prepayID;
                             var signType = "MD5";
                             //nonceStr,package,timestamp,signType 
-                            var stringCombine = "appId="+appid+"&nonceStr="+payNonceStr+"&package="+payPackage+"&signType="+signType+"&timeStamp="+payTimeStamp;//+"&signType="+signType;
+                            var stringCombine = "appId=" + appid + "&nonceStr=" + payNonceStr + "&package=" + payPackage + "&signType=" + signType + "&timeStamp=" + payTimeStamp;//+"&signType="+signType;
                             //拼接api key
-                            stringCombine+="&key=" + apiKey;
-                            console.log("pay string combine",stringCombine);
+                            stringCombine += "&key=" + apiKey;
+                            console.log("pay string combine", stringCombine);
                             var md5Sum = crypto.createHash("md5");
                             md5Sum.update(stringCombine);
                             var signPay = md5Sum.digest("hex").toUpperCase();
-                            console.log("signPay",signPay);
+                            console.log("signPay", signPay);
 
                             //generate config param
                             var apiTicket = GlobalCache.getApiTicket();
@@ -824,29 +824,29 @@ exports.confirmPayPage = function (req, res, next) {
                             var shasum = crypto.createHash("sha1");
                             shasum.update(configCombineStr);
                             var configSign = shasum.digest("hex");
-                            
-                    
+
+
                             var pageData = {
-                                timestamp:payTimeStamp,
-                                nonceStr:payNonceStr,
-                                package:payPackage,
-                                signType:signType,
-                                paySign:signPay,
+                                timestamp: payTimeStamp,
+                                nonceStr: payNonceStr,
+                                package: payPackage,
+                                signType: signType,
+                                paySign: signPay,
                                 configSign: configSign,
                                 configTimestamp: configTimestamp,
-                                appId:appid,
-                                orderID:commercialOrderID,
-                                payAmount:amount/100//转化为元为单位
+                                appId: appid,
+                                orderID: commercialOrderID,
+                                payAmount: amount / 100//转化为元为单位
                             };
                             res.render('confirm_pay', pageData);
                         }
-                        catch(e) {
-                            console.log("pay error",e);
-                            res.render('confirm_pay', {error:e});
+                        catch (e) {
+                            console.log("pay error", e);
+                            res.render('confirm_pay', { error: e });
                         }
                     }
                 });
-            
+
             });
         }
     });
@@ -859,7 +859,7 @@ exports.payCallback = function (req, res, next) {
     var token = req.cookies["token"];
     var returnCode = req.query.return_code;
     var returnMsg = req.query.return_msg;
-    if(returnCode === "SUCCESS") {
+    if (returnCode === "SUCCESS") {
         var detail = req.query;
         var appid = detail.appid;
         var mch_id = detail.mch_id;
@@ -892,7 +892,7 @@ exports.payCallback = function (req, res, next) {
         //就返回给weixin server return_code:SUCCESS
         //如果未通过校验，则返回给weixin sever return_code:FAIL return_msg:签名失败或者参数格式校验错误
         // res.send({ result : 1});
-        
+
         var getPayConfirmInfo = {
             return_code: "SUCCESS"
         };
@@ -902,7 +902,7 @@ exports.payCallback = function (req, res, next) {
             orderid: out_trade_no,
             status: 2 //1：初始化 2：成功 3：失败
         };
-        request.post({ url: apiServerAddress + updateOrderUrl, form: confirmParam } , function(err, response, body){
+        request.post({ url: apiServerAddress + updateOrderUrl, form: confirmParam }, function (err, response, body) {
             console.log("err", err);
             console.log("body", body);
         });
@@ -912,7 +912,7 @@ exports.payCallback = function (req, res, next) {
         res.set('Content-Type', 'text/xml');
         res.send(resultXml);
     }
-    
+
 };
 
 exports.businessCard = function (req, res, next) {
@@ -923,7 +923,7 @@ exports.businessCard = function (req, res, next) {
     var url = req.protocol + "://" + req.get("host") + req.originalUrl;
 
     var combineString = "jsapi_ticket=" + apiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
-  
+
     var shasum = crypto.createHash("sha1");
     shasum.update(combineString);
     var signature = shasum.digest("hex");
@@ -937,9 +937,9 @@ exports.businessCard = function (req, res, next) {
         latitude: latitude,
         token: token
     };
-    console.log("param",param);
+    console.log("param", param);
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
-        try{
+        try {
             var detailObj = JSON.parse(body).result;
             detailObj = detailObj.length > 0 ? detailObj[0] : {};
             var craftmanDetail = {
@@ -970,16 +970,16 @@ exports.businessCard = function (req, res, next) {
     });
 };
 
-exports.registerTelephonePage = function(req, res, next) {
-    res.render('register_tele',null);
+exports.registerTelephonePage = function (req, res, next) {
+    res.render('register_tele', null);
 };
 
-exports.getValidateNumber = function(req, res, next) {
+exports.getValidateNumber = function (req, res, next) {
     var mobilephoneNumber = req.query.mobilephoneNumber;
     var param = {
         phone: mobilephoneNumber
     };
-    request.post({ url: apiServerAddress + getValidateNumberURL, form: param}, function(err, response, body) {
+    request.post({ url: apiServerAddress + getValidateNumberURL, form: param }, function (err, response, body) {
         if (!err && response.statusCode == 200) {
             console.log("body", body);
             var validateNumberResult = JSON.parse(body);
@@ -991,8 +991,8 @@ exports.getValidateNumber = function(req, res, next) {
     });
 }
 
-exports.businessmanReg = function(req, res, next) {
-    var phone = req.query.phone; 
+exports.businessmanReg = function (req, res, next) {
+    var phone = req.query.phone;
     var num = req.query.num;
     var recommend = req.query.recommend;
 
@@ -1002,20 +1002,20 @@ exports.businessmanReg = function(req, res, next) {
         recommend: recommend
     };
 
-    request.post({ url: apiServerAddress + postValidateNumberURL, form: param }, function(error, response, body){
-        if(!error && response.statusCode == 200) {
+    request.post({ url: apiServerAddress + postValidateNumberURL, form: param }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
             console.log("postValidateNumberURL", body);
             var postValidateNoResult = JSON.parse(body);
-            if(postValidateNoResult.code == 1) {
-                
-                res.send({ result: true});
+            if (postValidateNoResult.code == 1) {
+
+                res.send({ result: true });
                 // res.render('upload_businesscard', uploadBusinesscardDetail);
             } else {
                 console.log("uploadBusinesscardDetail error");
-                res.send({ result: false});
+                res.send({ result: false });
             }
         } else {
-            res.send({ result: false});
+            res.send({ result: false });
         }
     });
 
@@ -1036,10 +1036,10 @@ exports.businessmanReg = function(req, res, next) {
     //     signature: signature,
     // };
     // res.render('upload_businesscard', uploadBusinesscardDetail);
-    
+
 }
 
-exports.toUploadBusinessCard = function(req, res, next) {
+exports.toUploadBusinessCard = function (req, res, next) {
     var apiTicket = GlobalCache.getApiTicket();
     var nonceStr = GlobalCache.getRandomStr();
     var timestamp = (new Date()).getTime();
@@ -1060,29 +1060,29 @@ exports.toUploadBusinessCard = function(req, res, next) {
     res.render('upload_businesscard', uploadBusinesscardDetail);
 }
 
-exports.uploadCraftmanImage = function(req, res, next) {
+exports.uploadCraftmanImage = function (req, res, next) {
     var phone = req.query.phone;
     var serverId = req.query.serverId;
     var param = {
         phone: phone,
         serverid: serverId
     };
-    request.post({ url: apiServerAddress + updateCraftmanImage, form: param},function(err, response, body) {
+    request.post({ url: apiServerAddress + updateCraftmanImage, form: param }, function (err, response, body) {
         var result = JSON.parse(body);
-        if(result.code == 1) {
-            res.send({result: 1})
+        if (result.code == 1) {
+            res.send({ result: 1 })
         } else {
-            res.send({result: 0})
+            res.send({ result: 0 })
         }
     })
 }
 
-exports.receiveWXMsg = function(req, res, next) {
+exports.receiveWXMsg = function (req, res, next) {
     var echostr = req.query.echostr;
     res.send(echostr);
 }
 
-exports.getPushMsg = function(req, res, next) {
+exports.getPushMsg = function (req, res, next) {
     // console.log(res);
     // logger.trace('Entering cheese testing');
     // logger.debug('Got cheese.');
@@ -1091,6 +1091,13 @@ exports.getPushMsg = function(req, res, next) {
     // logger.error('Cheese is too ripe!');
     // logger.fatal('Cheese was breeding ground for listeria.');
     console.log(req.body);
-    logger.info("req.body",req.body);
+    logger.info("req.body", req.body);
     res.send("success");
+}
+
+exports.showBranchSelect = function (req, res, next) {
+    var brandData = [{
+
+    }];
+    res.render("brand_list", brandData);
 }

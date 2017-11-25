@@ -35,4 +35,5 @@ router.get('/toUploadBusinessCardPage', controller.toUploadBusinessCard)
 router.get('/uploadCraftmanImage', controller.uploadCraftmanImage)
 router.get('/receive_push', controller.receiveWXMsg)
 router.post('/receive_push', controller.getPushMsg)
+router.get("/brandSelecList", controller.showBranchSelect);
 module.exports = router;
