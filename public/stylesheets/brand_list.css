@@ -20,11 +20,22 @@ body {
 	width: 100%;
 	bottom: 0;
 	overflow: auto;
-	background: #f7f7f7;
+	/* background: #f7f7f7; */
 }
 #item-container li {
 	padding: 10px 20px;
-	border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+}
+#item-container li img{
+  height: 32px;
+}
+#item-container li .img-div{
+  margin-right: 5px;
+  width: 130px;
+}
+#item-container li .brand-text-div{
+  line-height: 40px;
 }
 #item-container li:last-child {
 	border-bottom: none;

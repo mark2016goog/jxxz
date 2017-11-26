@@ -12,15 +12,17 @@ document.addEventListener("DOMContentLoaded", function () {
     var html;
   
     html = data.map(function (item) {
-      var i = item.lastIndexOf(' ');
+      var i = item.indexOf(' ');
       var en = item.slice(0, i);
       var cn = item.slice(i + 1);
+      var cnDiv = "<div class='brand-text-div'>" + cn + "</div>";
       var ch = en[0];
+      var brandImg = "<div class='img-div'><img src='images/brands/" + cn +".png' /></div>";
       if (map[ch]) {
-        return '<li>' + en + '<br>' + cn + '</li>'
+        return '<li>' + brandImg + cnDiv + '</li>'
       } else {
         map[ch] = true
-        return '<li data-ch="' + ch + '">' + en + '<br>' + cn + '</li>'
+        return '<li data-ch="' + ch + '">'+ brandImg + cnDiv + '</li>'
       }
     }).join('')
   
