@@ -713,6 +713,7 @@ exports.confirmPayPage = function (req, res, next) {
     var commercialOrderID = '';
 
     request.post({ url: apiServerAddress + generateNewOrderURL, form: getOrderIDParam }, function (err, response, body) {
+    
         if (!err && response.statusCode == 200) {
             var generateOrderResult = JSON.parse(body);
             if (generateOrderResult.code === -2) {

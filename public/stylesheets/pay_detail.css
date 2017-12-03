@@ -189,13 +189,20 @@ input {
         padding-left: 0.46875rem;
         width: 3.90625rem;
         height: 100%; }
-      .pop-dialog-bkg .bind-mobilephone .captcha .send-captcha {
+      .pop-dialog-bkg .bind-mobilephone .captcha .get-captcha-btn {
         background-color: #ab9355;
         color: #fff;
         height: 1.375rem;
         width: 2.8125rem;
         line-height: 1.375rem;
         text-align: center; }
+        .pop-dialog-bkg .bind-mobilephone .captcha .hide-countdown { 
+          display: none;
+          width: 2.667rem;
+          height: 1.2rem;
+          line-height: 1.2rem;
+          text-align: center;
+        }
     .pop-dialog-bkg .bind-mobilephone .confirm {
       margin-top: 0.71875rem;
       height: 1.40625rem;

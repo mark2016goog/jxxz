@@ -17,10 +17,7 @@ document.addEventListener("DOMContentLoaded", function(){
         countdown.style.display = "none";
         initValue = 60;
       }
-
     },1000);
-
-
   }
   
   window.retrieveValidateNo = function() {
@@ -45,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function(){
         console.error(e);
       }
     });
-  }
+  };
 
   window.goNext = function() {
     // window.location.href = '/uploadBusinessCard';

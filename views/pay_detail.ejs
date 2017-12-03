@@ -66,11 +66,11 @@
       <div class="left-title">实付金额</div>
       <div class="pay-amount" >￥<span id="realPayAmount"></span></div>
     </div>
-    <div class="line complex-line" onclick="showBrandList()">
+    <!-- <div class="line complex-line" onclick="showBrandList()">
       <div class="brand-title">手表品牌</div>
       <div class="select-tip">为确保服务质量，请准确选择品牌</div>
       <div class="right-arrow"></div>
-    </div>
+    </div> -->
     <div>
       <div class="confirm-pay" onclick="payClick()">确认支付</div>
     </div>
@@ -80,15 +80,16 @@
 <div class="pop-dialog-bkg" id="dialog" onclick="hideDialog()">
   <div class="bind-mobilephone" id="bind-dialog" >
     <div class="mobilenum-block">
-      <input type="text" placeholder="涉及支付安全，首次支付请绑定手机号"/>
+      <input type="text" id="mobilephone" placeholder="涉及支付安全，首次支付请绑定手机号"/>
     </div>
     <div class="captcha">
       <div>
-        <input type="text" placeholder="请输入验证码"/>
+        <input type="text" placeholder="请输入验证码" id="authcode"/>
       </div>
-      <div class="send-captcha">
+      <div class="get-captcha-btn" id="getCaptchaBtn" onClick="retrieveValidateNo()">
         发送验证码
       </div>
+      <div class="get-captcha-btn hide-countdown" id="countdown"></div>
     </div>
     <div class="confirm" id="bind-mobilephone-confirm-btn">
       确定
