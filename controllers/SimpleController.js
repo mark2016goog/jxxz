@@ -56,7 +56,6 @@ exports.loginPage = function (req, res, next) {
 exports.weChatCallback = function (req, res, next) {
     var oauthCode = req.query.code;
     var cbURL = req.query.callbackURL;
-    console.log("cbURL", cbURL);
     var reqParam = {
         url: getAccessTokenURL,
         qs: {
@@ -85,7 +84,6 @@ exports.weChatCallback = function (req, res, next) {
         request.post({
             url: apiServerAddress + commonUserLogin, form: loginParam
         }, function (error, response, body) {
-            console.log("commonUserLogin", body);
             var resObj = JSON.parse(body);
             var repsonseInfo = resObj.user;
             var personalInfo = {
@@ -171,7 +169,6 @@ exports.couponListAsync = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + personalCouponURL, form: param }, function (err, response, body) {
-        console.log("coupon list:" + body);
         var resObj = JSON.parse(body).results;
         var couponList = [];
         for (var i = 0; i < resObj.length; i++) {
@@ -317,10 +314,8 @@ exports.searchCraftman = function (req, res, next) {
     var signature = shasum.digest("hex");
 
     request.post({ url: apiServerAddress + searchCraftmanURL, form: param }, function (error, response, body) {
-        console.log(body);
         try {
             var resObj = JSON.parse(body).result;
-            // console.log(resObj);
             var craftmanList = [];
             for (var i = 0; i < resObj.length; i++) {
                 var item = {
@@ -348,7 +343,6 @@ exports.searchCraftman = function (req, res, next) {
             res.render('craftman_filter_list', pageData);
         }
         catch (e) {
-            console.log(e);
         }
     });
 };
@@ -413,7 +407,6 @@ exports.craftmanDetail = function (req, res, next) {
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
 
         var detailObj = JSON.parse(body).result;
-        console.log(detailObj);
         detailObj = detailObj.length > 0 ? detailObj[0] : {};
         var craftmanDetail = {
             geoText: detailObj.address,
@@ -451,7 +444,6 @@ exports.followCraftman = function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
 
         var followResultObj = JSON.parse(body);
-        console.log("followResultObj", followResultObj);
         if (followResultObj.code == 1) {
             res.send({ followResult: 1 });
         } else {
@@ -462,7 +454,6 @@ exports.followCraftman = function (req, res, next) {
 
 exports.unFollowCraftman = function (req, res, next) {
     var token = req.cookies["token"];
-    // console.log("token",token);
     if (token === undefined || token === "") {
         callbackURL = encodeURIComponent("http://www.joinershow.cn/craftmanBusinessCard");
         redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login' + '/?callbackURL=' + callbackURL);
@@ -480,7 +471,6 @@ exports.unFollowCraftman = function (req, res, next) {
     request.post({ url: apiServerAddress + unFollowCraftmanURL, form: param }, function (err, response, body) {
         res.setHeader('Content-Type', 'application/json');
         var followResultObj = JSON.parse(body);
-        console.log("followResultObj", followResultObj);
         if (followResultObj.code == 1) {
             res.send({ followResult: 1 });
         } else {
@@ -683,7 +673,6 @@ exports.showPaypage = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
-        console.log("craftman detail:", body);
         var detailObj = JSON.parse(body).result;
         detailObj = detailObj.length > 0 ? detailObj[0] : {};
         var pageData = {
@@ -721,7 +710,6 @@ exports.confirmPayPage = function (req, res, next) {
         payAmount: amount,
         token: req.cookies["token"]
     };
-    console.log("getOrderIDParam", getOrderIDParam);
     var commercialOrderID = '';
 
     request.post({ url: apiServerAddress + generateNewOrderURL, form: getOrderIDParam }, function (err, response, body) {
@@ -729,7 +717,6 @@ exports.confirmPayPage = function (req, res, next) {
             var generateOrderResult = JSON.parse(body);
             if (generateOrderResult.code === -2) {
                 var fullURL = req.protocol + '://' + req.get('host') + req.originalUrl;
-                console.log("fullURL", fullURL);
                 var redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login/?callbackURL=' + fullURL);
                 var loginData = {
                     title: '用户登录',
@@ -739,9 +726,7 @@ exports.confirmPayPage = function (req, res, next) {
                 res.render("login_c", loginData);
                 return;
             }
-            console.log("generateOrderResult", generateOrderResult);
             commercialOrderID = generateOrderResult.order.orderId;
-            console.log("commercialOrderID", commercialOrderID);
             var prepayParameter = {
                 appid: appid,
                 body: "小筑匠心-百货",
@@ -763,7 +748,6 @@ exports.confirmPayPage = function (req, res, next) {
                 "&total_fee=" + prepayParameter.total_fee + "&trade_type=" + prepayParameter.trade_type;
 
             combineString += "&key=" + apiKey;
-            console.log("combineString:" + combineString);
             //中文md5，必须如下处理
             // combineString = (new Buffer(combineString)).toString("binary");
             // var md5sum = crypto.createHash("md5");
@@ -772,7 +756,6 @@ exports.confirmPayPage = function (req, res, next) {
 
             var signature = crypto.createHash('md5').update(combineString, 'utf-8').digest('hex');
             prepayParameter.sign = signature.toUpperCase();
-            console.log("prepayParameter.sign", prepayParameter.sign);
             var builder = new xml2js.Builder();
             var postXML = builder.buildObject(prepayParameter);
 
@@ -793,15 +776,14 @@ exports.confirmPayPage = function (req, res, next) {
 
                 xmlParser.parseString(body, function (err, result) {
                     if (err) {
-                        console.log("xmlParser error", err);
+                        
                     } else {
                         try {
-                            console.log("result.xml", result.xml);
                             var prepayID = result.xml.prepay_id[0];
                             //get prepay_id from body, then generate prepay_id and paySign to the page.
                             //the page JSAPI-> getBrandWCPayRequest needs: appId,timeStamp,nonceStr,package(such as 'prepay_id=123456789'),signType(MD5),paySign
                             //All these parameters will be generated in the server.
-                            console.log("prepayID:", prepayID);
+                            
                             var payTimeStamp = Math.floor((new Date()).getTime() / 1000);//转化为秒
                             var payNonceStr = GlobalCache.getRandomStr();
                             var payPackage = "prepay_id=" + prepayID;
@@ -810,11 +792,9 @@ exports.confirmPayPage = function (req, res, next) {
                             var stringCombine = "appId=" + appid + "&nonceStr=" + payNonceStr + "&package=" + payPackage + "&signType=" + signType + "&timeStamp=" + payTimeStamp;//+"&signType="+signType;
                             //拼接api key
                             stringCombine += "&key=" + apiKey;
-                            console.log("pay string combine", stringCombine);
                             var md5Sum = crypto.createHash("md5");
                             md5Sum.update(stringCombine);
                             var signPay = md5Sum.digest("hex").toUpperCase();
-                            console.log("signPay", signPay);
 
                             //generate config param
                             var apiTicket = GlobalCache.getApiTicket();
@@ -841,7 +821,6 @@ exports.confirmPayPage = function (req, res, next) {
                             res.render('confirm_pay', pageData);
                         }
                         catch (e) {
-                            console.log("pay error", e);
                             res.render('confirm_pay', { error: e });
                         }
                     }
@@ -855,7 +834,6 @@ exports.confirmPayPage = function (req, res, next) {
 
 //支付后，微信会回调此API通知支付状态
 exports.payCallback = function (req, res, next) {
-    console.log("payCallback rec");
     var token = req.cookies["token"];
     var returnCode = req.query.return_code;
     var returnMsg = req.query.return_msg;
@@ -903,8 +881,7 @@ exports.payCallback = function (req, res, next) {
             status: 2 //1：初始化 2：成功 3：失败
         };
         request.post({ url: apiServerAddress + updateOrderUrl, form: confirmParam }, function (err, response, body) {
-            console.log("err", err);
-            console.log("body", body);
+            // to do
         });
 
         var builder = new xml2js.Builder();
@@ -929,15 +906,19 @@ exports.businessCard = function (req, res, next) {
     var signature = shasum.digest("hex");
 
     var craftmanId = req.query.id;
-    var longitude = parseFloat(req.query.longitude);
-    var latitude = parseFloat(req.query.latitude);
+    var longitude = 0, latitude = 0;
+    if (req.query.longitude !== undefined) {
+        longitude = parseFloat(req.query.longitude);
+    }
+    if (req.query.latitude !== undefined) {
+        latitude = parseFloat(req.query.latitude);
+    }
     var param = {
         id: craftmanId,
         longitude: longitude,
         latitude: latitude,
         token: token
     };
-    console.log("param", param);
     request.post({ url: apiServerAddress + getCraftmanDetailURL, form: param }, function (err, response, body) {
         try {
             var detailObj = JSON.parse(body).result;
@@ -965,7 +946,6 @@ exports.businessCard = function (req, res, next) {
             };
             res.render('business_card', craftmanDetail);
         } catch (e) {
-            console.log(e);
         }
     });
 };
@@ -981,9 +961,7 @@ exports.getValidateNumber = function (req, res, next) {
     };
     request.post({ url: apiServerAddress + getValidateNumberURL, form: param }, function (err, response, body) {
         if (!err && response.statusCode == 200) {
-            console.log("body", body);
             var validateNumberResult = JSON.parse(body);
-            console.log(validateNumberResult);
             res.send({ validateSendResult: validateNumberResult.code });
         } else {
             res.send({ validateSendResult: 0 });
@@ -1004,14 +982,12 @@ exports.businessmanReg = function (req, res, next) {
 
     request.post({ url: apiServerAddress + postValidateNumberURL, form: param }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log("postValidateNumberURL", body);
             var postValidateNoResult = JSON.parse(body);
             if (postValidateNoResult.code == 1) {
 
                 res.send({ result: true });
                 // res.render('upload_businesscard', uploadBusinesscardDetail);
             } else {
-                console.log("uploadBusinesscardDetail error");
                 res.send({ result: false });
             }
         } else {
@@ -1056,7 +1032,6 @@ exports.toUploadBusinessCard = function (req, res, next) {
         nonceStr: nonceStr,
         signature: signature,
     };
-    console.log("uploadBusinesscardDetail", uploadBusinesscardDetail);
     res.render('upload_businesscard', uploadBusinesscardDetail);
 }
 
@@ -1083,14 +1058,6 @@ exports.receiveWXMsg = function (req, res, next) {
 }
 
 exports.getPushMsg = function (req, res, next) {
-    // console.log(res);
-    // logger.trace('Entering cheese testing');
-    // logger.debug('Got cheese.');
-    // logger.info('Cheese is Gouda.');
-    // logger.warn('Cheese is quite smelly.');
-    // logger.error('Cheese is too ripe!');
-    // logger.fatal('Cheese was breeding ground for listeria.');
-    console.log(req.body);
     logger.info("req.body", req.body);
     res.send("success");
 }
