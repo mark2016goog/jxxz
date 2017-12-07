@@ -32,7 +32,9 @@ body {
 }
 #item-container li .img-div{
   margin-right: 5px;
-  width: 130px;
+	width: 40px;
+	display: flex;
+	align-items: center;
 }
 #item-container li .brand-text-div{
   line-height: 40px;
