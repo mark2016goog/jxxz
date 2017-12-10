@@ -11,9 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     ajax.get("/selectBrand", selectParam, function (response) {
       var selectResult = JSON.parse(response);
-      if(selectResult.result === 1) {
+      if (selectResult.result === 1) {
         window.location.href = "/preloadPosition";
-      } else {
+      } else if (selectResult.result === -1) {
+        window.location.href = "/?callbackURL=" + window.location.href;
+      }
+      else {
         alert("选择失败，请重新选择！");
       }
     });

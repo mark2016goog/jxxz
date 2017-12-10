@@ -43,8 +43,7 @@ var logger = log4js.getLogger('cheese');
 exports.loginPage = function (req, res, next) {
     var callbackURL = req.query.callbackURL; //任何需要三方登录的业务都需要传递这个callbackURL，否则登录成功后就默认跳到个人信息页
     var redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login');
-    if (callbackURL != undefined) {
-        callbackURL = encodeURIComponent("http://www.joinershow.cn" + callbackURL);
+    if (callbackURL !== "" && callbackURL !== undefined) {
         redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login' + '/?callbackURL=' + callbackURL);
     }
     var loginData = {
@@ -436,16 +435,20 @@ exports.craftmanDetail = function (req, res, next) {
 
 exports.followCraftman = function (req, res, next) {
     var token = req.cookies["token"];
+    if (token === undefined || token === "") {
+        res.send({ followResult: -1 });
+    }
+
     var craftmanID = req.query.id;
     var param = {
         token: token,
         id: craftmanID
     };
+
     request.post({ url: apiServerAddress + followCraftmanURL, form: param }, function (err, response, body) {
         res.setHeader('Content-Type', 'application/json');
-
         var followResultObj = JSON.parse(body);
-        if (followResultObj.code == 1) {
+        if (followResultObj.code === 1) {
             res.send({ followResult: 1 });
         } else {
             res.send({ followResult: 0 });
@@ -456,14 +459,9 @@ exports.followCraftman = function (req, res, next) {
 exports.unFollowCraftman = function (req, res, next) {
     var token = req.cookies["token"];
     if (token === undefined || token === "") {
-        callbackURL = encodeURIComponent("http://www.joinershow.cn/craftmanBusinessCard");
-        redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login' + '/?callbackURL=' + callbackURL);
-        var loginData = {
-            title: '用户登录',
-            redirectUrl: redirectURL
-        };
-        res.render('login_c', loginData);
+        res.send({ followResult: -1 });
     }
+
     var craftmanId = req.query.id;
     var param = {
         token: token,
@@ -479,7 +477,6 @@ exports.unFollowCraftman = function (req, res, next) {
         }
     });
 }
-
 
 exports.commentList = function (req, res, next) {
     var craftmanID = req.query.id;
@@ -1073,8 +1070,9 @@ exports.showBrandSelect = function (req, res, next) {
 
 exports.selectBrand = function (req, res, next) {
     var token = req.cookies["token"];
-    if (token === undefined || token === null) {
-        //jump to login page.
+
+    if (token === undefined || token === null || token === "") {
+        res.send({ result: -1 });
     } else {
         var brandId = req.query.id;
         var selectBrandParam = {
@@ -1083,7 +1081,6 @@ exports.selectBrand = function (req, res, next) {
         };
         request.post({ url: apiServerAddress + selectBrand, form: selectBrandParam }, function (error, response, body) {
             var resObj = JSON.parse(body);
-            console.log(resObj);
             //select success
             if (resObj.code === 1) {
                 res.send({ result: 1 });

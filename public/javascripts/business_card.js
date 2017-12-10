@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //     popDialog.style.display = "block";
     // });
     var applyBusinessCard = document.getElementById("apply-business-card");
-    applyBusinessCard.addEventListener("click", function(){
+    applyBusinessCard.addEventListener("click", function () {
         window.location.href = "/register-telephone";
     });
 
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         popDialog.style.display = "none";
     });
 
-    window.callPhone = function(){
+    window.callPhone = function () {
         popDialog.style.display = "block";
     };
 
@@ -27,25 +27,28 @@ document.addEventListener("DOMContentLoaded", function () {
         ajax.get("/followCraftman", queryParam, function (response) {
             // console.log(JSON.parse(response));
             var result = JSON.parse(response);
-            if(result.followResult){
+            if (result.followResult === 1) {
                 alert("关注成功");
                 //change the focus button to focused
                 followBtn.style.display = "none";
                 unFollowBtn.style.display = "block";
-                
+
+            } else if (result.followResult === -1) {
+                // not login
+                window.location.href = "/?callbackURL=" + window.location.href;
             } else {
                 alert("关注失败");
             }
         });
     });
 
-    unFollowBtn.addEventListener("click", function() {
+    unFollowBtn.addEventListener("click", function () {
         var queryParam = {
             id: craftmanId
         };
         ajax.get("/unFollowCraftman", queryParam, function (response) {
             var result = JSON.parse(response);
-            if(result.followResult){
+            if (result.followResult) {
                 alert("取消关注成功");
                 //change the focused button to unfocused
                 followBtn.style.display = "block";
@@ -54,11 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("取消关注失败");
             }
         });
-    }); 
+    });
 
     var commentBtn = document.getElementById("comment-btn");
     commentBtn.addEventListener("click", function () {
-        window.location.href = "/commentList?id="+craftmanId;
+        window.location.href = "/commentList?id=" + craftmanId;
     });
 
     var geoBtn = document.getElementById("geoBtn");
@@ -72,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var shop = document.getElementById("shop").value;
     var focused = document.getElementById("focused").value;
 
-    if(focused === "1") {
+    if (focused === "1") {
         followBtn.style.display = "none";
         unFollowBtn.style.display = "block";
     }
@@ -82,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
         timestamp: ts, // 必填，生成签名的时间戳
         nonceStr: nstr, // 必填，生成签名的随机串
         signature: sign,// 必填，签名，见附录1
-        jsApiList: ["openLocation","onMenuShareAppMessage"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        jsApiList: ["openLocation", "onMenuShareAppMessage"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
 
     geoBtn.addEventListener("click", function () {
@@ -96,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    window.ToPayPage = function(){
+    window.ToPayPage = function () {
         window.location.href = "/pay/prepay?craftmanID=" + craftmanId;
     }
 
@@ -105,18 +108,18 @@ document.addEventListener("DOMContentLoaded", function () {
     var shareImgUrl = document.getElementById("avatorURL").value;
     var craftmanName = document.getElementById("craftmanName").value;
     shareImgUrl = window.location.host + shareImgUrl.substring(1);
-    
-    wx.ready(function() {
+
+    wx.ready(function () {
         var shareData = {
             title: craftmanName,
             desc: craftmanName + "的工匠名片",
             link: shareUrl,
             imgUrl: "http://www.joinershow.cn/images/share-test.png",
-            trigger: function() {
+            trigger: function () {
             },
-            success: function() {
+            success: function () {
             },
-            error: function() {
+            error: function () {
             }
         };
         wx.onMenuShareAppMessage(shareData);
