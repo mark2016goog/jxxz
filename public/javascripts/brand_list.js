@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var innerContainer = document.getElementById("inner-container");
   innerContainer.addEventListener("click", function (e) {
     var clickedDom = e.target;
-    console.log(clickedDom.getAttribute("id"));
     var selectedId = clickedDom.getAttribute("id");
     var selectParam = {
       id: selectedId

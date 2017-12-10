@@ -29,12 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var brandDialog = document.getElementById("brand-dialog");
     var brandListDom = document.getElementById("brandList");
-    window.showBrandList = function () {
-        brandDialog.style.display = "block";
-        ajax.get("/brandListAsync", {}, function (response) {
-            brandListDom.innerHTML = response;
-        });
-    };
+    // window.showBrandList = function () {
+    //     brandDialog.style.display = "block";
+    //     ajax.get("/brandListAsync", {}, function (response) {
+    //         brandListDom.innerHTML = response;
+    //     });
+    // };
 
     var brandDialogInner = document.getElementById("brand-inner-dialog");
     brandDialogInner.addEventListener("click", function (e) {

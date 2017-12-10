@@ -37,10 +37,10 @@ var payResultURL = '/order/payresult';
 var updateCraftmanImage = '/masteruser/register/updatecard';
 var selectBrand = '/normaluser/brand/pickbrand';
 var apiKey = "xiaozhujiangxin12340987656565482";
-var url_token = "xzjx";
-var logger = log4js.getLogger('cheese');
+// var logger = log4js.getLogger('cheese');
 
 exports.loginPage = function (req, res, next) {
+    var token = req.cookies["token"];
     var callbackURL = req.query.callbackURL; //任何需要三方登录的业务都需要传递这个callbackURL，否则登录成功后就默认跳到个人信息页
     var redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login');
     if (callbackURL !== "" && callbackURL !== undefined) {
@@ -196,29 +196,6 @@ exports.brandListAsync = function (req, res, next) {
     };
 
     var brandList = [
-        {
-            id: 1,
-            name: "宝格丽"
-        }, {
-            id: 2,
-            name: "阿玛尼"
-        },
-        {
-            id: 3,
-            name: "万宝龙"
-        },
-        {
-            id: 4,
-            name: "劳力士"
-        },
-        {
-            id: 5,
-            name: "百达翠丽"
-        },
-        {
-            id: 6,
-            name: "浪琴"
-        }
     ];
 
     var pageData = {
@@ -506,7 +483,6 @@ exports.commentList = function (req, res, next) {
 };
 
 exports.craftmanLoginPage = function (req, res, next) {
-
     var loginData = {
         title: '工匠登陆'
     };
@@ -522,7 +498,6 @@ exports.craftmanLogin = function (req, res, next) {
     };
 
     request.post({ url: apiServerAddress + craftmanLoginURL, form: param }, function (err, response, body) {
-
         var loginResult = JSON.parse(body);
         res.setHeader('Content-Type', 'application/json');
         if (loginResult.code == 1) {
