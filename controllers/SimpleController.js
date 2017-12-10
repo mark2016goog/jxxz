@@ -35,6 +35,7 @@ var generateNewOrderURL = '/order/neworder';
 var updateOrderUrl = '/order/updateorder';
 var payResultURL = '/order/payresult';
 var updateCraftmanImage = '/masteruser/register/updatecard';
+var selectBrand = '/normaluser/brand/pickbrand';
 var apiKey = "xiaozhujiangxin12340987656565482";
 var url_token = "xzjx";
 var logger = log4js.getLogger('cheese');
@@ -713,7 +714,7 @@ exports.confirmPayPage = function (req, res, next) {
     var commercialOrderID = '';
 
     request.post({ url: apiServerAddress + generateNewOrderURL, form: getOrderIDParam }, function (err, response, body) {
-    
+
         if (!err && response.statusCode == 200) {
             var generateOrderResult = JSON.parse(body);
             if (generateOrderResult.code === -2) {
@@ -777,14 +778,14 @@ exports.confirmPayPage = function (req, res, next) {
 
                 xmlParser.parseString(body, function (err, result) {
                     if (err) {
-                        
+
                     } else {
                         try {
                             var prepayID = result.xml.prepay_id[0];
                             //get prepay_id from body, then generate prepay_id and paySign to the page.
                             //the page JSAPI-> getBrandWCPayRequest needs: appId,timeStamp,nonceStr,package(such as 'prepay_id=123456789'),signType(MD5),paySign
                             //All these parameters will be generated in the server.
-                            
+
                             var payTimeStamp = Math.floor((new Date()).getTime() / 1000);//转化为秒
                             var payNonceStr = GlobalCache.getRandomStr();
                             var payPackage = "prepay_id=" + prepayID;
@@ -1053,19 +1054,42 @@ exports.uploadCraftmanImage = function (req, res, next) {
     })
 }
 
-exports.receiveWXMsg = function (req, res, next) {
-    var echostr = req.query.echostr;
-    res.send(echostr);
-}
+// exports.receiveWXMsg = function (req, res, next) {
+//     var echostr = req.query.echostr;
+//     res.send(echostr);
+// }
 
-exports.getPushMsg = function (req, res, next) {
-    logger.info("req.body", req.body);
-    res.send("success");
-}
+// exports.getPushMsg = function (req, res, next) {
+//     logger.info("req.body", req.body);
+//     res.send("success");
+// }
 
-exports.showBranchSelect = function (req, res, next) {
+exports.showBrandSelect = function (req, res, next) {
     var brandData = [{
 
     }];
     res.render("brand_list", brandData);
+}
+
+exports.selectBrand = function (req, res, next) {
+    var token = req.cookies["token"];
+    if (token === undefined || token === null) {
+        //jump to login page.
+    } else {
+        var brandId = req.query.id;
+        var selectBrandParam = {
+            token: token,
+            brandId: brandId
+        };
+        request.post({ url: apiServerAddress + selectBrand, form: selectBrandParam }, function (error, response, body) {
+            var resObj = JSON.parse(body);
+            console.log(resObj);
+            //select success
+            if (resObj.code === 1) {
+                res.send({ result: 1 });
+            } else {
+                res.send({ result: 0 });
+            }
+        });
+    }
 }
