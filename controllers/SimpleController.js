@@ -1055,13 +1055,18 @@ exports.selectBrand = function (req, res, next) {
             brandId: brandId
         };
         request.post({ url: apiServerAddress + selectBrand, form: selectBrandParam }, function (error, response, body) {
-            var resObj = JSON.parse(body);
-            //select success
-            if (resObj.code === 1) {
-                res.send({ result: 1 });
-            } else {
-                res.send({ result: 0 });
+            try {
+                var resObj = JSON.parse(body);
+                //select success
+                if (resObj.code === 1) {
+                    res.send({ result: 1 });
+                } else {
+                    res.send({ result: 0 });
+                }
+            } catch (e) {
+                console.log(e);
             }
+            
         });
     }
 }
