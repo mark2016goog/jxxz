@@ -2,18 +2,18 @@ var app = app || {};
 
 document.addEventListener("DOMContentLoaded", function () {
   var innerContainer = document.getElementById("inner-container");
+  var selectBrandHead = document.getElementById("select-brand-head");
+  var container = document.getElementById("item-container");
+  selectBrandHead.addEventListener("click", function (e) {
+    container.scrollTo(0, 0);
+  });
+
   innerContainer.addEventListener("click", function (e) {
     var clickedDom = e.target;
     var selectedId = clickedDom.getAttribute("id");
     var selectParam = {
       id: selectedId
     };
-
-    var selectBrandHead = document.getElementById("select-brand-head");
-    var container = document.getElementById("item-container");
-    selectBrandHead.addEventListener("click", function (e) {
-      container.scrollTo(0, 0);
-    });
 
     ajax.get("/selectBrand", selectParam, function (response) {
       var selectResult = JSON.parse(response);

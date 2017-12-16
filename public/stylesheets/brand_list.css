@@ -10,6 +10,7 @@ body {
 	line-height: 60px;
 	color: #fff;
 	background: #2fc9da;
+	z-index: 100;
 }
 
 #item-container {
