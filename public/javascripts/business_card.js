@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
     wx.ready(function () {
         var shareData = {
             title: craftmanName,
-            desc: craftmanName + "的工匠名片",
+            desc: "钟表维修，我在这里",
             link: shareUrl,
             imgUrl: "http://www.joinershow.cn/images/share-test.png",
             trigger: function () {

@@ -8,6 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var selectParam = {
       id: selectedId
     };
+
+    var selectBrandHead = document.getElementById("select-brand-head");
+    var container = document.getElementById("item-container");
+    selectBrandHead.addEventListener("click", function (e) {
+      container.scrollTo(0, 0);
+    });
+
     ajax.get("/selectBrand", selectParam, function (response) {
       var selectResult = JSON.parse(response);
       var fromPersonalPage = document.getElementById("fromPersonalPage").value;
@@ -44,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return '<li id="' + brandId + '">' + brandImg + cnDiv + '</li>'
       } else {
         map[ch] = true
-        return '<li data-ch="' + ch + '" id="' + brandId + '">' + brandImg + cnDiv + '</li>'
+        return '<li class="letter-li">'+ch+'</li><li data-ch="' + ch + '" id="' + brandId + '">' + brandImg + cnDiv + '</li>'
       }
 
     }).join('')

@@ -27,6 +27,13 @@ body {
   border-bottom: 1px solid #ccc;
   display: flex;
 }
+
+#item-container .letter-li{
+	background-color: #f9f9f9;
+	height: 0.3rem;
+	line-height: 0.3rem; 
+}
+
 #item-container li img{
   height: 32px;
 }
