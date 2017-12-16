@@ -86,17 +86,21 @@ exports.weChatCallback = function (req, res, next) {
         }, function (error, response, body) {
             var resObj = JSON.parse(body);
             var repsonseInfo = resObj.user;
+            if (repsonseInfo === undefined || repsonseInfo === null) {
+                repsonseInfo = new Object();
+            }
+            console.log("repsonseInfo", repsonseInfo);
             var personalInfo = {
                 avatorUrl: repsonseInfo.imageUrl,
                 nickName: repsonseInfo.nickName,
                 gender: repsonseInfo.gender == "1" ? "男" : "女",
-                bindMobilephone: "未绑定"
+                bindMobilephone: repsonseInfo.telephone // todo
             };
             var token = resObj.token;
             var cookieAge = 1000 * 60 * 60 * 1000;
             res.cookie("token", token, { maxAge: cookieAge });
             res.cookie("openid", weixinLoginResult.openid, { maxAge: cookieAge });
-
+            res.cookie("hasBindTelephone", personalInfo.bindMobilephone);
             if (cbURL === undefined) {
                 res.render('personal_info', personalInfo);
             } else {
@@ -116,6 +120,9 @@ exports.orderList = function (req, res, next) {
     request.post({ url: apiServerAddress + personalOrderURL, form: param }, function (err, response, body) {
 
         var resObj = JSON.parse(body).results;
+        if (resObj === undefined || resObj === null) {
+            resObj = [];
+        }
         var orderList = [];
         for (var i = 0; i < resObj.length; i++) {
             var item = {
@@ -143,6 +150,9 @@ exports.couponList = function (req, res, next) {
     request.post({ url: apiServerAddress + personalCouponURL, form: param }, function (err, response, body) {
 
         var resObj = JSON.parse(body).results;
+        if (resObj === undefined || resObj === null) {
+            resObj = [];
+        }
         var couponList = [];
         for (var i = 0; i < resObj.length; i++) {
             var startDateString = (new Date(resObj[i].startTime)).toISOString();
@@ -226,6 +236,9 @@ exports.followedCraftmanList = function (req, res, next) {
 
         var resObj = JSON.parse(body).result;
         var followedCraftmanList = [];
+        if (resObj === undefined || resObj === null) {
+            resObj = [];
+        }
         for (var i = 0; i < resObj.length; i++) {
             var item = {
                 id: resObj[i].id,
@@ -1037,15 +1050,12 @@ exports.uploadCraftmanImage = function (req, res, next) {
 // }
 
 exports.showBrandSelect = function (req, res, next) {
-    var brandData = [{
-
-    }];
-    res.render("brand_list", brandData);
+    var fromPersonalPage = req.query.fromPersonalPage === "true";
+    res.render("brand_list", { fromPersonalPage: fromPersonalPage });
 }
 
 exports.selectBrand = function (req, res, next) {
     var token = req.cookies["token"];
-
     if (token === undefined || token === null || token === "") {
         res.send({ result: -1 });
     } else {
@@ -1058,15 +1068,15 @@ exports.selectBrand = function (req, res, next) {
             try {
                 var resObj = JSON.parse(body);
                 //select success
-                if (resObj.code === 1) {
-                    res.send({ result: 1 });
-                } else {
-                    res.send({ result: 0 });
+                console.log(resObj);
+                if (resObj === undefined || resObj === null) {
+                    resObj = { code: 0 };
                 }
+                res.send({ result: resObj.code });
             } catch (e) {
                 console.log(e);
             }
-            
+
         });
     }
 }

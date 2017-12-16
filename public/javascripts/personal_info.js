@@ -18,6 +18,11 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location.href = "/followedCraftmanList";
     });
 
+    var maintainWatch = document.getElementById("watch-maintain");
+    maintainWatch.addEventListener("click", function() {
+        window.location.href = "/brandSelectList?fromPersonalPage=true";
+    });
+
     var logoutBtn = document.getElementById("logout");
     logoutBtn.addEventListener("click",function(){
         window.history.back();

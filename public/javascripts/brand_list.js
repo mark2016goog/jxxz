@@ -10,12 +10,17 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     ajax.get("/selectBrand", selectParam, function (response) {
       var selectResult = JSON.parse(response);
+      var fromPersonalPage = document.getElementById("fromPersonalPage").value;
+
       if (selectResult.result === 1) {
-        window.location.href = "/preloadPosition";
-      } else if (selectResult.result === -1) {
+        if (fromPersonalPage === "true") {
+          window.history.back();
+        } else {
+          window.location.href = "/preloadPosition";
+        }
+      } else if (selectResult.result === -2) {
         window.location.href = "/?callbackURL=" + window.location.href;
-      }
-      else {
+      } else {
         alert("选择失败，请重新选择！");
       }
     });
