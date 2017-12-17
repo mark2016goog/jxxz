@@ -36,6 +36,8 @@ var updateOrderUrl = '/order/updateorder';
 var payResultURL = '/order/payresult';
 var updateCraftmanImage = '/masteruser/register/updatecard';
 var selectBrand = '/normaluser/brand/pickbrand';
+var bindPhoneGetValidateNum = "/normaluser/bindphone/getvalidatenum";
+var bindPhone = "/normaluser/bindphone/validate";
 var apiKey = "xiaozhujiangxin12340987656565482";
 // var logger = log4js.getLogger('cheese');
 
@@ -89,7 +91,6 @@ exports.weChatCallback = function (req, res, next) {
             if (repsonseInfo === undefined || repsonseInfo === null) {
                 repsonseInfo = new Object();
             }
-            console.log("repsonseInfo", repsonseInfo);
             var personalInfo = {
                 avatorUrl: repsonseInfo.imageUrl,
                 nickName: repsonseInfo.nickName,
@@ -100,7 +101,7 @@ exports.weChatCallback = function (req, res, next) {
             var cookieAge = 1000 * 60 * 60 * 1000;
             res.cookie("token", token, { maxAge: cookieAge });
             res.cookie("openid", weixinLoginResult.openid, { maxAge: cookieAge });
-            res.cookie("hasBindTelephone", personalInfo.bindMobilephone);
+            res.cookie("mobilephoneNum", personalInfo.bindMobilephone);
             if (cbURL === undefined) {
                 res.render('personal_info', personalInfo);
             } else {
@@ -953,6 +954,48 @@ exports.getValidateNumber = function (req, res, next) {
         } else {
             res.send({ validateSendResult: 0 });
         }
+    });
+}
+
+exports.getBindValidateNumber = function (req, res, next) {
+    var mobilephoneNumber = req.query.mobilephoneNumber;
+    var token = req.cookies["token"];
+    var param = {
+        token: token,
+        phone: req.query.mobilephoneNumber
+    };
+    request.post({ url: apiServerAddress + bindPhoneGetValidateNum, form: param }, function (err, response, body) {
+        if (!err && response.statusCode == 200) {
+            var validateNumberResult = JSON.parse(body);
+            res.send({ validateSendResult: validateNumberResult.code });
+        } else {
+            res.send({ validateSendResult: 0 });
+        }
+    });
+}
+
+exports.bindMobilePhoneReq = function (req, res, next) {
+    var num = req.query.validateNum;
+    var phone = req.query.phoneNumber;
+    var token = req.cookies["token"];
+    var param = {
+        token: token,
+        phone: phone,
+        num: num
+    };
+    request.post({ url: apiServerAddress + bindPhone, form: param }, function (err, response, body) {
+        if (!err && response.statusCode == 200) {
+            console.log(body);
+            var bindResult = JSON.parse(body);
+            if(bindResult.code === 1) {
+                var bindNumber = bindResult.validateNumber;
+                res.cookie("mobilephoneNum", bindNumber);
+            }
+            res.send({ bindResult: bindResult.code  });
+        } else {
+            console.log(body);
+        }
+
     });
 }
 

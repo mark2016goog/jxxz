@@ -30,6 +30,8 @@ router.get('/pay/confirmPay/', controller.confirmPayPage);
 router.get('/craftmanBusinessCard', controller.businessCard);
 router.get('/register-telephone', controller.registerTelephonePage);
 router.get('/retrieveValidateNumer', controller.getValidateNumber);
+router.get('/retrieveBindPhoneValidateNumer', controller.getBindValidateNumber);
+router.get('/bindMobilePhone', controller.bindMobilePhoneReq);
 router.get('/businessmanRegister', controller.businessmanReg);
 router.get('/toUploadBusinessCardPage', controller.toUploadBusinessCard);
 router.get('/uploadCraftmanImage', controller.uploadCraftmanImage);
