@@ -101,6 +101,9 @@ exports.weChatCallback = function (req, res, next) {
             var cookieAge = 1000 * 60 * 60 * 1000;
             res.cookie("token", token, { maxAge: cookieAge });
             res.cookie("openid", weixinLoginResult.openid, { maxAge: cookieAge });
+            if(personalInfo.bindMobilephone === undefined) {
+                personalInfo.bindMobilephone = "";
+            }
             res.cookie("mobilephoneNum", personalInfo.bindMobilephone);
             if (cbURL === undefined) {
                 res.render('personal_info', personalInfo);
@@ -703,6 +706,7 @@ exports.confirmPayPage = function (req, res, next) {
 
         if (!err && response.statusCode == 200) {
             var generateOrderResult = JSON.parse(body);
+            console.log(generateOrderResult);
             if (generateOrderResult.code === -2) {
                 var fullURL = req.protocol + '://' + req.get('host') + req.originalUrl;
                 var redirectURL = encodeURIComponent('http://www.joinershow.cn/wechat_login/?callbackURL=' + fullURL);
@@ -712,6 +716,10 @@ exports.confirmPayPage = function (req, res, next) {
                 };
 
                 res.render("login_c", loginData);
+                return;
+            }
+            if(generateOrderResult.code !== 1) {
+
                 return;
             }
             commercialOrderID = generateOrderResult.order.orderId;

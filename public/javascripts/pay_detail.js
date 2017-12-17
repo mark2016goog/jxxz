@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 var resCode = JSON.parse(response).bindResult;
                 console.log(resCode);
                 //绑定成功
-                if(resCode === "1") {
+                if(resCode === 1) {
                     bindDialog.style.display = "none";
                 } else {
                     alert("绑定失败，请您重试一次！");
