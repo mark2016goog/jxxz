@@ -95,7 +95,7 @@ exports.weChatCallback = function (req, res, next) {
                 avatorUrl: repsonseInfo.imageUrl,
                 nickName: repsonseInfo.nickName,
                 gender: repsonseInfo.gender == "1" ? "男" : "女",
-                bindMobilephone: repsonseInfo.telephone // todo
+                bindMobilephone: repsonseInfo.phoneNumber
             };
             var token = resObj.token;
             var cookieAge = 1000 * 60 * 60 * 1000;
@@ -104,6 +104,7 @@ exports.weChatCallback = function (req, res, next) {
             if(personalInfo.bindMobilephone === undefined) {
                 personalInfo.bindMobilephone = "";
             }
+            console.log("repsonseInfo",repsonseInfo);
             res.cookie("mobilephoneNum", personalInfo.bindMobilephone);
             if (cbURL === undefined) {
                 res.render('personal_info', personalInfo);
@@ -653,6 +654,7 @@ exports.showPaypage = function (req, res, next) {
     //已经登陆就跳转到支付展示页
     //支付对象（钟表匠）的id
     req.session.craftmanIdPayTo = craftmanId;
+    console.log("req.session.craftmanIdPayTo",req.session.craftmanIdPayTo);
     //支付人（当前登录用户）在我们server上的openid
     req.session.openIdPay = req.cookies['openid'];
 
@@ -691,6 +693,7 @@ exports.confirmPayPage = function (req, res, next) {
     var nonceStr = GlobalCache.getRandomStr();
 
     //支付对象（钟表匠）的id
+    console.log("req.session", req.session);
     var currentCraftmanId = req.session.craftmanIdPayTo;
     //支付人（当前登录用户）在我们server上的openid
     var currentOpenId = req.session.openIdPay;
