@@ -701,7 +701,7 @@ exports.confirmPayPage = function (req, res, next) {
         token: req.cookies["token"]
     };
     var commercialOrderID = '';
-
+    console.log("getOrderIDParam",getOrderIDParam);
     request.post({ url: apiServerAddress + generateNewOrderURL, form: getOrderIDParam }, function (err, response, body) {
 
         if (!err && response.statusCode == 200) {
@@ -719,7 +719,7 @@ exports.confirmPayPage = function (req, res, next) {
                 return;
             }
             if(generateOrderResult.code !== 1) {
-
+                res.render("404");
                 return;
             }
             commercialOrderID = generateOrderResult.order.orderId;
